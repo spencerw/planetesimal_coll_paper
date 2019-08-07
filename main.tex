@@ -34,11 +34,19 @@ Because the second generation dust production is driven by the planetesimal coll
 
 To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa} \citep{2008IEEEpds...ChaNGa, 2015AphCom..2..1} to follow the collisional evolution of a planetesimal disk under the gravitational influence of a Jupiter sized body. Because particle positions are sorted into a tree structure, neighbor finding and collision detection can be done quickly and efficiently. This considerably relaxes the constraints on resolution and integration time. With this toolset, we explore the collision rate structure of the planetesimal disk in the vicinity of mean motion resonances.
 
-This work is organized in the following way.
+This work is organized in the following way. In section \ref{sec:dynamics} we provide an overview of the dynamics that drive the evolution of a planetesimal disk under the gravitational influence of an external perturber. In section \ref{sec:setup} we describe the N-body code we use and describe how we constructed the initial conditions for the two simulations that are run: one with a perturber on a circular orbit and one with an eccentric perturber. Section \ref{sec:results} goes on to explore the results of the two, with particular focus on the radial variation in the collision rates. In section \ref{sec:dust}, we use the positions of the collision events to construct a map of second generation dust emission, under the assumption that dust grains produced by collisions will immediately couple to the gas and circularize their orbits. Finally, we assess the observability of features in the dust emission due to mean motion resonances and conclude in section \ref{sec:discuss}.
 
-In this study, we will examine the dynamical effects that give rise to collisions between planetesimals under the influence of an external giant planet. Near mean motion resonances (MMRs), the surface density and eccentricity dispersion of planetesimals becomes significantly altered \citep{2000Icar..143...45R, 2017ApJ...850..103B}. The effect that this has on the behavior of collisional grinding in these regions is not well understood. The way in which planetesimals move and interact in the vicinity of MMRs is extremely nonlinear and is best studied with N-body methods. Collision detection in an N-body simulation is extremely computationally expensive. So far, most studies of planetesimal dynamics near MMRs have involved either collisionless test particles \citep{2017ApJ...850..103B, 2016ApJ...818..159T, 2018ApJ...857....3T} or severely limited integration times \citep{2000Icar..143...45R}. Also see \citep{2001A&A...373..683C}. The only exception to this are a series of N-body studies of a Jupiter sized planet embedded in a disk of colliding planetesimals \citep{2013ApJ...777L..31D, 2016ApJ...820...29D}. In these simulations, the close proximity of the planetesimals to the planet produces a significant population of high eccentricity bodies, diluting the dynamical and collisional features near MMRs.
+\section{Collisions and Mean Motion Resonances} \label{sec:dynamics}
 
-This paragraph is an outline of the paper
+\section{Simulation Setup} \label{sec:setup}
+
+We use equation 12 from kokubo and ida 2002 to set initial free eccentricites and inclinations for particles, in equilibrium with gas drag. These would be about twice as big if we instead used vrandom = vesc, which is the point at which grav stirring stops being very effective. Forced eccentricity and varpi set by secular perturbations by Jupiter, as done by Tabeshian and Weigert.
+
+\section{Results} \label{sec:results}
+
+\section{Dust Emission} \label{sec:results}
+
+\section{Summary and Discussion} \label{sec:discuss}
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/test.eps}
@@ -62,17 +70,8 @@ This paragraph is an outline of the paper
 
 %See \citet{1984prin.conf..513S} for a fantastic discussion of spiral waves in a planetary context.
 
-\section{Simulations}\label{sec:sims}
-
-Overview of ChaNGa and collision code
-
-Talk about initial conditions, meant to be similar to case B in \citet{2000Icar..143...45R}.
-
-We use equation 12 from kokubo and ida 2002 to set initial free eccentricites and inclinations for particles, in equilibrium with gas drag. These would be about twice as big if we instead used vrandom = vesc, which is the point at which grav stirring stops being very effective. Forced eccentricity and varpi set by secular perturbations by Jupiter, as done by Tabeshian and Weigert.
 
 %Scattering of planetesimals by giant planet does not depend on migration, so we ignore this process \citet{2017Icar..297..134R}.
-
-\section{Results}\label{sec:results}
 
 Figures to include:
 
