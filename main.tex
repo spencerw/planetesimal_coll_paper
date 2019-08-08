@@ -36,7 +36,23 @@ To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa
 
 This work is organized in the following way. In section \ref{sec:dynamics} we provide an overview of the dynamics that drive the evolution of a planetesimal disk under the gravitational influence of an external perturber. In section \ref{sec:setup} we describe the N-body code we use and describe how we constructed the initial conditions for the two simulations that are run: one with a perturber on a circular orbit and one with an eccentric perturber. Section \ref{sec:results} goes on to explore the results of the two, with particular focus on the radial variation in the collision rates. In section \ref{sec:dust}, we use the positions of the collision events to construct a map of second generation dust emission, under the assumption that dust grains produced by collisions will immediately couple to the gas and circularize their orbits. Finally, we assess the observability of features in the dust emission due to mean motion resonances and conclude in section \ref{sec:discuss}.
 
-\section{Collisions and Mean Motion Resonances} \label{sec:dynamics}
+\section{Overview of Relavant Dynamics} \label{sec:dynamics}
+
+\subsection{Collisions}
+
+We begin by making the assumption that a typical encounter between planetesimals in a disk is well-described by two-body dynamics. So long as the random velocities of planetesimals $v_{p}$ are large compared to the Hill velocity of a planetesimal $v_{h} = \sqrt{G m_{p} / r_{h}}$, where $r_{h}$ is the Hill radius, the gravitational field of the central star will play an insignificant role and can be safely ignored. In this case and assuming equal mass bodies, the collision rate is given by \citep{1967SvA....10..650S}
+
+\begin{equation}\label{eq:safronov}
+	\sigma v = \pi r_{p}^2 \left( 1 + v_{esc}^2/v_{p}^2 \right) v_{p},
+\end{equation}
+
+\noindent where $r_{p}$ is the radius of a planetesimal and $v_{esc}$ is the mutual escape velocity of two planetesimals in contact. The $v_{esc}^2/v_{p}^2$ term describes the factor above which the collision cross section is enhanced due to gravitational focusing. For a dynamically cold planetesimal disk, $v_{p}$ is small relative to $v_{esc}$ and the collision rate becomes strongly enhanced.
+
+In the absence of a proper treatment of collision detection, equation \ref{eq:safronov} can be used to make a local estimate of the collision rate in an N-body simulation using only the positions and velocities of particles. This has been done in other studies \citep{2017ApJ...850..103B} (any other examples?), but requires bulk averaging of the phase space properties of particles, which may mask important information and blur out features. We will revisit equation \ref{eq:safronov} in section \ref{sec:results} to test how well the collision rate near mean motion resonances is described by this framework.
+
+\subsection{Mean Motion Resonances}
+
+
 
 \section{Simulation Setup} \label{sec:setup}
 
@@ -44,7 +60,7 @@ We use equation 12 from kokubo and ida 2002 to set initial free eccentricites an
 
 \section{Results} \label{sec:results}
 
-\section{Dust Emission} \label{sec:results}
+\section{Dust Emission} \label{sec:dust}
 
 \section{Summary and Discussion} \label{sec:discuss}
 
