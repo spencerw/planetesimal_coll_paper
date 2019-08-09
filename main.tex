@@ -50,8 +50,23 @@ We begin by making the assumption that a typical encounter between planetesimals
 
 In the absence of a proper treatment of collision detection, equation \ref{eq:safronov} can be used to make a local estimate of the collision rate in an N-body simulation using only the positions and velocities of particles. This has been done in other studies \citep{2017ApJ...850..103B} (any other examples?), but requires bulk averaging of the phase space properties of particles, which may mask important information and blur out features. We will revisit equation \ref{eq:safronov} in section \ref{sec:results} to test how well the collision rate near mean motion resonances is described by this framework.
 
-\subsection{Mean Motion Resonances}
+\subsection{Secular Forcing}
 
+The most direct and widespread effect that a giant perturber will have on a planetesimal disk is through secular forcing of the eccentricities of the planetesimals. This will cause the complex eccentricities of the planetesimals to take on a time independent forced value, given by \citep{1999ApJ...527..918W} as
+
+\begin{equation}\label{eq:eforced}
+	z_{f} = \frac{b^{2}_{3/2} (\alpha)}{b^{1}_{3/2} (\alpha)} e_{g} ~ \mathrm{exp} ~ i \omega_{g}.
+\end{equation}
+
+\noindent Here, $\alpha = a_{g} / a$ where $a_{g}$ and $a$ are the semi-major axes of the giant planet and the planetesimal, respectively. $e_{g}$ and $\omega_{g}$ are the eccentricity and longitude of pericenter of the giant and $b^{j}_{s} (\alpha)$ is a Laplace coefficient given by \citep{2000ssd..book.....M} as
+
+\begin{equation}\label{eq:lap}
+	b_{s}^{j}(\alpha) = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{cos \, j \theta \, d \theta}{\left( 1 - 2 \alpha \, cos \theta + \alpha^2 \right)^{s}}.
+\end{equation}
+
+Ignoring secular and mean motion resonances, equation \ref{eq:eforced} will completely describe the eccentricities and pericenter orientations of the orbits of the planetesimals. Additional forces due to two-body scattering between planetesimals, along with aerodynamic gas drag will add an additional free component to the complex eccentricity, which will be randomly oriented. The magnitude of the free eccentricity describes how dynamically hot the planetesimal disk is and sets the random encounter speeds of planetesimals. When the dynamical excitation of the disk is driven by gravitational stirring, the magnitude of the free eccentricity can be described by a Rayleigh distribution \citep{1992Icar...96..107I}.
+
+\subsection{Mean Motion Resonances}
 
 
 \section{Simulation Setup} \label{sec:setup}
