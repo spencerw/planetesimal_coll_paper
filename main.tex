@@ -68,6 +68,25 @@ Ignoring secular and mean motion resonances, equation \ref{eq:eforced} will comp
 
 \subsection{Mean Motion Resonances}
 
+In regions where there are commensurabilities between frequencies, secular theory breaks down and bodies are subject to strong perturbations. For the purposes of this study, we will ignore secular resonances, which generally occur on rather large timescales and will focus on mean motion resonances (MMRs). A MMR occurs  when the orbital period ratio between two bodies is sufficiently close to
+
+\begin{equation}\label{eq:per_mmr}
+	\frac{P}{P'} = \frac{p + q}{p},
+\end{equation}
+
+\noindent where  $p$ and $q$ are integers $>$ 0 and the unprimed and primed quantities correspond to the perturber and the body being perturbed, respectively. If the gravitational potential of the system is dominated by the central star, the condition for MMR is set by the semi-major axes of the two bodies by
+
+\begin{equation}\label{eq:a_mmr}
+	\frac{a}{a'} = \left( \frac{p}{p + q} \right)^{2/3}.
+\end{equation}
+
+Under the effect of MMR, a body will undergo oscillations in semi-major axis and eccentricity. So long as the gravitational force on the body is dominated by the central star and the perturbing body, the amplitude of the oscillations in semi-major axis can be described using the pendulum approximation (see equation 6 in \citet{2018arXiv181007201W}). This amplitude can be thought of as the 'width' over which the perturbations of the resonance are effective. Variations in eccentricity follow the semi-major axis variations according to the Tisserand relation
+
+\begin{equation}\label{eq:tiss}
+	\frac{de}{da} = \frac{a^{3/2} - 1}{2 a^{5/2} e}.
+\end{equation}
+
+The net result of this is that isolated MMRs will produce 'spikes' in the semi-major axis vs eccentricity distribution of a planetesimal disk. Following equation \ref{eq:tiss}, these spikes will tend to slightly curve away from the perturbing body. As planetesimals undergo two-body scattering events with other bodies, the variations in semi-major axis and eccentricity due to resonances can become permanent. This tends to lower the surface density of the disk near the locations of resonances, while producing a pileup of eccentric bodies adjacent to the MMR. The enhanced surface density will increase the collision rate, while the large eccentricity dispersion will lower it due to the decreased effectiveness of gravitational focusing. Due to these competing effects, along with the complicated dynamics that are likely at play near the edge of the resonant region, we turn to a direct N-body treatment to better understand how the collision rate varies in the vicinity of a MMR.
 
 \section{Simulation Setup} \label{sec:setup}
 
