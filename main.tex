@@ -88,7 +88,25 @@ Under the effect of MMR, a body will undergo oscillations in semi-major axis and
 
 The net result of this is that isolated MMRs will produce 'spikes' in the semi-major axis vs eccentricity distribution of a planetesimal disk. Following equation \ref{eq:tiss}, these spikes will tend to slightly curve away from the perturbing body. As planetesimals undergo two-body scattering events with other bodies, the variations in semi-major axis and eccentricity due to resonances can become permanent. This tends to lower the surface density of the disk near the locations of resonances, while producing a pileup of eccentric bodies adjacent to the MMR. The enhanced surface density will increase the collision rate, while the large eccentricity dispersion will lower it due to the decreased effectiveness of gravitational focusing. Due to these competing effects, along with the complicated dynamics that are likely at play near the edge of the resonant region, we turn to a direct N-body treatment to better understand how the collision rate varies in the vicinity of a MMR.
 
-\section{Simulation Setup} \label{sec:setup}
+\section{Simulations} \label{sec:sims}
+
+\subsection{Numerical Methods}\label{sec:methods}
+
+To follow the dynamical and collisional evolution of a planetesimal disk, we use the highly parallel N-body code {\sc ChaNGa} \footnote{A public version of {\sc ChaNGa} can be downloaded from \url{http://www-hpcc.astro.washington.edu/tools/ChaNGa.html}}. This code, which is written in the {\sc CHARM++} parallel programming language, was originally designed for cosmology simulations and has been shown to perform well on up to half a million processors \citep{2015AphCom..2..1}. {\sc ChaNGa} calculates gravitational forces using a modified Barnes-Hut \citep{1986Natur.324..446B} tree with hexadecapole expansions of the moments. All of the simulations we perform use a node opening criterion of $\theta_{BH}$ = 0.7. More information about the code can be found in \citet{2008IEEEpds...ChaNGa}. We have also recently modified {\sc ChaNGa} to handle solid-body collisions. A full description of the collision module implementation can be found in \citet{2018arXiv181007201W}.
+
+\subsection{Initial Conditions}\label{sec:ics}
+
+Two simulations are run, which are loosely based off of 'Model B' in \citet{2000Icar..143...45R}. In both cases, a Jupiter mass planet is placed on a 5.2 AU orbit around a 1 $M_{\odot}$ star with a disk of planetesimals placed interior. In the first case, Jupiter is given a mildly eccentric (e = 0.05) orbit. In the second case, Jupiter is placed on a circular orbit. We will refer to these simulations as EJ and CJ, respectively.
+
+In both cases, the planetesimal disk extends from 2.2 to 3.8 AU. This range of semi-major axes covers a number of prominent interior mean motion resonances with Jupiter, including the 3:1, the 5:2, the 2:1 and the 5:3. The planetesimal disk follows a minimum-mass solar nebula surface density profile \citep{1981PThPS..70...35H}
+
+\begin{equation}\label{eq:surf_den}
+	\Sigma = \Sigma_{0} r^{-\alpha},
+\end{equation}
+
+\noindent with $\alpha$ = 3/2 and $\Sigma_{0}$ = 10 g cm$^{-2}$. Planetesimals are given a bulk density of 2 g cm$^{-3}$ and a diameter of 300 km. This corresponds to a disk containing slightly less than 500,000 planetesimals.
+
+In the CJ simulation, there is no secular forcing from Jupiter and so the mean longitudes and mean anomalies are randomly assigned values between 0 and 2$\pi$. The distribution of eccentricities and inclinations of the planetesimals are chosen so that the effects of viscous stirring and gas drag from the solar nebula are in balance. This occurs when eccentricities are described by a Rayleigh distribution with a mode given by equation 12 in \citet{2002ApJ...581..666K}. The inclination distribution is described by this same function, with a mode that is a factor of 2 smaller \citep{1993MNRAS.263..875I}.
 
 We use equation 12 from kokubo and ida 2002 to set initial free eccentricites and inclinations for particles, in equilibrium with gas drag. These would be about twice as big if we instead used vrandom = vesc, which is the point at which grav stirring stops being very effective. Forced eccentricity and varpi set by secular perturbations by Jupiter, as done by Tabeshian and Weigert.
 
