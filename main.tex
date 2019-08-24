@@ -1,9 +1,7 @@
-\documentclass[twocolumn]{aastex62}
+\documentclass[twocolumn]{aastex63}
 \usepackage{natbib}
-\usepackage[colorinlistoftodos]{todonotes}
-%\usepackage{academicons}
 %\definecolor{orcidlogocol}{HTML}{A6CE39}
-\bibliographystyle{apj}
+\bibliographystyle{aasjournal}
 
 \begin{document}
 
@@ -116,30 +114,39 @@ For the purposes of the integrator, there are two relevant timescales in this sy
 
 We use equation 12 from kokubo and ida 2002 to set initial free eccentricites and inclinations for particles, in equilibrium with gas drag. These would be about twice as big if we instead used vrandom = vesc, which is the point at which grav stirring stops being very effective. Forced eccentricity and varpi set by secular perturbations by Jupiter, as done by Tabeshian and Weigert.
 
+\begin{figure*}
+    \includegraphics[width=\textwidth]{figures/rtheta.png}
+    \caption{Caption goes here.\label{fig:rtheta}}
+\end{figure*}
+
+\begin{figure*}
+    \includegraphics[width=\textwidth]{figures/ae.png}
+    \caption{Caption goes here.\label{fig:ae}}
+\end{figure*}
+
+\begin{figure}
+    \includegraphics[width=\columnwidth]{figures/long_ph.png}
+    \caption{Caption goes here.\label{fig:long_ph}}
+\end{figure}
+
 \section{Results} \label{sec:results}
 
 Outline for this section:
-\begin{list}
-\li Time evolution of disk surface density for circ and ecc
-\li Time evolution of sma vs ecc
-\li Number of collisions as a function of sma and radial distance
-\li Number of collisions as a function of mean anomaly and delta mean anomaly
-\li Comparison between safronov rate and actual collision statistics
-\end{list}
+\begin{itemize}
+\item Time evolution of disk surface density for circ and ecc
+\item Time evolution of sma vs ecc
+\item Number of collisions as a function of sma and radial distance
+\item Number of collisions as a function of mean anomaly and delta mean anomaly
+\item Comparison between safronov rate and actual collision statistics
+\end{itemize}
 
 \section{Dust Emission} \label{sec:dust}
 
-\begin{list}
-\li Show CASA images
-\end{list}
+\begin{itemize}
+\item Show CASA images
+\end{itemize}
 
 \section{Summary and Discussion} \label{sec:discuss}
-
-\begin{figure}
-    \includegraphics[width=\columnwidth]{figures/test.eps}
-    \caption{Caption goes here.
-    \label{fig:test}}
-\end{figure}
 
 %In this study, we will consider the effects that an external perturber has on the dynamical evolution and collision rates of planetesimals in a circumstellar disk. Planetesimals are too small to reflect much star light and are of too low mass to have any significant amount of thermal inertial. However, the large amounts of dust produced by collisional grinding can be used to infer where planetesimals are interacting \citep{2005Natur.436..363S, 2015ApJ...806...23L}. Although the behavior of the small dust grains can strongly depend on the hydrodynamic behavior of the gas \citep{2015ApJ...813L..14B}, the evolution of the planetesimals (km sized and larger) should be well decoupled from the gas. This means that results of this study should be applicable to both gas rich protoplanetary disks such as HL Tau and TW Hya, along with dusty debris disks such as Fomalhut \citep{2017ApJ...842....8M}.
 
