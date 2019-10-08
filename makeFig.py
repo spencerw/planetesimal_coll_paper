@@ -83,11 +83,19 @@ coll_dist_c1 = np.sqrt(x_c_c1**2 + y_c_c1**2)
 a_c_c1, e_c_c1, inc_c_c1, Omega_c_c1, omega_c_c1, M_c_c1 = \
     OrbitTools.cart2kepX(x_c_c1, y_c_c1, z_c_c1, vx_c_c1, vy_c_c1, vz_c_c1, mc_c, m1_c)
 x_c_c2, y_c_c2, z_c_c2 = coll_c['x2x'], coll_c['x2y'], coll_c['x2z']
-vx_c_c2, vy_c_c2, vz_c_c2 = coll_c['v2x'], coll_c['v2y'], coll_c['v2z']
+#vx_c_c2, vy_c_c2, vz_c_c2 = coll_c['v2x'], coll_c['v2y'], coll_c['v2z']
+
+# Oops, the ChaNGa output for collider 2's velocity is messed up. Fortunately, we can
+# get the correct value from v1 and vNew
+vx_c_c2 = (coll_c['m1']*coll_c['v1x'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewx'])/coll_c['m2']
+vy_c_c2 = (coll_c['m1']*coll_c['v1y'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewy'])/coll_c['m2']
+vz_c_c2 = (coll_c['m1']*coll_c['v1z'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewz'])/coll_c['m2']
+
 m2_c = coll_c['m2']
 coll_dist_c2 = np.sqrt(x_c_c2**2 + y_c_c2**2)
 a_c_c2, e_c_c2, inc_c_c2, Omega_c_c2, omega_c_c2, M_c_c2 = \
     OrbitTools.cart2kepX(x_c_c2, y_c_c2, z_c_c2, vx_c_c2, vy_c_c2, vz_c_c2, mc_c, m2_c)
+
 coll_e = pd.read_csv(path + 'hkshiftfull/collisions')
 coll_e = coll_e[coll_e['time']/(2*np.pi) <= 10000]
 mc_e = s0_e['mass'][0]
@@ -98,7 +106,13 @@ coll_dist_e1 = np.sqrt(x_c_e1**2 + y_c_e1**2)
 a_c_e1, e_c_e1, inc_c_e1, Omega_c_e1, omega_c_e1, M_c_e1 = \
     OrbitTools.cart2kepX(x_c_e1, y_c_e1, z_c_e1, vx_c_e1, vy_c_e1, vz_c_e1, mc_e, m1_e)
 x_c_e2, y_c_e2, z_c_e2 = coll_e['x2x'], coll_e['x2y'], coll_e['x2z']
-vx_c_e2, vy_c_e2, vz_c_e2 = coll_e['v2x'], coll_e['v2y'], coll_e['v2z']
+#vx_c_e2, vy_c_e2, vz_c_e2 = coll_e['v2x'], coll_e['v2y'], coll_e['v2z']
+
+# Need to fix the velocity here too
+vx_c_e2 = (coll_e['m1']*coll_e['v1x'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewx'])/coll_e['m2']
+vy_c_e2 = (coll_e['m1']*coll_e['v1y'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewy'])/coll_e['m2']
+vz_c_e2 = (coll_e['m1']*coll_e['v1z'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewz'])/coll_e['m2']
+
 m2_e = coll_e['m2']
 coll_dist_e2 = np.sqrt(x_c_e2**2 + y_c_e2**2)
 a_c_e2, e_c_e2, inc_c_e2, Omega_c_e2, omega_c_e2, M_c_e2 = \
@@ -223,8 +237,8 @@ def make_m_hist():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	a11, a12 = 3.2, 3.34
-	a21, a22 = 2.9, 3.0
+	a11, a12 = 3.22, 3.33
+	a21, a22 = 2.7, 2.8
 
 	def ang_diff(ang1, ang2):
 		return ((ang1 - ang2) + np.pi)%(2*np.pi) - np.pi
@@ -238,7 +252,7 @@ def make_m_hist():
 	ax[0,0].set_xlabel('Mean Anomaly')
 	ax[0,0].set_ylabel('Number of Collisions')
 	ax[0,0].set_ylim(0, np.max(hist)*1.1)
-	ax[0,0].set_title(str(a11) + ' < a < ' + str(a12))
+	ax[0,0].set_title(str(a11) + ' < a < ' + str(a12) + ' (' + str(len(M_c_e1[mask])) + ' coll)')
 
 	mask = np.logical_and(a_c_e1 > a21, a_c_e1 < a22)
 	hist, bins = np.histogram(M_c_e1[mask], bins=np.linspace(0, 2*np.pi, num=20))
@@ -247,7 +261,7 @@ def make_m_hist():
 	ax[0,1].set_xlabel('Mean Anomaly')
 	ax[0,1].set_ylabel('Number of Collisions')
 	ax[0,1].set_ylim(0, np.max(hist)*1.1)
-	ax[0,1].set_title(str(a21) + ' < a < ' + str(a22))
+	ax[0,1].set_title(str(a21) + ' < a < ' + str(a22) + ' (' + str(len(M_c_e1[mask])) + ' coll)')
 
 	mask = np.logical_and(a_c_e1 > a11, a_c_e1 < a12)
 	hist, bins = np.histogram(ang_diff(M_c_e1[mask], M_c_e2[mask]), 
