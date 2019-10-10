@@ -263,23 +263,23 @@ def make_m_hist():
 	ax[0,1].set_ylim(0, np.max(hist)*1.1)
 	ax[0,1].set_title(str(a21) + ' < a < ' + str(a22) + ' (' + str(len(M_c_e1[mask])) + ' coll)')
 
-	mask = np.logical_and(a_c_e1 > a11, a_c_e1 < a12)
-	hist, bins = np.histogram(ang_diff(M_c_e1[mask], M_c_e2[mask]), 
-	                          bins=np.linspace(-np.pi, np.pi, num=20))
+	mask = np.logical_and(a_c_c1 > a11, a_c_c1 < a12)
+	hist, bins = np.histogram(M_c_c1[mask], bins=np.linspace(0, 2*np.pi, num=20))
 	bins = 0.5*(bins[1:] + bins[:-1])
 	ax[1,0].plot(bins, hist, linestyle='steps-mid')
-	ax[1,0].set_xlabel(r'$\Delta$M')
+	ax[1,0].set_xlabel('Mean Anomaly')
 	ax[1,0].set_ylabel('Number of Collisions')
 	ax[1,0].set_ylim(0, np.max(hist)*1.1)
+	ax[1,0].set_title(str(a11) + ' < a < ' + str(a12) + ' (' + str(len(M_c_c1[mask])) + ' coll)')
 
-	mask = np.logical_and(a_c_e1 > a21, a_c_e1 < a22)
-	hist, bins = np.histogram(ang_diff(M_c_e1[mask], M_c_e2[mask]), 
-	                          bins=np.linspace(-np.pi, np.pi, num=20))
+	mask = np.logical_and(a_c_c1 > a21, a_c_c1 < a22)
+	hist, bins = np.histogram(M_c_c1[mask], bins=np.linspace(0, 2*np.pi, num=20))
 	bins = 0.5*(bins[1:] + bins[:-1])
 	ax[1,1].plot(bins, hist, linestyle='steps-mid')
-	ax[1,1].set_xlabel(r'$\Delta$M')
+	ax[1,1].set_xlabel('Mean Anomaly')
 	ax[1,1].set_ylabel('Number of Collisions')
 	ax[1,1].set_ylim(0, np.max(hist)*1.1)
+	ax[1,1].set_title(str(a21) + ' < a < ' + str(a22) + ' (' + str(len(M_c_c1[mask])) + ' coll)')
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 make_rtheta()
