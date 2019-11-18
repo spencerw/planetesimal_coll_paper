@@ -78,7 +78,7 @@ In regions where there are commensurabilities between frequencies, secular theor
 	\frac{a}{a'} = \left( \frac{p}{p + q} \right)^{2/3}.
 \end{equation}
 
-Under the effect of MMR, a body will undergo oscillations in semi-major axis and eccentricity. So long as the gravitational force on the body is dominated by the central star and the perturbing body, the amplitude of the oscillations in semi-major axis can be described using the pendulum approximation (see equation 6 in \citet{2018arXiv181007201W}). This amplitude can be thought of as the 'width' over which the perturbations of the resonance are effective. Variations in eccentricity follow the semi-major axis variations according to the Tisserand relation
+Under the effect of MMR, a body will undergo oscillations in semi-major axis and eccentricity. So long as the gravitational force on the body is dominated by the central star and the perturbing body, the amplitude of the oscillations in semi-major axis can be described using the pendulum approximation (see equation 6 in \citet{2019MNRAS.489.2159W}). This amplitude can be thought of as the 'width' over which the perturbations of the resonance are effective. Variations in eccentricity follow the semi-major axis variations according to the Tisserand relation
 
 \begin{equation}\label{eq:tiss}
 	\frac{de}{da} = \frac{a^{3/2} - 1}{2 a^{5/2} e}.
@@ -90,7 +90,7 @@ The net result of this is that isolated MMRs will produce 'spikes' in the semi-m
 
 \subsection{Numerical Methods}\label{sec:methods}
 
-To follow the dynamical and collisional evolution of a planetesimal disk, we use the highly parallel N-body code {\sc ChaNGa} \footnote{A public version of {\sc ChaNGa} can be downloaded from \url{http://www-hpcc.astro.washington.edu/tools/ChaNGa.html}}. This code, which is written in the {\sc CHARM++} parallel programming language, was originally designed for cosmology simulations and has been shown to perform well on up to half a million processors \citep{2015AphCom..2..1}. {\sc ChaNGa} calculates gravitational forces using a modified Barnes-Hut \citep{1986Natur.324..446B} tree with hexadecapole expansions of the moments. All of the simulations we perform use a node opening criterion of $\theta_{BH}$ = 0.7. More information about the code can be found in \citet{2008IEEEpds...ChaNGa}. We have also recently modified {\sc ChaNGa} to handle solid-body collisions. A full description of the collision module implementation can be found in \citet{2018arXiv181007201W}.
+To follow the dynamical and collisional evolution of a planetesimal disk, we use the highly parallel N-body code {\sc ChaNGa} \footnote{A public version of {\sc ChaNGa} can be downloaded from \url{http://www-hpcc.astro.washington.edu/tools/ChaNGa.html}}. This code, which is written in the {\sc CHARM++} parallel programming language, was originally designed for cosmology simulations and has been shown to perform well on up to half a million processors \citep{2015AphCom..2..1}. {\sc ChaNGa} calculates gravitational forces using a modified Barnes-Hut \citep{1986Natur.324..446B} tree with hexadecapole expansions of the moments. All of the simulations we perform use a node opening criterion of $\theta_{BH}$ = 0.7. More information about the code can be found in \citet{2008IEEEpds...ChaNGa}. We have also recently modified {\sc ChaNGa} to handle solid-body collisions. A full description of the collision module implementation can be found in \citet{2019MNRAS.489.2159W}.
 
 \subsection{Initial Conditions}\label{sec:ics}
 
