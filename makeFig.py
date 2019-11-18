@@ -219,7 +219,7 @@ def make_coll_hist_r():
 	coll_hist_r_e, coll_bins_r_e = np.histogram(coll_dist_e1, bins=np.linspace(a_in, a_out, num=60))
 	coll_bins_r_e = 0.5*(coll_bins_r_e[1:] + coll_bins_r_e[:-1])
 
-	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharey=True)
+	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharey=False)
 	ax1.plot(coll_bins_r_c, coll_hist_r_c, linestyle='steps-mid')
 	plot_res(ax1)
 	ax1.set_xlabel('Heliocentric Distance [AU]')
