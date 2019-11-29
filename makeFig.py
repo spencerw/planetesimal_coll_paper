@@ -13,6 +13,8 @@ from astropy.constants import G
 simT = u.year/(2*np.pi)
 simV = u.AU / simT
 
+from scipy import stats
+
 import sys
 sys.path.insert(0, '../OrbitTools/')
 import OrbitTools
@@ -72,9 +74,22 @@ s_e_files = np.array([path + 'hkshiftfull/hkshiftfull.ic']+ \
 	                  ns.natsorted(gl.glob(path + 'hkshiftfull/*.[0-9]*[0-9]')))
 s0_e = pb.load(s_e_files[0])
 
+# Skip the first 2000 years of the collision output. There is a transient feature interior
+# to the 3:1 MMR in the EJ simulation before this time.
+t_skip = 2000
+t_max = 5000
+
+a_in, a_out = 2.2, 3.8
+nbins = 30
+
+# Regenerate existing plots?
+clobber = True
+fmt = 'png'
+s = 0.005
+
 # Collision data
 coll_c = pd.read_csv(path + 'hkshiftfullJupCirc/collisions')
-coll_c = coll_c[coll_c['time']/(2*np.pi) <= 10000]
+coll_c = coll_c[np.logical_and(coll_c['time']/(2*np.pi) <= t_max, coll_c['time']/(2*np.pi) >= t_skip)]
 mc_c = s0_c['mass'][0]
 x_c_c1, y_c_c1, z_c_c1 = coll_c['x1x'], coll_c['x1y'], coll_c['x1z']
 vx_c_c1, vy_c_c1, vz_c_c1 = coll_c['v1x'], coll_c['v1y'], coll_c['v1z']
@@ -97,7 +112,7 @@ a_c_c2, e_c_c2, inc_c_c2, Omega_c_c2, omega_c_c2, M_c_c2 = \
     OrbitTools.cart2kepX(x_c_c2, y_c_c2, z_c_c2, vx_c_c2, vy_c_c2, vz_c_c2, mc_c, m2_c)
 
 coll_e = pd.read_csv(path + 'hkshiftfull/collisions')
-coll_e = coll_e[coll_e['time']/(2*np.pi) <= 10000]
+coll_e = coll_e[np.logical_and(coll_e['time']/(2*np.pi) <= t_max, coll_e['time']/(2*np.pi) >= t_skip)]
 mc_e = s0_e['mass'][0]
 x_c_e1, y_c_e1, z_c_e1 = coll_e['x1x'], coll_e['x1y'], coll_e['x1z']
 vx_c_e1, vy_c_e1, vz_c_e1 = coll_e['v1x'], coll_e['v1y'], coll_e['v1z']
@@ -118,18 +133,11 @@ coll_dist_e2 = np.sqrt(x_c_e2**2 + y_c_e2**2)
 a_c_e2, e_c_e2, inc_c_e2, Omega_c_e2, omega_c_e2, M_c_e2 = \
     OrbitTools.cart2kepX(x_c_e2, y_c_e2, z_c_e2, vx_c_e2, vy_c_e2, vz_c_e2, mc_e, m2_e)
 
-a_in, a_out = 2.2, 3.8
-
-# Regenerate existing plots?
-clobber = True
-fmt = 'png'
-s = 0.005
-
 def make_rtheta():
 	file_str = 'figures/rtheta.' + fmt
 	if not clobber and os.path.exists(file_str):
 		return
-	s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-26])
+	s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
 	pl_c, pl_e = OrbitTools.orb_params(s_c), OrbitTools.orb_params(s_e)
 	x_c, y_c = pl_c['pos'][:,0], pl_c['pos'][:,1]
 	r_c, theta_c = np.sqrt(x_c**2 + y_c**2), np.arctan2(y_c, x_c) + np.pi
@@ -173,7 +181,7 @@ def make_long_ph():
 	file_str = 'figures/long_ph.' + fmt
 	if not clobber and os.path.exists(file_str):
 		return
-	s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-26])
+	s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
 	pl_c, pl_e = OrbitTools.orb_params(s_c), OrbitTools.orb_params(s_e)
 
 	fig, ax = plt.subplots(figsize=(8,8))
@@ -189,10 +197,10 @@ def make_coll_hist_a():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	coll_hist_a_c, coll_bins_a_c = np.histogram(a_c_c1, bins=np.linspace(a_in, a_out, num=60))
+	coll_hist_a_c, coll_bins_a_c = np.histogram(a_c_c1, bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_a_c = 0.5*(coll_bins_a_c[1:] + coll_bins_a_c[:-1])
 
-	coll_hist_a_e, coll_bins_a_e = np.histogram(a_c_e1, bins=np.linspace(a_in, a_out, num=60))
+	coll_hist_a_e, coll_bins_a_e = np.histogram(a_c_e1, bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_a_e = 0.5*(coll_bins_a_e[1:] + coll_bins_a_e[:-1])
 
 	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharey=True)
@@ -213,10 +221,10 @@ def make_coll_hist_r():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	coll_hist_r_c, coll_bins_r_c = np.histogram(coll_dist_c1, bins=np.linspace(a_in, a_out, num=60))
+	coll_hist_r_c, coll_bins_r_c = np.histogram(coll_dist_c1, bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_r_c = 0.5*(coll_bins_r_c[1:] + coll_bins_r_c[:-1])
 
-	coll_hist_r_e, coll_bins_r_e = np.histogram(coll_dist_e1, bins=np.linspace(a_in, a_out, num=60))
+	coll_hist_r_e, coll_bins_r_e = np.histogram(coll_dist_e1, bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_r_e = 0.5*(coll_bins_r_e[1:] + coll_bins_r_e[:-1])
 
 	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharey=False)
@@ -237,7 +245,7 @@ def make_m_hist():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	a11, a12 = 3.22, 3.33
+	a11, a12 = 3.2, 3.34
 	a21, a22 = 2.7, 2.8
 
 	def ang_diff(ang1, ang2):
@@ -282,9 +290,66 @@ def make_m_hist():
 	ax[1,1].set_title(str(a21) + ' < a < ' + str(a22) + ' (' + str(len(M_c_c1[mask])) + ' coll)')
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
+def make_saf_nbody():
+	file_str = 'figures/saf_nbody.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	def get_Ndot(s_final, pl_final):
+		x, y = pl_final['pos'][:,0], pl_final['pos'][:,1]
+		r = np.sqrt(x**2 + y**2)
+		p = pb.analysis.profile.Profile(pl_final, min=a_in, max=a_out, nbins=nbins)
+		surf_den = (p['density']*u.M_sun/u.AU**2)
+		# Calculate safronov collision rates as in Boley 2017, except get v_rel from eccentricity and inclination
+		# dispersion. The method used in Boley 2017 doesnt work if planetesimals are on eccentric orbits due to
+		# secular forcing
+
+		v_k = np.sqrt(s_final['mass'][0]/pl_final['a'])
+		v_rel = np.sqrt(pl_final['e']**2 + pl_final['inc']**2)*v_k
+
+		mask = np.logical_and(r > np.min(p['rbins']), r < np.max(p['rbins']))
+
+		rho_p = (2 * u.g/u.cm**3).to(u.M_sun/u.AU**3).value
+		R = (150 * u.km).to(u.AU).value
+		T = 2*np.pi*np.sqrt(pl_final['a'][mask]**3/s_final['mass'][0])
+
+		F_g = 1 + 8*np.pi*rho_p*R**2/(3*v_rel[mask]**2)
+
+		surf_den_at = surf_den[np.digitize(r[mask], p['rbins'])].value
+		Ndot = 6*np.pi*surf_den_at*F_g/(rho_p*R*T)
+
+		bins = np.linspace(a_in, a_out, num=nbins+1)
+		result = stats.binned_statistic(r[mask], Ndot, bins=bins, statistic='median')
+
+		result_vrel = stats.binned_statistic(r[mask], v_rel[mask], bins=bins, statistic='median')
+		vrel_stat = result_vrel.statistic
+
+		return p, result.statistic
+
+	s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
+	pl_c, pl_e = OrbitTools.orb_params(s_c), OrbitTools.orb_params(s_e)
+	prof_c, Ndot_c = get_Ndot(s_c, pl_c)
+	prof_e, Ndot_e = get_Ndot(s_e, pl_e)
+	coll_hist_r_c, coll_bins_r_c = np.histogram(coll_dist_c1, bins=np.linspace(a_in, a_out, num=nbins))
+	coll_bins_r_c = 0.5*(coll_bins_r_c[1:] + coll_bins_r_c[:-1])
+	coll_hist_r_e, coll_bins_r_e = np.histogram(coll_dist_e1, bins=np.linspace(a_in, a_out, num=nbins))
+	coll_bins_r_e = 0.5*(coll_bins_r_e[1:] + coll_bins_r_e[:-1])
+
+	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharey=False)
+	ax1.plot(prof_c['rbins'], Ndot_c*(2*np.pi)*prof_c['n'])
+	ax1.plot(coll_bins_r_c, coll_hist_r_c/(t_max - t_skip), linestyle='steps-mid')
+	ax1.set_xlabel('Heliocentric Distance [AU]')
+	ax1.set_ylabel('Collision Rate (per yr)')
+	ax2.plot(prof_e['rbins'], Ndot_e*(2*np.pi)*prof_e['n'])
+	ax2.plot(coll_bins_r_e, coll_hist_r_e/(t_max - t_skip), linestyle='steps-mid')
+	ax2.set_xlabel('Heliocentric Distance [AU]')
+	ax2.set_ylabel('Collision Rate (per yr)')
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
 make_rtheta()
 make_ae()
 make_long_ph()
 make_coll_hist_a()
 make_coll_hist_r()
 make_m_hist()
+make_saf_nbody()
