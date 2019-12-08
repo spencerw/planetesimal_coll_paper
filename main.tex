@@ -226,42 +226,34 @@ while minimizing the additional computational expense.
     \caption{Caption goes here.\label{fig:rtheta}}
 \end{figure*}
 
-\begin{figure*}
-    \includegraphics[width=\textwidth]{figures/ae.png}
+\begin{figure}
+    \includegraphics[width=\columnwidth]{figures/ae.png}
     \caption{Caption goes here.\label{fig:ae}}
-\end{figure*}
+\end{figure}
 
 \begin{figure}
     \includegraphics[width=\columnwidth]{figures/long_ph.png}
     \caption{Caption goes here.\label{fig:long_ph}}
 \end{figure}
 
-\begin{figure*}
-    \includegraphics[width=\textwidth]{figures/coll_hist_a.png}
+\begin{figure}
+    \includegraphics[width=\columnwidth]{figures/coll_hist_a.png}
     \caption{Caption goes here.\label{fig:coll_hist_a}}
-\end{figure*}
+\end{figure}
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/coll_hist_r.png}
     \caption{Caption goes here.\label{fig:coll_hist_r}}
 \end{figure*}
 
-\begin{figure*}
-    \includegraphics[width=\textwidth]{figures/m_hist.png}
-    \caption{Caption goes here.\label{fig:m_hist}}
-\end{figure*}
-
 \section{Results} \label{sec:results}
+
+Discuss figures 1 through 4 here.
 
 A side-by-side comparison of the final distribution in cylindrical coordinates of planetesimals from the CJ and EJ simulations is shown 
 in figure \ref{fig:rtheta}. Gaps produced by the 3:1, 2:1 and 5:3 MMR with Jupiter are visible in both frames. In the EJ simulation, a 
 gap in the vicinity of the 5:2 MMR is also visible. The non-axisymmetric character of the gaps reflects the fact that the planetesimals 
-in the vicinity of the resonances (especially the 2:1) are having their eccentricities significantly pumped. (I don't think there should be 
-any azimuthal structure to the gaps in the CJ simulation. This is probably a reflection of the fact that we need to run with smaller 
-timesteps.) Although examining the spatial distribution of planetesimals near MMR in debris disks may be a viable way to detect 
-unseen planets, we will not focus on this topic any longer as it has already been covered in detail in other studies
-\citep{2016ApJ...818..159T, 2018ApJ...857....3T}. It is worth noting, however that the spatial distribution of planetesimals shown in 
-figure \ref{fig:rtheta} appears qualitatively similar to figures 3 and 4 in \citep{2016ApJ...818..159T}.
+in the vicinity of the resonances (especially the 2:1) are having their eccentricities significantly pumped. Although examining the spatial distribution of planetesimals near MMR in debris disks may be a viable way to detect  unseen planets, we will not focus on this topic any longer as it has already been covered in detail in other studies \citep{2016ApJ...818..159T, 2018ApJ...857....3T}. It is worth noting, however that the spatial distribution of planetesimals shown in  figure \ref{fig:rtheta} appears qualitatively similar to figures 3 and 4 in \citep{2016ApJ...818..159T}.
 
 The location of the mean motion resonances with Jupiter is most clearly visible when examining the semimajor axis-eccentricity 
 distribution of the planetesimals. This is shown in figure \ref{fig:ae}, with the final snapshot from the CJ simulation shown on the left 
@@ -344,22 +336,15 @@ panels in figure \ref{fig:m_hist} show a distinct lack of collisions near apheli
 
 Note that this trend is not present in the right-hand panels of figure \ref{fig:m_hist}. In the case with Jupiter on a circular orbit (bottom right panel), there is a spike in the collision rate both at perihelion and aphelion. The perihelion spike is still due to the geometric argument presented in the previous paragraph. The aphelion spike is due to the effect of gravitational focusing. At aphelion, bodies achieve their minimum speed. This lowers the relative velocity between planetesimals, which according to equation \ref{eq:safronov} should enhance the collision rate. Note that the collision rate does not exhibit much dependence on mean anomaly outside of resonance in the case with Jupiter on an eccentric orbit (top right panel). This is due to the secular forcing by Jupiter, which aligns the longitude of perihelia of adjacent planetesimals. The result of this is that bodies maintain similar relative speeds over the course of an orbit, even though the orbit is eccentric. This lack of variation in the relative speeds makes collisions equally likely at any orbital phase.
 
-\subsection{Comparison With Analytic Safronov Collision Rate}\label{sec:saf}
+\section{Radial Collision Rates}\label{sec:rad_coll}
 
-Outline for this section:
-\begin{itemize}
-\item Time evolution of disk surface density for circ and ecc
-\item Time evolution of sma vs ecc
-\item Number of collisions as a function of sma and radial distance
-\item Number of collisions as a function of mean anomaly and delta mean anomaly
-\item Comparison between safronov rate and actual collision statistics
-\end{itemize}
+Motivate the assumption that dust produced in collisions immediately goes onto circular orbit
 
-\section{Dust Emission} \label{sec:dust}
+Discuss figure 5, hilight differences between surface density distribution and collision histogram. Calculation of safronov rate is hard because velocity distribution is bimodal in many places. Key features to point out: 2:1 MMR shows up well in CJ. Much more washed out in EJ, while 3:1 becomes more prominent. Also both features in EJ are shifted to the right of resonance location by a factor of (1+$e_{forced}$. This could be a viable way to measure ecc of the perturber.
 
-\begin{itemize}
-\item Show CASA images
-\end{itemize}
+\section{Observability of Collisions} \label{sec:dust}
+
+Have aaron make a CASA dust emission map for the two histograms in figure 5. Fit a gaussian to the radial features and see if we can back out the eccentricity of the perturber and its mass. Also make 2d histogram showing how the perturbers eccentricity (which sets the forced eccentricity) and mass sets the libration width.
 
 \section{Summary and Discussion} \label{sec:discuss}
 
@@ -381,19 +366,6 @@ Outline for this section:
 
 
 %Scattering of planetesimals by giant planet does not depend on migration, so we ignore this process \citet{2017Icar..297..134R}.
-
-Figures to include:
-
-\begin{itemize}
-    \item a-e evolution of particles
-    \item a-e closeup of resonance (do we need to pick more than one?)
-    \item azimuthally averaged profile of collision rates
-    \item temporal evolution of collision rates inside and outside resonance
-\end{itemize}
-
-Need to expain waves in a-e plots. This is from the free eccentricity cycling through phase space.
-
-Might be useful to compare Aaron's estimate of collsion rates from velocity dispersion in 2017 paper to the actual collision rates that we measure. Collision rates tend to be supressed outside of MMRs compared to Safronov rate. Im guessing this has to do with the fact that precession rates are high inside MMRs and so orbits are not aligned and more likely to cross. For a discussion of secular precession rates due to a giant planet, see \citet{2009MNRAS.399.1403M}.
 
 \bibliography{references}
 
