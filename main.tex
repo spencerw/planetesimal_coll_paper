@@ -66,16 +66,11 @@ To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa
 \citep{2008IEEEpds...ChaNGa, 2015AphCom..2..1} to follow the collisional evolution of a planetesimal disk under the gravitational 
 influence of a Jupiter sized body. Because particle positions are sorted into a tree structure, neighbor finding and collision detection 
 can be done quickly and efficiently. This considerably relaxes the constraints on resolution and integration time. With this toolset, we 
-explore the collision rate structure of the planetesimal disk in the vicinity of mean motion resonances.
+explore the collision rate structure of the planetesimal disk in the vicinity of mean motion resonances. In particular, we would like to 
+determine: 1. whether MMRs leave a detectable signature in the collisionally-generated dust. 2. If these signatures can be used to determine the orbital properties of the perturbing planet.
 
-This work is organized in the following way. In section \ref{sec:dynamics} we provide an overview of the dynamics that drive the 
-evolution of a planetesimal disk under the gravitational influence of an external perturber. In section \ref{sec:setup} we describe the 
-N-body code we use and describe how we constructed the initial conditions for the two simulations that are run: one with a perturber 
-on a circular orbit and one with an eccentric perturber. Section \ref{sec:results} goes on to explore the results of the two, with 
-particular focus on the radial variation in the collision rates. In section \ref{sec:dust}, we use the positions of the collision events to 
-construct a map of second generation dust emission, under the assumption that dust grains produced by collisions will immediately 
-couple to the gas and circularize their orbits. Finally, we assess the observability of features in the dust emission due to mean motion 
-resonances and conclude in section \ref{sec:discuss}.
+This work is organized in the following way: In section \ref{sec:dynamics}, we provide an overview of the relevant dynamics that drive 
+the evolution of a planetesimal disk under the gravitational influence of an external perturber. We also highlight the shortcomings of secular theory in trying to predict the radial collision rate and motivate the need for N-body simulations with massive, collisional particles. In section \ref{sec:sims} we describe the N-body code that we use and detail the initial conditions that are used for two simulations: one in which the perturber is on a circular orbit and another in which the perturber is given a mildly eccentric orbit. Section \ref{sec:results} presents the results of the two simulations. Next, we generate dust emission maps in section \ref{sec:dust}, under the assumption that collisionally-generated dust will quickly couple with the gas and circularize, and show that radial structure is produced in the vicinity of the MMRs. Using the dust emission maps, section \ref{sec:fitting} explores the feasibility of measuring properties of the perturbing planet from the MMR features in the dust. We then conclude in section \ref{sec:discuss}. 
 
 \section{Overview of Relavant Dynamics} \label{sec:dynamics}
 
@@ -336,8 +331,6 @@ panels in figure \ref{fig:m_hist} show a distinct lack of collisions near apheli
 
 Note that this trend is not present in the right-hand panels of figure \ref{fig:m_hist}. In the case with Jupiter on a circular orbit (bottom right panel), there is a spike in the collision rate both at perihelion and aphelion. The perihelion spike is still due to the geometric argument presented in the previous paragraph. The aphelion spike is due to the effect of gravitational focusing. At aphelion, bodies achieve their minimum speed. This lowers the relative velocity between planetesimals, which according to equation \ref{eq:safronov} should enhance the collision rate. Note that the collision rate does not exhibit much dependence on mean anomaly outside of resonance in the case with Jupiter on an eccentric orbit (top right panel). This is due to the secular forcing by Jupiter, which aligns the longitude of perihelia of adjacent planetesimals. The result of this is that bodies maintain similar relative speeds over the course of an orbit, even though the orbit is eccentric. This lack of variation in the relative speeds makes collisions equally likely at any orbital phase.
 
-\section{Radial Collision Rates}\label{sec:rad_coll}
-
 Motivate the assumption that dust produced in collisions immediately goes onto circular orbit
 
 Discuss figure 5, hilight differences between surface density distribution and collision histogram. Calculation of safronov rate is hard because velocity distribution is bimodal in many places. Key features to point out: 2:1 MMR shows up well in CJ. Much more washed out in EJ, while 3:1 becomes more prominent. Also both features in EJ are shifted to the right of resonance location by a factor of (1+$e_{forced}$. This could be a viable way to measure ecc of the perturber.
@@ -346,26 +339,9 @@ Discuss figure 5, hilight differences between surface density distribution and c
 
 Have aaron make a CASA dust emission map for the two histograms in figure 5. Fit a gaussian to the radial features and see if we can back out the eccentricity of the perturber and its mass. Also make 2d histogram showing how the perturbers eccentricity (which sets the forced eccentricity) and mass sets the libration width.
 
+\section{Measuring Properties of the Perturber} \label{sec:fitting}
+
 \section{Summary and Discussion} \label{sec:discuss}
-
-%In this study, we will consider the effects that an external perturber has on the dynamical evolution and collision rates of planetesimals in a circumstellar disk. Planetesimals are too small to reflect much star light and are of too low mass to have any significant amount of thermal inertial. However, the large amounts of dust produced by collisional grinding can be used to infer where planetesimals are interacting \citep{2005Natur.436..363S, 2015ApJ...806...23L}. Although the behavior of the small dust grains can strongly depend on the hydrodynamic behavior of the gas \citep{2015ApJ...813L..14B}, the evolution of the planetesimals (km sized and larger) should be well decoupled from the gas. This means that results of this study should be applicable to both gas rich protoplanetary disks such as HL Tau and TW Hya, along with dusty debris disks such as Fomalhut \citep{2017ApJ...842....8M}.
-
-%The intermediate stages of planet formation are incredibly difficult to observe. Planetesimals, which are the building blocks of planets, are too small to reflect any significant amount of star light and are of too low mass to carry much thermal inertia. However, large volumes of dust produced through collisional grinding of planetesimals can be used to infer where planetesimals are interacting 
-
-%In the Solar System, the formation of Jupiter is thought to have destabilized the orbits of nearby planetesimals and triggered a short and intense period of bombardment. In addition to triggering a cascade of collisional grinding \citep{2012ApJ...750....8T}, the formation of Jupiter is thought to have facilitated the mixing of volatiles in the inner Solar System \citep{2017Icar..297..134R}.
-
-%From an outsider's perspective, the most easily observable property of the Solar System is the infrared emission from small dust grains. Outside the Solar System, infrared excess has also been tied to the presence of dust (citation needed). Recent high resolution images from ALMA have shown that the structure of these dusty disks around other stars can have rather complicated structures.
-
-%Talk about observed gaps in ALMA images of PPDs. Many different explanations for rings and gaps \citep{2019arXiv190103680V}. One possible explanation is resonances with outer companion. \citet{2017ApJ...850..103B} examined this possibility, but used massless test particles to represent the planetesimals. Although this provided some information about how the planetesimals move under the influence of a mean motion resonance, it did not say anything about where the collisions and dust production would occur.
-
-%Talk about specific PPDs where MMRs might be producing some of the structure (HL Tau, TW Hya)
-
-%Talk about dynamics in MMRs. Resonances tend to push particles away from the perturber. Mention study by \citet{2016ApJ...818..159T, 2018ApJ...857....3T}. Massive disk can move resonance locations (see eq 10 or \citet{2015ApJ...805..100T}). Looks like we are getting a spiral wave being launched from the 3:1 MMR (see section 5.6 in \citet{2016ApJ...818..159T}). Study by \citet{2018MNRAS.473.3547R} used collisionless N-body sim to examine production of cavity in debris disk, assume paricles trace mm sized objects which should be observable.
-
-%See \citet{1984prin.conf..513S} for a fantastic discussion of spiral waves in a planetary context.
-
-
-%Scattering of planetesimals by giant planet does not depend on migration, so we ignore this process \citet{2017Icar..297..134R}.
 
 \bibliography{references}
 
