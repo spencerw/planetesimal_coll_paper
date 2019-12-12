@@ -218,7 +218,7 @@ resolve the base time step and the dynamical timescale of planetesimals simultan
 At the beginning of each time step, all bodies are placed on the orbital time step. A first pass of collision detection is then run in 
 which the radii of all bodies are inflated by a factor of 2.5. Any bodies with imminent collisions predicted using the inflated radii are 
 placed on a time step that is a factor of 16 smaller than the orbital time step. The purpose of two-tiered scheme is to properly resolve 
-the gravitational interactions between any bodies that will undergo a close encounter. This prevents the coarser base time step from 
+the gravitational interactions between any bodies that undergo a close encounter. This prevents the coarser base time step from 
 reducing the effectiveness of gravitational focusing, while minimizing the additional computational expense.
 
 \begin{figure*}
@@ -248,20 +248,26 @@ reducing the effectiveness of gravitational focusing, while minimizing the addit
 
 \section{Results} \label{sec:results}
 
-Discuss figures 1 through 4 here.
+We begin by examining the spatial distribution of planetesimals in both simulations. The polar position of the planetesimals at the 
+end of the CJ and EJ simulations are shown in the left and right hand panels of  figure \ref{fig:rtheta}, respectively. Gaps produced by 
+the 3:1, 2:1 and 5:3 MMR with Jupiter are visible in both cases. In the EJ case, a gap in the vicinity of the 5:2 MMR is also visible. 
+The non-axisymmetric shape of the gaps reflects the fact that planetesimals in the vicinity of the resonances have been excited onto 
+non-circular orbits. Although examining the spatial distribution of planetesimals near MMR in debris disks may be a viable way to 
+detect unseen planets, we will not focus on this topic here, as it has already been covered in detail by other studies 
+\citep{2016ApJ...818..159T, 2018ApJ...857....3T}.
 
-A side-by-side comparison of the final distribution in cylindrical coordinates of planetesimals from the CJ and EJ simulations is shown 
-in figure \ref{fig:rtheta}. Gaps produced by the 3:1, 2:1 and 5:3 MMR with Jupiter are visible in both frames. In the EJ simulation, a 
-gap in the vicinity of the 5:2 MMR is also visible. The non-axisymmetric character of the gaps reflects the fact that the planetesimals 
-in the vicinity of the resonances (especially the 2:1) are having their eccentricities significantly pumped. Although examining the spatial distribution of planetesimals near MMR in debris disks may be a viable way to detect  unseen planets, we will not focus on this topic any longer as it has already been covered in detail in other studies \citep{2016ApJ...818..159T, 2018ApJ...857....3T}. It is worth noting, however that the spatial distribution of planetesimals shown in  figure \ref{fig:rtheta} appears qualitatively similar to figures 3 and 4 in \citep{2016ApJ...818..159T}.
+The MMRs are most clearly visible when viewing the semimajor axis and eccentricity distribution of the planetesimals. The top panel 
+of figure \ref{fig:ae} corresponds to the CJ simulation and the bottom panel corresponds to EJ. The solid vertical lines in this plot 
+represent the nominal locations of the resonances. Near the nominal resonance locations, the a-e distribution of the planetesimals 
+exhibits well-defined spikes which curve slightly inward due to conservation of the Jacobi energy. In the EJ simulation, the 
+eccentricity distribution of bodies near resonance extends below the initial forced value. This is a reflection of the fact that these 
+bodies are undergoing libration, which drives periodic oscillations in both semimajor axis and eccentricity. The coupling between 
+these two quantities is described by equation \ref{eq:tiss}. 
 
-The location of the mean motion resonances with Jupiter is most clearly visible when examining the semimajor axis-eccentricity 
-distribution of the planetesimals. This is shown in figure \ref{fig:ae}, with the final snapshot from the CJ simulation shown on the left 
-and EJ on the right. The solid vertical lines indicate the nominal locations of the mean motion resonances. Away from the resonance 
-locations, the eccentricity dispersion grows via viscous stirring as energy from the Keplerian shearing of the disk is gradually 
-transferred to random motions of planetesimals. The slight inward curving of the eccentricity peaks near the resonances is a 
-consequence of the conservation of the Jacobi energy. As the semimajor axis of a planetesimal in MMR librates, the corresponding 
-change in eccentricity is given by equation \ref{eq:tiss}.
+% old stuff
+%A side-by-side comparison of the final distribution in cylindrical coordinates of planetesimals from the CJ and EJ simulations is shown in figure \ref{fig:rtheta}. Gaps produced by the 3:1, 2:1 and 5:3 MMR with Jupiter are visible in both frames. In the EJ simulation, a gap in the vicinity of the 5:2 MMR is also visible. The non-axisymmetric character of the gaps reflects the fact that the planetesimals in the vicinity of the resonances (especially the 2:1) are having their eccentricities significantly pumped. Although examining the spatial distribution of planetesimals near MMR in debris disks may be a viable way to detect  unseen planets, we will not focus on this topic any longer as it has already been covered in detail in other studies \citep{2016ApJ...818..159T, 2018ApJ...857....3T}. It is worth noting, however that the spatial distribution of planetesimals shown in  figure \ref{fig:rtheta} appears qualitatively similar to figures 3 and 4 in \citep{2016ApJ...818..159T}.
+
+%The location of the mean motion resonances with Jupiter is most clearly visible when examining the semimajor axis-eccentricity distribution of the planetesimals. This is shown in figure \ref{fig:ae}, with the final snapshot from the CJ simulation shown on the left and EJ on the right. The solid vertical lines indicate the nominal locations of the mean motion resonances. Away from the resonance locations, the eccentricity dispersion grows via viscous stirring as energy from the Keplerian shearing of the disk is gradually transferred to random motions of planetesimals. The slight inward curving of the eccentricity peaks near the resonances is a consequence of the conservation of the Jacobi energy. As the semimajor axis of a planetesimal in MMR librates, the corresponding change in eccentricity is given by equation \ref{eq:tiss}.
 
 In the EJ simulation, the eccentricity remains enhanced between the MMRs due to the secular forcing effect of Jupiter. This also has 
 the consequence of making the eccentricity spikes due to the 5:2 and (what's the MMR at 3.6 AU?) more prominent. The reason for 
