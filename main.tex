@@ -279,6 +279,17 @@ will be discussed shortly.  Although this fast precession is also present in the
 planetesimals in the disk exhibit no preferred direction, and so the precession from the MMRs produces no discernible difference in 
 the orbital structure of the disk.
 
+\subsection{Collision Rates}\label{sec:coll_rates}
+
+The Safronov collision rate given by equation \ref{eq:safronov} can be a viable way to predict the collision rates of planetesimals 
+using only their positions and velocities \citep{2017ApJ...850..103B}, but suffers from some limitations. First, the Safronov collision 
+rate is constructed from the assumption that the planetesimal disk is azimuthally symmetric. This is not the case for the EJ 
+simulation, in which the disk between resonances exhibits a well defined pericenter orientation. Although the strong precession 
+induced by the MMRs does randomize the orientations of orbits near the resonances, the phase space distribution of bodies at the 
+edges of the resonances becomes extremely complex and is best studied using a full N-body treatment. Secondly, as we will show 
+below, the velocity distribution of planetesimals takes on a bimodal distribution near the MMRs. This makes the rms velocity of 
+planetesimals not well-defined and therefore predicting the collision rate using a statistical approach becomes difficult.
+
 Next, we move on to examine the statistics of the collisions that occur. Figure \ref{fig:coll_hist_a} shows the distribution of semimajor 
 axes of every collision that is resolved. Here, the semimajor axis of a collision is defined as the semimajor axis of the first body 
 participating in the collision at the moment that it occurs. During a collision, the determination of which body is first and which is 
@@ -299,6 +310,7 @@ couple to the gas and attain a circular orbit. This assumption, which will be fu
 radial variation in the dust surface density to the radial position of the collisions. This is shown in figure \ref{fig:coll_hist_r}, where the 
 histograms indicate the x and y coordinates of a body at the moment that it undergoes a collision.
 
+%Explanation of offset of feature near 3:1 in EJ: orbital orientations randomized near MMR, most bodies have ecc of e_forced, even in resonance. Geometrically, less overlap at apo, so surface density drops and so does coll rate.
 Most notably, the prominent features visible in figure \ref{fig:coll_hist_a} adjacent to the 2:1 MMR no longer appear. This is due to the 
 fact that the orbits of bodies in the 2:1 MMR have a wide range of eccentricities and therefore have the potential to undergo 
 collisions at a wide range of heliocentric distances. In the CJ simulation, there is a prominent dip in the collision rate near the 2:1 
