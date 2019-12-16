@@ -29,7 +29,7 @@ tightly wound spiral wave is launched from this location.
 \section{Introduction} \label{sec:intro}
 
 %Things to change/do:
-%    Transient feature in EJ collision rate before 2000 years. Only want to look at collisions after this time. Justify the cutoff (maybe something to do with precession in 3:1 MMR?)
+%    Transient feature in EJ collision rate before 2000 years. Only want to look at collisions after this time. Mention this when discussing figure 4. Justify the cutoff (maybe something to do with precession in 3:1 MMR?)
 %    Safronov and Nbody collision rates. Not matching up well near resonance. The 'wings' from the resonances mess up calculation of velocity dispersion. Maybe do comparison
 %       no grav focusing?
 %    Get Aaron to make some dust emission makes from the Nbody collision histograms
@@ -252,42 +252,32 @@ We begin by examining the spatial distribution of planetesimals in both simulati
 end of the CJ and EJ simulations are shown in the left and right hand panels of  figure \ref{fig:rtheta}, respectively. Gaps produced by 
 the 3:1, 2:1 and 5:3 MMR with Jupiter are visible in both cases. In the EJ case, a gap in the vicinity of the 5:2 MMR is also visible. 
 The non-axisymmetric shape of the gaps reflects the fact that planetesimals in the vicinity of the resonances have been excited onto 
-non-circular orbits. Although examining the spatial distribution of planetesimals near MMR in debris disks may be a viable way to 
+non-circular orbits. Although the spatial distribution of planetesimals near MMR in debris disks may provide clues to 
 detect unseen planets, we will not focus on this topic here, as it has already been covered in detail by other studies 
 \citep{2016ApJ...818..159T, 2018ApJ...857....3T}.
 
-The MMRs are most clearly visible when viewing the semimajor axis and eccentricity distribution of the planetesimals. The top panel 
-of figure \ref{fig:ae} corresponds to the CJ simulation and the bottom panel corresponds to EJ. The solid vertical lines in this plot 
-represent the nominal locations of the resonances. Near the nominal resonance locations, the a-e distribution of the planetesimals 
-exhibits well-defined spikes which curve slightly inward due to conservation of the Jacobi energy. In the EJ simulation, the 
-eccentricity distribution of bodies near resonance extends below the initial forced value. This is a reflection of the fact that these 
+The MMRs are most clearly visible when viewing the semimajor axis and eccentricity distribution of the planetesimals. This is shown 
+in figure \ref{fig:ae}. The top panel corresponds to the CJ simulation and the bottom panel corresponds to EJ. The solid vertical lines 
+in this plot represent the nominal locations of the resonances. Near the nominal resonance locations, the a-e distribution of the 
+planetesimals exhibits well-defined spikes which curve slightly inward due to conservation of the Jacobi energy. In the EJ simulation, 
+the eccentricity distribution of bodies near resonance extends below the initial forced value. This is a reflection of the fact that these 
 bodies are undergoing libration, which drives periodic oscillations in both semimajor axis and eccentricity. The coupling between 
-these two quantities is described by equation \ref{eq:tiss}. 
+these two quantities is described by equation \ref{eq:tiss}. In the EJ simulation, the eccentricity remains enhanced between the 
+MMRs due to the secular forcing by Jupiter. This also has the consequence of making the eccentricity spikes more prominent. The 
+reason for this is that the resonant perturbations scale with the eccentricity of the body in resonance $e$. This scaling is linear for a 
+first order MMR, while the scaling is quadratic for a second order MMR. This results in a greater relative prominence of the features 
+in figure \ref{fig:ae} of the 5:3 and 3:1 MMRs relative to the 2:1 in the EJ simulation.
 
-% old stuff
-%A side-by-side comparison of the final distribution in cylindrical coordinates of planetesimals from the CJ and EJ simulations is shown in figure \ref{fig:rtheta}. Gaps produced by the 3:1, 2:1 and 5:3 MMR with Jupiter are visible in both frames. In the EJ simulation, a gap in the vicinity of the 5:2 MMR is also visible. The non-axisymmetric character of the gaps reflects the fact that the planetesimals in the vicinity of the resonances (especially the 2:1) are having their eccentricities significantly pumped. Although examining the spatial distribution of planetesimals near MMR in debris disks may be a viable way to detect  unseen planets, we will not focus on this topic any longer as it has already been covered in detail in other studies \citep{2016ApJ...818..159T, 2018ApJ...857....3T}. It is worth noting, however that the spatial distribution of planetesimals shown in  figure \ref{fig:rtheta} appears qualitatively similar to figures 3 and 4 in \citep{2016ApJ...818..159T}.
-
-%The location of the mean motion resonances with Jupiter is most clearly visible when examining the semimajor axis-eccentricity distribution of the planetesimals. This is shown in figure \ref{fig:ae}, with the final snapshot from the CJ simulation shown on the left and EJ on the right. The solid vertical lines indicate the nominal locations of the mean motion resonances. Away from the resonance locations, the eccentricity dispersion grows via viscous stirring as energy from the Keplerian shearing of the disk is gradually transferred to random motions of planetesimals. The slight inward curving of the eccentricity peaks near the resonances is a consequence of the conservation of the Jacobi energy. As the semimajor axis of a planetesimal in MMR librates, the corresponding change in eccentricity is given by equation \ref{eq:tiss}.
-
-In the EJ simulation, the eccentricity remains enhanced between the MMRs due to the secular forcing effect of Jupiter. This also has 
-the consequence of making the eccentricity spikes due to the 5:2 and (what's the MMR at 3.6 AU?) more prominent. The reason for 
-this is that the libration width of a resonance generally scales with the eccentricity of the particle being perturbed. In a secularly 
-forced disk, the eccentricity of particles affected by resonance is larger, which increases the resonance width and allows a larger 
-region of the disk to be affected by a given resonance. Also visible in the EJ snapshot in figure \ref{fig:ae} are eccentricity spikes that 
-extend below the background eccentricity distribution. This is a clear sign that planetesimals in the MMRs are librating. The phase of 
-the libration is set by the resonant argument (maybe I should add an equation for the resonant argument in section 2).
-
-An additional effect that the MMRs have on the orbits of planetesimals is visible in figure \ref{fig:long_ph}. This shows the semimajor 
-axis distribution of planetesimals as a function of longitude of perihelion in the EJ simulation. As discussed in section 
-\ref{sec:sec_force}, the eccentric orbit of Jupiter causes the perihelia of the planetesimal orbits to align with the giant perturber. The 
-mean motion resonances, however, drive the rather vigorous precession of the orbits of planetesimals in their vicinity. Because the 
-timescale of the resonances is much shorter than the timescale for secular forcing, the longitudinal orientations of orbits close to the 
-MMRs are effectively randomized. The dashed horizontal lines in figure \ref{fig:long_ph} indicate the libration width of the MMRs at 
-the forced eccentricity (given by the magnitude of equation \ref{eq:eforced}. The size of the zone of vigorous precession roughly 
-matches the libration width of the MMRs. As will be discussed shortly, the relative longitudinal orientation of the orbits has important 
-implications for where and when planetesimal collisions occur at a given semimajor axis. Not shown is the longitude of perihelia and 
-semimajor axes of the bodies in the CJ simulation. Due to the lack of secular forcing, the orientations of the orbits of these bodes are 
-effectively random.
+The MMRs have one important additional effect, which is to drive precession of the longitude of perihelia of planetesimals near 
+resonance. This effect becomes important in the EJ simulation, in which the orbits of bodies are initially aligned with that of Jupiter 
+(see section \ref{sec:sec_force}). As is shown in figure \ref{fig:long_ph}, the strong precession induced by the MMRs overcomes the 
+secular forcing and randomizes the orbital orientations of bodies near the resonances. The dashed horizontal lines in figure 
+\ref{fig:long_ph} indicate the libration width of a planetesimal with an eccentricity of $e_{forced}$ at each resonance, which 
+approximately shows the zone of influence of each MMR. When looking at the collision rates in the disk, this difference in the orbital 
+orientations inside and outside of resonance will have an important effect on the radial structure of the second-generation dust, which 
+will be discussed shortly.  Although this fast precession is also present in the CJ simulation, the longitude of perihelia of 
+planetesimals in the disk exhibit no preferred direction, and so the precession from the MMRs produces no discernible difference in 
+the orbital structure of the disk.
 
 Next, we move on to examine the statistics of the collisions that occur. Figure \ref{fig:coll_hist_a} shows the distribution of semimajor 
 axes of every collision that is resolved. Here, the semimajor axis of a collision is defined as the semimajor axis of the first body 
