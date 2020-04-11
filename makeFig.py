@@ -1,6 +1,10 @@
 #/bin/bash
 import matplotlib.pylab as plt
 import matplotlib as mpl
+
+mpl.rcParams.update({'font.size': 18, 'font.family': 'STIXGeneral', 'mathtext.fontset': 'stix',
+                            'image.cmap': 'viridis'})
+
 import numpy as np
 import pandas as pd
 import pynbody as pb
@@ -14,18 +18,13 @@ simT = u.year/(2*np.pi)
 simV = u.AU / simT
 
 from scipy import stats
-
-import sys
-sys.path.insert(0, '../OrbitTools/')
-import OrbitTools
-
-mpl.rcParams.update({'font.size': 18, 'font.family': 'STIXGeneral', 'mathtext.fontset': 'stix',
-                            'image.cmap': 'viridis'})
+import KeplerOrbit as ko
+import CollisionTools as coll
 
 simT = u.year/(2*np.pi)
 simV = u.AU/simT
 
-path = '../files/research/planetFormation/jupResonance/data/'
+path = 'data/'
 
 # Resonances
 res_dist = [2.5, 3.27, 3.7]
@@ -42,9 +41,9 @@ def res_width_jup(p, q):
     j1 = p + q
     j2 = -p
     alpha = (-j2/j1)**(2./3.)
-    ecc = OrbitTools.lap(2, 3/2, alpha)/OrbitTools.lap(1, 3/2, alpha)*ecc_jup
+    ecc = ko.lap(2, 3/2, alpha)/ko.lap(1, 3/2, alpha)*ecc_jup
     dist = alpha*a_jup
-    rw = OrbitTools.res_width(m, m_c, ecc, j1, j2)*dist
+    rw = ko.res_width(m, m_c, ecc, j1, j2)*dist
     return rw
 
 def plot_res(axis, res=-1, vertical=True, show_widths=False):
@@ -74,8 +73,8 @@ s_e_files = np.array([path + 'hkshiftfull/hkshiftfull.ic']+ \
 	                  ns.natsorted(gl.glob(path + 'hkshiftfull/*.[0-9]*[0-9]')))
 s0_e = pb.load(s_e_files[0])
 
-# Skip the first 2000 years of the collision output. There is a transient feature interior
-# to the 3:1 MMR in the EJ simulation before this time.
+# Skip the first 2000 years of the collision output. This is about how long it
+# takes the resonances to fully show up in the a-e plane
 t_skip = 2000
 t_max = 5000
 
@@ -87,54 +86,28 @@ clobber = True
 fmt = 'png'
 s = 0.005
 
-# Collision data
-coll_c = pd.read_csv(path + 'hkshiftfullJupCirc/collisions')
-coll_c = coll_c[np.logical_and(coll_c['time']/(2*np.pi) <= t_max, coll_c['time']/(2*np.pi) >= t_skip)]
+# Collision log data
+
+# Circular Jupiter case
 mc_c = s0_c['mass'][0]
-x_c_c1, y_c_c1, z_c_c1 = coll_c['x1x'], coll_c['x1y'], coll_c['x1z']
-vx_c_c1, vy_c_c1, vz_c_c1 = coll_c['v1x'], coll_c['v1y'], coll_c['v1z']
-m1_c = coll_c['m1']
-coll_dist_c1 = np.sqrt(x_c_c1**2 + y_c_c1**2)
-a_c_c1, e_c_c1, inc_c_c1, Omega_c_c1, omega_c_c1, M_c_c1 = \
-    OrbitTools.cart2kepX(x_c_c1, y_c_c1, z_c_c1, vx_c_c1, vy_c_c1, vz_c_c1, mc_c, m1_c)
-x_c_c2, y_c_c2, z_c_c2 = coll_c['x2x'], coll_c['x2y'], coll_c['x2z']
-#vx_c_c2, vy_c_c2, vz_c_c2 = coll_c['v2x'], coll_c['v2y'], coll_c['v2z']
+coll_c_log = coll.CollisionLog(path + 'hkshiftfullJupCirc/collisions', mc_c)
+coll_c = coll_c_log.coll
+# The v2y output in the collision log is messed up. Fortunately, we can recover it from
+# v1y and vNewy
+coll_c['v2y'] = (coll_c['m1']*coll_c['v1y'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewy'])/coll_c['m2']
+coll_c = coll_c[np.logical_and(coll_c['time']/(2*np.pi) <= t_max, coll_c['time']/(2*np.pi) >= t_skip)]
 
-# Oops, the ChaNGa output for collider 2's velocity is messed up. Fortunately, we can
-# get the correct value from v1 and vNew
-vx_c_c2 = (coll_c['m1']*coll_c['v1x'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewx'])/coll_c['m2']
-vy_c_c2 = (coll_c['m1']*coll_c['v1y'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewy'])/coll_c['m2']
-vz_c_c2 = (coll_c['m1']*coll_c['v1z'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewz'])/coll_c['m2']
-
-m2_c = coll_c['m2']
-coll_dist_c2 = np.sqrt(x_c_c2**2 + y_c_c2**2)
-a_c_c2, e_c_c2, inc_c_c2, Omega_c_c2, omega_c_c2, M_c_c2 = \
-    OrbitTools.cart2kepX(x_c_c2, y_c_c2, z_c_c2, vx_c_c2, vy_c_c2, vz_c_c2, mc_c, m2_c)
-
-coll_e = pd.read_csv(path + 'hkshiftfull/collisions')
-coll_e = coll_e[np.logical_and(coll_e['time']/(2*np.pi) <= t_max, coll_e['time']/(2*np.pi) >= t_skip)]
+# Eccentric Jupiter case
 mc_e = s0_e['mass'][0]
-x_c_e1, y_c_e1, z_c_e1 = coll_e['x1x'], coll_e['x1y'], coll_e['x1z']
-vx_c_e1, vy_c_e1, vz_c_e1 = coll_e['v1x'], coll_e['v1y'], coll_e['v1z']
-m1_e = coll_e['m1']
-coll_dist_e1 = np.sqrt(x_c_e1**2 + y_c_e1**2)
-a_c_e1, e_c_e1, inc_c_e1, Omega_c_e1, omega_c_e1, M_c_e1 = \
-    OrbitTools.cart2kepX(x_c_e1, y_c_e1, z_c_e1, vx_c_e1, vy_c_e1, vz_c_e1, mc_e, m1_e)
-x_c_e2, y_c_e2, z_c_e2 = coll_e['x2x'], coll_e['x2y'], coll_e['x2z']
-#vx_c_e2, vy_c_e2, vz_c_e2 = coll_e['v2x'], coll_e['v2y'], coll_e['v2z']
+coll_e_log = coll.CollisionLog(path + 'hkshiftfull/collisions', mc_e)
+coll_e = coll_e_log.coll
+# Fix the v2y output again
+coll_e['v2y'] = (coll_e['m1']*coll_e['v1y'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewy'])/coll_e['m2']
+coll_e = coll_e[np.logical_and(coll_e['time']/(2*np.pi) <= t_max, coll_e['time']/(2*np.pi) >= t_skip)]
 
-# Need to fix the velocity here too
-vx_c_e2 = (coll_e['m1']*coll_e['v1x'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewx'])/coll_e['m2']
-vy_c_e2 = (coll_e['m1']*coll_e['v1y'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewy'])/coll_e['m2']
-vz_c_e2 = (coll_e['m1']*coll_e['v1z'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewz'])/coll_e['m2']
-
-m2_e = coll_e['m2']
-coll_dist_e2 = np.sqrt(x_c_e2**2 + y_c_e2**2)
-a_c_e2, e_c_e2, inc_c_e2, Omega_c_e2, omega_c_e2, M_c_e2 = \
-    OrbitTools.cart2kepX(x_c_e2, y_c_e2, z_c_e2, vx_c_e2, vy_c_e2, vz_c_e2, mc_e, m2_e)
-
+# Positions of particles in polar coordinates
 s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
-pl_c, pl_e = OrbitTools.orb_params(s_c), OrbitTools.orb_params(s_e)
+pl_c, pl_e = ko.orb_params(s_c), ko.orb_params(s_e)
 x_c, y_c = pl_c['pos'][:,0], pl_c['pos'][:,1]
 r_c, theta_c = np.sqrt(x_c**2 + y_c**2), np.arctan2(y_c, x_c) + np.pi
 x_e, y_e = pl_e['pos'][:,0], pl_e['pos'][:,1]
@@ -195,10 +168,10 @@ def make_coll_hist_a():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	coll_hist_a_c, coll_bins_a_c = np.histogram(a_c_c1, bins=np.linspace(a_in, a_out, num=nbins))
+	coll_hist_a_c, coll_bins_a_c = np.histogram(coll_c['a1'], bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_a_c = 0.5*(coll_bins_a_c[1:] + coll_bins_a_c[:-1])
 
-	coll_hist_a_e, coll_bins_a_e = np.histogram(a_c_e1, bins=np.linspace(a_in, a_out, num=nbins))
+	coll_hist_a_e, coll_bins_a_e = np.histogram(coll_e['a1'], bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_a_e = 0.5*(coll_bins_a_e[1:] + coll_bins_a_e[:-1])
 
 	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True)
@@ -219,9 +192,11 @@ def make_coll_hist_r():
 	if not clobber and os.path.exists(file_str):
 		return
 
+	coll_dist_c1 = np.sqrt(coll_c['x1x']**2 + coll_c['x1y']**2)
 	coll_hist_r_c, coll_bins_r_c = np.histogram(coll_dist_c1, bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_r_c = 0.5*(coll_bins_r_c[1:] + coll_bins_r_c[:-1])
 
+	coll_dist_e1 = np.sqrt(coll_e['x1x']**2 + coll_e['x1y']**2)
 	coll_hist_r_e, coll_bins_r_e = np.histogram(coll_dist_e1, bins=np.linspace(a_in, a_out, num=nbins))
 	coll_bins_r_e = 0.5*(coll_bins_r_e[1:] + coll_bins_r_e[:-1])
 
