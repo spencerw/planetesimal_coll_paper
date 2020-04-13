@@ -74,7 +74,7 @@ the evolution of a planetesimal disk under the gravitational influence of an ext
 
 \section{Overview of Relavant Dynamics} \label{sec:dynamics}
 
-\subsection{Collisions}
+\subsection{Collision Rates of Massive Bodies}
 
 We begin by making the assumption that a typical encounter between planetesimals in a disk is well-described by two-body 
 dynamics. So long as the random velocities of planetesimals $v_{p}$ are large compared to the Hill velocity of a planetesimal $v_{h} 
@@ -85,15 +85,18 @@ can be safely ignored. In this case and assuming equal mass bodies, the collisio
 	\sigma v = \pi r_{p}^2 \left( 1 + v_{esc}^2/v_{p}^2 \right) v_{p},
 \end{equation}
 
-\noindent where $r_{p}$ is the radius of a planetesimal and $v_{esc}$ is the mutual escape velocity of two planetesimals in contact. 
-The $v_{esc}^2/v_{p}^2$ term describes the factor above which the collision cross section is enhanced due to gravitational focusing. 
-For a dynamically cold planetesimal disk, $v_{p}$ is small relative to $v_{esc}$ and the collision rate becomes strongly enhanced.
+\noindent where $r_{p}$ is the radius of a planetesimal, $v_{esc}$ is the mutual escape velocity of two planetesimals in contact and 
+$v_{p}$ is the typical encounter velocity between planetesimals. The $v_{esc}^2/v_{p}^2$ term describes the factor above which the 
+collision cross section is enhanced due to gravitational focusing. For a dynamically cold planetesimal disk, $v_{p}$ is small relative to 
+$v_{esc}$ and the collision rate becomes strongly enhanced.
 
-In the absence of a proper treatment of collision detection, equation \ref{eq:safronov} can be used to make a local estimate of the 
-collision rate in an N-body simulation using only the positions and velocities of particles. This has been done in other studies 
+In the absence of collision detection, equation \ref{eq:safronov} can be used to make a local estimate of the 
+collision rate in an N-body simulation using only the positions, velocities and masses of particles. This has been done in other studies 
 \citep{2017ApJ...850..103B} (any other examples?), but requires bulk averaging of the phase space properties of particles, which 
-may mask important information and blur out features. We will revisit equation \ref{eq:safronov} in section \ref{sec:results} to test 
-how well the collision rate near mean motion resonances is described by this framework.
+may mask important information and blur out features. As we will show in section \ref{sec:results}, the complex dynamical behavior of 
+planetesimals near mean-motion resonance makes it difficult to represent the typical encounter velocity $v_{p}$ with a single value. We will 
+revisit equation \ref{eq:safronov} in section \ref{sec:results} to test how well the collision rate near mean-motion resonances is described by 
+this framework.
 
 \subsection{Secular Forcing}\label{sec:sec_force}
 
@@ -113,8 +116,7 @@ Laplace coefficient given by \citep{2000ssd..book.....M} as
 	b_{s}^{j}(\alpha) = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{cos \, j \theta \, d \theta}{\left( 1 - 2 \alpha \, cos \theta + \alpha^2 \right)^{s}}.
 \end{equation}
 
-Ignoring secular and mean motion resonances, equation \ref{eq:eforced} will completely describe the eccentricities and pericenter 
-orientations of the orbits of the planetesimals. Additional forces due to two-body scattering between planetesimals, along with 
+Without any nearby secular or mean motion resonances, equation \ref{eq:eforced} will completely describe the eccentricities longitude of  pericenter orientations of the planetesimals. Additional forces due to two-body scattering between planetesimals, along with 
 aerodynamic gas drag will add an additional free component to the complex eccentricity, which will be randomly oriented. The 
 magnitude of the free eccentricity describes how dynamically hot the planetesimal disk is and sets the random encounter speeds of 
 planetesimals. When the dynamical excitation of the disk is driven by gravitational stirring, the magnitude of the free eccentricity can 
@@ -139,10 +141,10 @@ by the semi-major axes of the two bodies by
 	\frac{a}{a'} = \left( \frac{p}{p + q} \right)^{2/3}.
 \end{equation}
 
-Under the effect of MMR, a body will undergo oscillations in semi-major axis and eccentricity. So long as the gravitational force on 
-the body is dominated by the central star and the perturbing body, the amplitude of the oscillations in semi-major axis can be 
-described using the pendulum approximation (see equation 8.76 in \citet{2000ssd..book.....M}). This amplitude can be thought of 
-as the 'width' over which the perturbations of the resonance are effective. Variations in eccentricity follow the semi-major axis 
+Under the effect of MMR, a body will undergo oscillations in semi-major axis and eccentricity. For sufficiently small perturbations,
+the amplitude of the oscillations in semi-major axis can be 
+described using the pendulum approximation (see equation 8.58 and 8.76 in \citet{2000ssd..book.....M}). This amplitude can be thought of 
+as the 'width' over which resonant perturbations are effective. Changes in eccentricity are correlated with changes in semi-major axis 
 variations according to the Tisserand relation
 
 \begin{equation}\label{eq:tiss}
@@ -150,13 +152,13 @@ variations according to the Tisserand relation
 \end{equation}
 
 The net result of this is that isolated MMRs will produce 'spikes' in the semi-major axis vs eccentricity distribution of a planetesimal 
-disk. Following equation \ref{eq:tiss}, these spikes will tend to slightly curve away from the perturbing body. As planetesimals 
-undergo two-body scattering events with other bodies, the variations in semi-major axis and eccentricity due to resonances can 
-become permanent. This tends to lower the surface density of the disk near the locations of resonances, while producing a pileup of 
-eccentric bodies adjacent to the MMR. The enhanced surface density will increase the collision rate, while the large eccentricity 
-dispersion will lower it due to the decreased effectiveness of gravitational focusing. Due to these competing effects, along with the 
-complicated dynamics that are likely at play near the edge of the resonant region, we turn to a direct N-body treatment to better 
-understand how the collision rate varies in the vicinity of a MMR.
+disk. Following equation \ref{eq:tiss}, these spikes will tend to slightly curve away from the perturbing body. This tends to lower the surface 
+density of the disk near the locations of resonances, while producing a pileup of bodies on eccentric orbits adjacent to the MMR. The 
+enhanced surface density will increase the collision rate, while the larger eccentricites will lower it due to the decreased effectiveness of 
+gravitational focusing. In addition, the MMRs will drive fast precession of the orbiting planetesimals, which effectively randomizes their 
+longitudes of perihelion. In the case of a secularly forced disk, there will be an interface between aligned and randomly oriented orbits at 
+the edge of the resonance. Due to the complicated dynamics that are likely at play near the edge of the resonant region, we turn to a direct 
+N-body treatment to better understand how the collision rate varies in the vicinity of a MMR.
 
 \section{Simulations} \label{sec:sims}
 
@@ -211,7 +213,7 @@ the inner edge of the planetesimal disk. From numerical tests with {\sc ChaNGa},
 the symplectic nature of the integration without being too computationally expensive. Although using $\Delta T$ = 0.01 yr keeps the 
 integration symplectic, we find that a small amount of artificial precession is produced, which is particularly noticable in the EJ 
 simulation. We reduce the base time step size by an additional factor of 4 to the keep longitude of perihelia of planetesimals near the 
-inner edge of the disk from drifting too far over the course of our integration.
+inner edge of the disk from drifting too far over the course of our integrations.
 
 An additional timescale is set by the dynamical time of the planetesimals ($\sim 1/\sqrt{G \rho}$), which is about 45 minutes. To 
 resolve the base time step and the dynamical timescale of planetesimals simultaneously, we use a two-tiered time stepping scheme. 
@@ -222,39 +224,40 @@ the gravitational interactions between any bodies that undergo a close encounter
 reducing the effectiveness of gravitational focusing, while minimizing the additional computational expense.
 
 \begin{figure*}
-    \includegraphics[width=\textwidth]{figures/rtheta.png}
-    \caption{Caption goes here.\label{fig:rtheta}}
+    \includegraphics[width=\textwidth]{figures/xy.png}
+    \caption{Caption goes here.\label{fig:xy}}
 \end{figure*}
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/ae.png}
+    \begin{center}
+    \includegraphics[width=0.4\columnwidth]{figures/ae.png}
     \caption{Caption goes here.\label{fig:ae}}
+    \end{center}
 \end{figure}
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/long_ph.png}
+    \begin{center}
+    \includegraphics[width=0.4\columnwidth]{figures/long_ph.png}
     \caption{Caption goes here.\label{fig:long_ph}}
+    \end{center}
 \end{figure}
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{figures/coll_hist_a.png}
+    \begin{center}
+    \includegraphics[width=0.4\columnwidth]{figures/coll_hist_a.png}
     \caption{Caption goes here.\label{fig:coll_hist_a}}
+    \end{center}
 \end{figure}
-
-\begin{figure*}
-    \includegraphics[width=\textwidth]{figures/coll_hist_r.png}
-    \caption{Caption goes here.\label{fig:coll_hist_r}}
-\end{figure*}
 
 \section{Results} \label{sec:results}
 
-We begin by examining the spatial distribution of planetesimals in both simulations. The polar position of the planetesimals at the 
-end of the CJ and EJ simulations are shown in the left and right hand panels of  figure \ref{fig:rtheta}, respectively. Gaps produced by 
-the 3:1, 2:1 and 5:3 MMR with Jupiter are visible in both cases. In the EJ case, a gap in the vicinity of the 5:2 MMR is also visible. 
-The non-axisymmetric shape of the gaps reflects the fact that planetesimals in the vicinity of the resonances have been excited onto 
-non-circular orbits. Although the spatial distribution of planetesimals near MMR in debris disks may provide clues to 
-detect unseen planets, we will not focus on this topic here, as it has already been covered in detail by other studies 
-\citep{2016ApJ...818..159T, 2018ApJ...857....3T}.
+We begin by examining the spatial distribution of planetesimals in the CJ and EJ simulations. The cylindrical position of the planetesimals 
+in the the CJ and EJ simulations after 5000 years of integration are shown in the left and right hand panels of  figure \ref{fig:xy}, 
+respectively. In the circular Jupiter case, a gap produced by the 2:1 MMR is visible, while the 3:1 and 5:3 MMR gaps are visible with an 
+eccentric Jupiter. The non-axisymmetric nature of the gaps is due to the fact that planetesimals in the vicinity of the resonances have been 
+excited onto non-circular orbits. Although the spatial distribution of planetesimals near MMR in debris disks may provide clues to detect 
+unseen planets, we will not focus on this topic here, as it has already been covered in detail by other studies \citep{2016ApJ...818..159T, 
+2018ApJ...857....3T}.
 
 The MMRs are most clearly visible when viewing the semimajor axis and eccentricity distribution of the planetesimals. This is shown 
 in figure \ref{fig:ae}. The top panel corresponds to the CJ simulation and the bottom panel corresponds to EJ. The solid vertical lines 
@@ -263,48 +266,44 @@ planetesimals exhibits well-defined spikes which curve slightly inward due to co
 the eccentricity distribution of bodies near resonance extends below the initial forced value. This is a reflection of the fact that these 
 bodies are undergoing libration, which drives periodic oscillations in both semimajor axis and eccentricity. The coupling between 
 these two quantities is described by equation \ref{eq:tiss}. In the EJ simulation, the eccentricity remains enhanced between the 
-MMRs due to the secular forcing by Jupiter. This also has the consequence of making the eccentricity spikes more prominent. The 
-reason for this is that the resonant perturbations scale with the eccentricity of the body in resonance $e$. This scaling is linear for a 
-first order MMR, while the scaling is quadratic for a second order MMR. This results in a greater relative prominence of the features 
-in figure \ref{fig:ae} of the 5:3 and 3:1 MMRs relative to the 2:1 in the EJ simulation.
+MMRs due to the secular forcing by Jupiter. Because the strength of the resonances scales with the initial eccentricity of the planetesimals, 
+the eccentricity spikes are larger in the EJ simulation. Additionally, the relative size of the 3:1 and 5:3 MMR spikes also grows because the 
+strength of a MMR scales as $e^{k}$, where $k$ is the order of the resonance (citation needed).
 
-The MMRs have one important additional effect, which is to drive precession of the longitude of perihelia of planetesimals near 
+The MMRs have one more effect, which is to drive precession of the longitudes of perihelion of planetesimals near 
 resonance. This effect becomes important in the EJ simulation, in which the orbits of bodies are initially aligned with that of Jupiter 
 (see section \ref{sec:sec_force}). As is shown in figure \ref{fig:long_ph}, the strong precession induced by the MMRs overcomes the 
 secular forcing and randomizes the orbital orientations of bodies near the resonances. The dashed horizontal lines in figure 
 \ref{fig:long_ph} indicate the libration width of a planetesimal with an eccentricity of $e_{forced}$ at each resonance, which 
-approximately shows the zone of influence of each MMR. When looking at the collision rates in the disk, this difference in the orbital 
-orientations inside and outside of resonance will have an important effect on the radial structure of the second-generation dust, which 
-will be discussed shortly.  Although this fast precession is also present in the CJ simulation, the longitude of perihelia of 
-planetesimals in the disk exhibit no preferred direction, and so the precession from the MMRs produces no discernible difference in 
-the orbital structure of the disk.
+approximately shows the zone of influence of each MMR. It is important to note that the collision rate predicted by equation
+\ref{eq:safronov} assumes that the orbits of bodies are randomly oriented. Near the interface of the resonances, the N-body collision rate, 
+which we will examine next, is likely not well-described by the Safronov rate.
 
 \subsection{Collision Rates}\label{sec:coll_rates}
 
-The Safronov collision rate given by equation \ref{eq:safronov} can be a viable way to predict the collision rates of planetesimals 
-using only their positions and velocities \citep{2017ApJ...850..103B}, but suffers from some limitations. First, the Safronov collision 
-rate is constructed from the assumption that the planetesimal disk is azimuthally symmetric. This is not the case for the EJ 
-simulation, in which the disk between resonances exhibits a well defined pericenter orientation. Although the strong precession 
-induced by the MMRs does randomize the orientations of orbits near the resonances, the phase space distribution of bodies at the 
-edges of the resonances becomes extremely complex and is best studied using a full N-body treatment. Secondly, as we will show 
-below, the velocity distribution of planetesimals takes on a bimodal distribution near the MMRs. This makes the rms velocity of 
-planetesimals not well-defined and therefore predicting the collision rate using a statistical approach becomes difficult.
+As we have already discussed, the Safronov collision rate given by equation \ref{eq:safronov} suffers from two important limitations. The
+first is that the orbits of colliding bodies exhibit no preferred orientation. Second, as we will show below, the velocities of planetesimals 
+near the MMRs follows a bimodal distribution. This makes it difficult to characterize the planetesimals with a single 'typical' encounter 
+velocity and therefore predicting the collision rate using a statistical approach is far from straightforward.
 
-Figure \ref{fig:coll_hist_a} shows the semimajor axis of collisions resolved in the CJ (top) and EJ simulations (bottom). The 
-'semimajor axis of a collision' is defined as the semimajor axis of the first of the two planetesimals participating in a collision at the 
+Figure \ref{fig:coll_hist_a} shows the semimajor axis of collisions resolved in the CJ (top) and EJ simulations (bottom). We define 
+'semimajor axis of a collision' as the semimajor axis of the first of the two planetesimals participating in a collision at the 
 moment that it happens. To ensure that the definition of the first and second collider chosen by {\sc ChaNGa} does not influence 
 these results, we also tried constructing figure \ref{fig:coll_hist_a} using the second collider and found no qualitative differences. 
 Although both simulations were integrated and collisions were resolved for 5,000 years, we only show collisions that occurred during 
 the last 3,000 years of the simulations. Before this time, the resonant features in the semimajor axis-eccentricity distribution (see 
-figure \ref{fig:ae}) were still developing and had not yet reached a steady state. This results in transient features appearing in the 
-collision profiles early on, which we exclude from figure \ref{fig:coll_hist_a} and all subsequent figures.
+figure \ref{fig:ae}) were still developing and had not yet reached a steady state (the libration timescale of the MMRs we are interested in turns out to be about 2,000 years). This results in transient features appearing in the collision profiles early on, which we exclude from figure \ref{fig:coll_hist_a} and all subsequent figures.
 
-Most notably, the MMRs appear to have a measurable effect on the local collision rates. Slightly interior to the 2:1 resonance, the 
-collision rate increases by a factor of roughly 2. In the EJ simulation, there is a significant deficiency in the number of collisions near 
-the 3:1 MMR. We attribute this to the fact that the strength of a second order MMR scales as $e^{2}$, while a first order MMR scales 
-linearly. Therefore, one would expect the 3:1 resonance to have more of an influence on the collision rate in a secularly perturbed 
-disk. Although viewing the collision rate as a function of semimajor axis allows one to see a clear connection between the 
-resonances and the collision rate, this does not immediately indicate where the dust generated by collisions will end up in the disk.
+We find that the features present in figure \ref{fig:coll_hist_a} are highly sensitive to the choice of binning when constructing a standard histogram and instead model the occurrence of collisions as a function of semimajor axis using a kernel density estimate (KDE). We use the {\sc neighbors.KernelDensity} function from the {\sc sklearn} \citep{scikit-learn} package to construct our KDEs. For our kernel, we use a tophat function with a bandwidth of 0.01 AU.
+
+Most notably, the MMRs appear to have a measurable effect on the local collision rates. This is in contrast to \citet{2000Icar..143...45R}, 
+who simulated a similar setup and found no discernible features near the MMRs. We attribute the difference to a more careful treatment of 
+timestepping in our simulations. Slightly interior to the 2:1 resonance, the collision rate increases by a factor of roughly 2. In the EJ 
+simulation, there is a significant deficiency in the number of collisions near the 3:1 MMR. We attribute this to the fact that the strength of a 
+second order MMR scales as $e^{2}$, while a first order MMR scales linearly with $e$. One would therefore expect the 3:1 resonance to 
+have more of an influence on the collision rate in a secularly perturbed disk. Although viewing the collision rate as a function of semimajor 
+axis demonstrates a clear connection between the resonances and the collision rate, this does not immediately indicate where the dust 
+generated by collisions will end up in the disk.
 
 To construct a radial dust profile, we begin by making the assumption that any dust generated by collisions is strongly coupled to the 
 gas. For a dust grain larger than the mean free path of the gas particles, the timescale to damp its eccentricity is given by 
@@ -318,14 +317,19 @@ where $m$, $e$ and $s$ are the mass, eccentricity and radius of the dust grain. 
 \rho_{g}$ is the local density of the gas and $v_{th}$ is its thermal speed. At 3 AU, the gaseous component of the solar nebula has a 
 density of $4 \times 10^{-10}$ g cm$^{-3}$ and a typical thermal speed of $10^{5}$ cm s$^{-1}$ \citep{1981PThPS..70...35H}. For a 1 
 mm dust grain with a density of 1 g cm$^{-3}$ and an eccentricity of 0.05, the damping timescale is $4 \times 10^{-3}$ years. This is 
-orders of magnitude smaller than the collision timescale, therefore we expect that collisionally generated dust grains will immediately 
+orders of magnitude smaller than the collision timescale, therefore we conclude that collisionally generated dust grains will immediately 
 couple to the gas.
 
-Operating under this assumption, a map of the relative concentration of second-generation dust can be constructed from simply the cylindrical distance at which the collisions occur. This is shown in the top panels of figure \ref{fig:coll_hist_r}, where the left side corresponds to the CJ simulation and the right side corresponds to EJ. As in the semimajor axis projection, features appear near the 2:1 and 3:1 MMRs in both simulations, although the shape of the features are qualitatively different here. Near the 2:1 resonance, the radial collision rate is noticably suppressed. This is mainly due to the reduced surface density of planetesimals near the center of the resonance, shown in the second row of figure \ref{fig:coll_hist_r}. The surface density in the EJ simulation near this resonance is less suppressed than the CJ simulation due to the enhanced eccentricity of planetesimals in the vicinity. This also has the effect of washing out the feature created in the collision rate profile due to the 2:1 MMR.
+Operating under this assumption, a map of the relative concentration of second-generation dust can be constructed from the cylindrical distance at which the collisions occur. This is shown in the top panels of figure \ref{fig:coll_hist_r}, where the left side corresponds to the CJ simulation and the right side corresponds to EJ. As in figure \ref{fig:coll_hist_a}, a kernel density estimate of the number of collisions is constructed using a tophat kernel with a bandwidth of 0.01 AU. Features again appear near the 2:1 and 3:1 MMRs in both simulations, although the shape of the features are qualitatively different from figure \ref{fig:coll_hist_a}. Near the 2:1 resonance, the radial collision rate is noticably suppressed. This is mainly due to the reduced surface density of planetesimals near the center of the resonance, shown in the second row of figure \ref{fig:coll_hist_r}. The surface density in the EJ simulation near this resonance is less suppressed than the CJ simulation due to the enhanced eccentricity of planetesimals in the vicinity. This also has the effect of washing out the feature created in the collision rate profile due to the 2:1 MMR.
 
 Additionally, a sharp, well-defined feature appears just exterior to the 3:1 MMR in the EJ simulation. A corresponding dip in the surface density at this same location suggests that the variation in the collision rate here is due to a lack of planetesimals in this location. Upon closer inspection, we find that the center of this feature lies at a a radial distance of $(1+e_{forced})a_{3:1}$, where $a_{3:1}$ is the nominal location of the 3:1 MMR and $e_{forced}$ is the forced eccentricity of a planetesimal at $a_{3:1}$. This distance corresponds to the aphelion distance of a planetesimal with these orbital parameters. Physically, the drop in the surface density here can be explained as follows: bodies near the 3:1 MMR experience strong precession, which randomizes their orbits and undergo libration which produces a large spread in their relative velocities. For a collection of randomly oriented eccentric orbits, there is less geometric overlap at aphelion, which lowers the surface density at this distance. Given the clear connection between the offset of this feature and the local forced eccentricity, we will examine the feasibility of using this feature to measure the eccentricity of the perturbing planet in section \ref{sec:dust} after we construct a dust emission map from the collision rate profile.
 
 The bottom row of figure \ref{fig:coll_hist_r} demonstrates the difficulty with calculating the collision rate from the position and velocity distribution of particles. Typically, the rms velocity is defined as $\sqrt(\left<e^2\right> + \left<i^2\right>)$. In this case, the wings extending off of the resonances in the distance-eccentricity distribution makes the eccentricity dispersion distinctly bimodal and not well defined at nearly all radial distances. A naive calculation of the Safronov rate here would predict a collision rate near the resonances that is smaller than the actual value.
+
+\begin{figure*}
+    \includegraphics[width=\textwidth]{figures/coll_hist_r.png}
+    \caption{Caption goes here.\label{fig:coll_hist_r}}
+\end{figure*}
 
 %Next, we move on to examine the statistics of the collisions that occur. Figure \ref{fig:coll_hist_a} shows the distribution of semimajor axes of every collision that is resolved. Here, the semimajor axis of a collision is defined as the semimajor axis of the first body participating in the collision at the moment that it occurs. During a collision, the determination of which body is first and which is second is determined by the collision search tree in {\sc ChaNGa}. To ensure that this does not introduce any bias, we also constructed figure \ref{fig:coll_hist_a} using the orbital parameters of the second body and found no qualitative difference. By examining the semimajor axis distribution of the collisions, it is easy to see how the MMRs affect the collision rates. The dashed lines again represent the libration width of each resonance and are meant to show its range of influence. In both the circular and eccentric Jupiter simulations, the collision rate is clearly enhanced interior to the 2:1 MMR. The 3:1 MMR only appears to have a noticeable influence on the collision rate in the EJ simulation. In both cases, although the 5:3 MMR has a clear influence on the on the semimajor-axis eccentricity distribution, it does not leave a measureable imprint on the collision rate. It is important to point out, however, that the libration width of sufficiently eccentric particles near the 5:3 MMR may extend beyond the outer edge of the disk and introduce boundary effects.
 

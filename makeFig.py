@@ -32,6 +32,22 @@ res_label = ['3:1', '2:1', '5:3']
 res_p = [1, 1, 3]
 res_q = [2, 1, 2]
 
+# Build a PDF from a series of data points using a KDE
+from sklearn.neighbors import KernelDensity
+def kde(qty, bw=0.01):
+    bins = np.linspace(np.log10(np.min(qty)), np.log10(np.max(qty)))
+    
+    def kde_helper(x, x_grid, **kwargs):
+        kde_skl = KernelDensity(kernel='tophat', bandwidth=bw, **kwargs)
+        kde_skl.fit(x[:, np.newaxis])
+        log_pdf = kde_skl.score_samples(x_grid[:, np.newaxis])
+        return np.exp(log_pdf)
+    
+    pdf = kde_helper(np.log10(qty), bins)
+    cum_df = np.cumsum(pdf[::-1])[::-1]
+    
+    return 10.**bins, pdf
+
 # Width of a resonance with jupiter (in AU)
 # Assume body has an eccentricity of e_forced
 def res_width_jup(p, q):
@@ -113,6 +129,34 @@ r_c, theta_c = np.sqrt(x_c**2 + y_c**2), np.arctan2(y_c, x_c) + np.pi
 x_e, y_e = pl_e['pos'][:,0], pl_e['pos'][:,1]
 r_e, theta_e = np.sqrt(x_e**2 + y_e**2), np.arctan2(y_e, x_e) + np.pi
 
+def make_xy():
+	file_str = 'figures/xy.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	# Rotate so that jupiter is at theta =0
+	theta_jup_c = np.arctan2(pl_c['pos'][0][1], pl_c['pos'][0][0])
+	x_c_rot = x_c*np.cos(-theta_jup_c) - y_c*np.sin(-theta_jup_c)
+	y_c_rot = x_c*np.sin(-theta_jup_c) + y_c*np.cos(-theta_jup_c)
+	theta_jup_e = np.arctan2(pl_e['pos'][0][1], pl_e['pos'][0][0])
+	x_e_rot = x_e*np.cos(-theta_jup_e) - y_e*np.sin(-theta_jup_e)
+	y_e_rot = x_e*np.sin(-theta_jup_e) + y_e*np.cos(-theta_jup_e)
+
+	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True, sharey=True)
+	ax1.scatter(x_c_rot, y_c_rot, s=s)
+	ax1.scatter(x_c_rot[0], y_c_rot[0], color='r')
+	ax1.set_xlabel('X [AU]')
+	ax1.set_ylabel('Y [AU]')
+	ax1.set_xlim(-5.5, 5.5)
+	ax1.set_ylim(-5.5, 5.5)
+	ax2.scatter(x_e_rot, y_e_rot, s=s)
+	ax2.scatter(x_e_rot[0], y_e_rot[0], color='r')
+	ax2.set_xlabel('X [AU]')
+	ax2.set_ylabel('Y [AU]')
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
 def make_rtheta():
 	file_str = 'figures/rtheta.' + fmt
 	if not clobber and os.path.exists(file_str):
@@ -168,20 +212,17 @@ def make_coll_hist_a():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	coll_hist_a_c, coll_bins_a_c = np.histogram(coll_c['a1'], bins=np.linspace(a_in, a_out, num=nbins))
-	coll_bins_a_c = 0.5*(coll_bins_a_c[1:] + coll_bins_a_c[:-1])
-
-	coll_hist_a_e, coll_bins_a_e = np.histogram(coll_e['a1'], bins=np.linspace(a_in, a_out, num=nbins))
-	coll_bins_a_e = 0.5*(coll_bins_a_e[1:] + coll_bins_a_e[:-1])
+	coll_bins_a_c, coll_pdf_a_c = kde(coll_c['a1'])
+	coll_bins_a_e, coll_pdf_a_e = kde(coll_e['a1'])
 
 	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True)
-	ax1.plot(coll_bins_a_c, coll_hist_a_c, linestyle='steps-mid')
+	ax1.plot(coll_bins_a_c, coll_pdf_a_c, linestyle='steps-mid')
 	plot_res(ax1, show_widths=False)
-	ax1.set_ylabel('Numer of Collisions')
-	ax2.plot(coll_bins_a_e, coll_hist_a_e, linestyle='steps-mid')
+	ax1.set_ylabel('dN/da')
+	ax2.plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
 	plot_res(ax2, show_widths=False)
 	ax2.set_xlabel('Semimajor Axis [AU]')
-	ax2.set_ylabel('Number of Collisions')
+	ax2.set_ylabel('dN/da')
 	# sharey=true hides the tick labels
 	ax2.yaxis.set_tick_params(labelleft=True)
 	plt.tight_layout(h_pad=0)
@@ -193,12 +234,10 @@ def make_coll_hist_r():
 		return
 
 	coll_dist_c1 = np.sqrt(coll_c['x1x']**2 + coll_c['x1y']**2)
-	coll_hist_r_c, coll_bins_r_c = np.histogram(coll_dist_c1, bins=np.linspace(a_in, a_out, num=nbins))
-	coll_bins_r_c = 0.5*(coll_bins_r_c[1:] + coll_bins_r_c[:-1])
+	coll_bins_r_c, coll_pdf_r_c = kde(coll_dist_c1)
 
 	coll_dist_e1 = np.sqrt(coll_e['x1x']**2 + coll_e['x1y']**2)
-	coll_hist_r_e, coll_bins_r_e = np.histogram(coll_dist_e1, bins=np.linspace(a_in, a_out, num=nbins))
-	coll_bins_r_e = 0.5*(coll_bins_r_e[1:] + coll_bins_r_e[:-1])
+	coll_bins_r_e, coll_pdf_r_e = kde(coll_dist_e1)
 
 	p_c = pb.analysis.profile.Profile(pl_c, min=a_in, max=a_out, nbins=nbins)
 	surf_den_c = (p_c['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
@@ -206,22 +245,23 @@ def make_coll_hist_r():
 	p_e = pb.analysis.profile.Profile(pl_e, min=a_in, max=a_out, nbins=nbins)
 	surf_den_e = (p_e['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
 
-	fig, ax = plt.subplots(figsize=(16,12), nrows=3, ncols=2, sharey=False, sharex=True)
+	fig, ax = plt.subplots(figsize=(16,12), nrows=3, ncols=2, sharey='row', sharex='col')
 	
-	ax[0][0].plot(coll_bins_r_c, coll_hist_r_c, linestyle='steps-mid')
+	ax[0][0].plot(coll_bins_r_c, coll_pdf_r_c, linestyle='steps-mid')
 	plot_res(ax[0][0])
-	ax[0][0].set_ylabel('Numer of Collisions')
+	ax[0][0].set_ylabel('dN/dr')
 	ax[1][0].plot(p_c['rbins'], surf_den_c)
 	ax[1][0].set_ylabel(r'Surface Density [g cm$^{-2}$]')
+	ax[1][0].set_ylim(0.7, 3)
 	ax[2][0].scatter(r_c, pl_c['e'], s=1)
 	ax[2][0].set_ylabel('Eccentricity')
 	ax[2][0].set_xlabel('Heliocentric Distance [AU]')
 	ax[2][0].set_xlim(a_in, a_out)
+	ax[2][0].set_ylim(-0.02, 0.35)
 
-
-	ax[0][1].plot(coll_bins_r_e, coll_hist_r_e, linestyle='steps-mid')
+	ax[0][1].plot(coll_bins_r_e, coll_pdf_r_e, linestyle='steps-mid')
 	plot_res(ax[0][1])
-	ax[0][1].set_ylabel('Numer of Collisions')
+	ax[0][1].set_ylabel('dN/dr')
 	ax[1][1].plot(p_e['rbins'], surf_den_e)
 	ax[1][1].set_ylabel(r'Surface Density [g cm$^{-2}$]')
 	ax[2][1].scatter(r_e, pl_e['e'], s=1)
@@ -283,9 +323,9 @@ def make_m_hist():
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 
-make_rtheta()
-make_ae()
-make_long_ph()
-make_coll_hist_a()
-make_coll_hist_r()
+#make_xy()
+#make_ae()
+#make_long_ph()
+#make_coll_hist_a()
+#make_coll_hist_r()
 #make_m_hist()
