@@ -147,12 +147,14 @@ def make_xy():
 	ax1.scatter(x_c_rot[0], y_c_rot[0], color='r')
 	ax1.set_xlabel('X [AU]')
 	ax1.set_ylabel('Y [AU]')
+	ax1.set_title('Circular Jupiter')
 	ax1.set_xlim(-5.5, 5.5)
 	ax1.set_ylim(-5.5, 5.5)
 	ax2.scatter(x_e_rot, y_e_rot, s=s)
 	ax2.scatter(x_e_rot[0], y_e_rot[0], color='r')
 	ax2.set_xlabel('X [AU]')
 	ax2.set_ylabel('Y [AU]')
+	ax2.set_title('Eccentric Jupiter')
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
@@ -180,18 +182,20 @@ def make_ae():
 
 	# Libration width varies with eccentricity so it doesn't make much sense
 	# to do show_widths=True here
-	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True)
+	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True, sharey=True)
 	ax1.scatter(pl_c['a'], pl_c['e'], s=s)
 	plot_res(ax1, show_widths=False)
 	ax1.set_ylabel('Eccentricity')
+	ax1.set_title('Circular Jupiter')
 	ax2.scatter(pl_e['a'], pl_e['e'], s=s)
 	plot_res(ax2, show_widths=False)
 	ax2.set_xlim(2, 4)
 	ax2.set_xlabel('Semimajor Axis [AU]')
 	ax2.set_ylabel('Eccentricity')
+	ax2.set_title('Eccentric Jupiter')
 	# sharey=true hides the tick labels
 	ax2.yaxis.set_tick_params(labelleft=True)
-	plt.tight_layout(h_pad=0)
+	#plt.tight_layout(h_pad=0)
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 def make_long_ph():
@@ -219,13 +223,15 @@ def make_coll_hist_a():
 	ax1.plot(coll_bins_a_c, coll_pdf_a_c, linestyle='steps-mid')
 	plot_res(ax1, show_widths=False)
 	ax1.set_ylabel('dN/da')
+	ax1.set_title('Circular Jupiter')
 	ax2.plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
 	plot_res(ax2, show_widths=False)
 	ax2.set_xlabel('Semimajor Axis [AU]')
 	ax2.set_ylabel('dN/da')
+	ax2.set_title('Eccentric Jupiter')
 	# sharey=true hides the tick labels
 	ax2.yaxis.set_tick_params(labelleft=True)
-	plt.tight_layout(h_pad=0)
+	#plt.tight_layout(h_pad=0)
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 def make_coll_hist_r():
@@ -250,6 +256,7 @@ def make_coll_hist_r():
 	ax[0][0].plot(coll_bins_r_c, coll_pdf_r_c, linestyle='steps-mid')
 	plot_res(ax[0][0])
 	ax[0][0].set_ylabel('dN/dr')
+	ax[0][0].set_title('Circular Jupiter')
 	ax[1][0].plot(p_c['rbins'], surf_den_c)
 	ax[1][0].set_ylabel(r'Surface Density [g cm$^{-2}$]')
 	ax[1][0].set_ylim(0.7, 3)
@@ -262,6 +269,7 @@ def make_coll_hist_r():
 	ax[0][1].plot(coll_bins_r_e, coll_pdf_r_e, linestyle='steps-mid')
 	plot_res(ax[0][1])
 	ax[0][1].set_ylabel('dN/dr')
+	ax[0][1].set_title('Eccentric Jupiter')
 	ax[1][1].plot(p_e['rbins'], surf_den_e)
 	ax[1][1].set_ylabel(r'Surface Density [g cm$^{-2}$]')
 	ax[2][1].scatter(r_e, pl_e['e'], s=1)
@@ -323,9 +331,8 @@ def make_m_hist():
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 
-#make_xy()
-#make_ae()
-#make_long_ph()
-#make_coll_hist_a()
-#make_coll_hist_r()
-#make_m_hist()
+make_xy()
+make_ae()
+make_long_ph()
+make_coll_hist_a()
+make_coll_hist_r()
