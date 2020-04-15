@@ -17,13 +17,18 @@
 \affiliation{Astronomy Department, University of Washington, Seattle, WA 98195}
 
 \begin{abstract}
-A perturbing planet can leave a lasting imprint a debris disk near the locations of mean motion resonances (MMRs). Unfortunately,
-the planetesimal-sized objects that make up the majority of these disks are extremely difficult to directly observe. Dust created from
-collisions between planetesimals may be a much better way to constrain the structure of these disks. We use a direct N-body model
-to measure planetesimal collision rates in a dynamically cold debris disk composed of 150 km bodies. Even though the eccentricities
-are pumped at the nominal resonance locations, conservation of the Jacobi energy pushes planetesimals inward and enhances the
-collision rate adjacent to the resonances. In addition, we find that the collision rate is severely throttled near the 3:1 MMR and that a
-tightly wound spiral wave is launched from this location.
+In circumstellar disks, collisional grinding of planetesimals produces second-generation dust, which can be observed through thermal 
+emission. While it remains unclear when second-generation dust first becomes a major component of the total dust content, the presence of 
+such dust and potentially the substructure within it can be used to explore a disk's physical conditions. A perturbing planet has been shown to 
+produce nonaxisymmetric structures, as well as gaps in disks, regardless of the origin of the dust. However, small grains will have very 
+different dynamics compared with planetesimals when in the presence of gas, and as such, the collisional evolution of planetesimals could 
+create dusty disk structures that would not exist otherwise. In particular, mean motion resonances (MMRs) are extremely nonlinear and could 
+drive disk morphologies. We use a direct N-body model to track collision rates in a planetesimal disk under the gravitational influence of an 
+external Jupiter-sized planet. We show that a perturbing planet can produce significant variations in the collision rate of planetesimals near the 
+MMRs and we explore how the mass and eccentricity of the perturbing planet alters this structure. Finally, we use the CASA image simulator to 
+predict what the dust emission sturcture should look like with ALMA and the NG-VLA. Although the dust structure produced by MMRs cannot 
+be used to directly measure the properties of the perturbing planet, we show that it can be used to place constraints on its mass and 
+eccentricity.
 \end{abstract}
 
 \section{Introduction} \label{sec:intro}
@@ -366,9 +371,13 @@ to the resonances.
 Finally, the bottom row of figure \ref{fig:coll_hist_r} demonstrates the difficulty with calculating the collision rate from the position and velocity 
 distribution of particles. At a given distance from the central star, the distribution of velocities (using eccentricity as a proxy for encounter 
 velocity), is not unimodal. In addition, the wings extending off of the resonances in these plots show that planetesimals can interact and collide 
-with bodies far from the centers of the resonances. The bump seen in the collision rate in the EJ simulation around 2.7 AU is like a result of interaction between planetesimals in the 3:1, 5:2 and 2:1 resonances.
+with bodies far from the centers of the resonances. The bump seen in the collision rate in the EJ simulation around 2.7 AU is like a result of 
+interaction between planetesimals in the 3:1, 5:2 and 2:1 resonances.
 
-So far, we have shown that mean-motion resonances with a perturbing giant planet will produce measureable radial variations in the collision rates across a disk of planetesimals, which should give rise to variations in the dust profile. In addition, distinctly different features are produced if the giant planet is on an eccentric, rather than a circular orbit. In the next section, we would like to determine whether these features can be used to place any constraints on the mass and eccentricity of the planet.
+So far, we have shown that mean-motion resonances with a perturbing giant planet will produce measureable radial variations in the collision 
+rates across a disk of planetesimals, which should give rise to variations in the dust profile. In addition, distinctly different features are 
+produced if the giant planet is on an eccentric, rather than a circular orbit. In the next section, we would like to determine whether these 
+features can be used to place any constraints on the mass and eccentricity of the planet.
 
 \section{Influence of Jupiter's Mass and Eccentricity on the Radial Dust Profile}
 

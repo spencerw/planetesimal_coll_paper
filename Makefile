@@ -7,7 +7,7 @@ CHECK_RERUN = grep Rerun $*.log
 
 NAME = main
 
-all: figs paper 
+all: paper 
 
 figs:
 	python makeFig.py
