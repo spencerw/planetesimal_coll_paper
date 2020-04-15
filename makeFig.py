@@ -315,7 +315,13 @@ def make_coll_hist_e_and_m():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True, sharey=True)
+	fig, ax = plt.subplots(figsize=(16,12), nrows=2, ncols=2, sharex=True, sharey=True)
+
+	coll_bins_a_e1, coll_pdf_a_e1 = kde(coll_e1['a1'])
+	coll_bins_a_e, coll_pdf_a_e = kde(coll_e['a1'])
+	coll_bins_a_e2, coll_pdf_a_e2 = kde(coll_e2['a1'])
+	coll_bins_a_m1, coll_pdf_a_m1 = kde(coll_m1['a1'])
+	coll_bins_a_m2, coll_pdf_a_m2 = kde(coll_m2['a1'])
 
 	coll_dist_e1 = np.sqrt(coll_e1['x1x']**2 + coll_e1['x1y']**2)
 	coll_bins_r_e1, coll_pdf_r_e1 = kde(coll_dist_e1)
@@ -328,26 +334,36 @@ def make_coll_hist_e_and_m():
 	coll_dist_m2 = np.sqrt(coll_m2['x1x']**2 + coll_m2['x1y']**2)
 	coll_bins_r_m2, coll_pdf_r_m2 = kde(coll_dist_m2)
 
-	ax1.plot(coll_bins_r_e1, coll_pdf_r_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
-	ax1.plot(coll_bins_r_e, coll_pdf_r_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
-	ax1.plot(coll_bins_r_e2, coll_pdf_r_e2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
+	ax[0][0].plot(coll_bins_a_e1, coll_pdf_a_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
+	ax[0][0].plot(coll_bins_a_e, coll_pdf_a_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
+	ax[0][0].plot(coll_bins_a_e2, coll_pdf_a_e2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
 
-	ax2.plot(coll_bins_r_m1, coll_pdf_r_m1, label=r'm$_{pl}$ = 1/2 m$_{jup}$', linestyle='steps-mid')
-	ax2.plot(coll_bins_r_e, coll_pdf_r_e, label=r'm$_{pl}$ = m$_{jup}$', linestyle='steps-mid')
-	ax2.plot(coll_bins_r_m2, coll_pdf_r_m2, label=r'm$_{pl}$ = 2 m$_{jup}$', linestyle='steps-mid')
+	ax[1][0].plot(coll_bins_a_m1, coll_pdf_a_m1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
+	ax[1][0].plot(coll_bins_a_e, coll_pdf_a_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
+	ax[1][0].plot(coll_bins_a_m2, coll_pdf_a_m2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
 
-	ax1.set_ylabel('dn/dr')
-	ax2.set_xlabel('Heliocentric Distance [AU]')
-	ax2.set_ylabel('dn/dr')
+	ax[0][1].plot(coll_bins_r_e1, coll_pdf_r_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
+	ax[0][1].plot(coll_bins_r_e, coll_pdf_r_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
+	ax[0][1].plot(coll_bins_r_e2, coll_pdf_r_e2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
 
-	ax1.legend()
-	ax2.legend()
+	ax[1][1].plot(coll_bins_r_m1, coll_pdf_r_m1, label=r'm$_{pl}$ = 1/2 m$_{jup}$', linestyle='steps-mid')
+	ax[1][1].plot(coll_bins_r_e, coll_pdf_r_e, label=r'm$_{pl}$ = m$_{jup}$', linestyle='steps-mid')
+	ax[1][1].plot(coll_bins_r_m2, coll_pdf_r_m2, label=r'm$_{pl}$ = 2 m$_{jup}$', linestyle='steps-mid')
 
+	ax[0][0].set_ylabel('dn/dr')
+	ax[1][0].set_xlabel('Semimajor Axis [AU]')
+	ax[1][1].set_xlabel('Heliocentric Distance [AU]')
+	ax[1][0].set_ylabel('dn/dr')
+
+	ax[0][1].legend()
+	ax[1][1].legend()
+
+	plt.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
-make_xy()
-make_ae()
-make_long_ph()
-make_coll_hist_a()
-make_coll_hist_r()
+#make_xy()
+#make_ae()
+#make_long_ph()
+#make_coll_hist_a()
+#make_coll_hist_r()
 make_coll_hist_e_and_m()
