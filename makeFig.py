@@ -32,6 +32,11 @@ res_label = ['3:1', '2:1', '5:3']
 res_p = [1, 1, 3]
 res_q = [2, 1, 2]
 
+mc = 1
+m_jup = 9.54e-4
+a_jup = 5.2
+ecc_jup = 0.048
+
 # Build a PDF from a series of data points using a KDE
 from sklearn.neighbors import KernelDensity
 def kde(qty, bw=0.01):
@@ -48,18 +53,18 @@ def kde(qty, bw=0.01):
     
     return 10.**bins, pdf
 
+def e_forced(a, ecc_jup):
+	return ko.lap(2, 3/2, a/a_jup)/ko.lap(1, 3/2, a/a_jup)*ecc_jup
+
 # Width of a resonance with jupiter (in AU)
 # Assume body has an eccentricity of e_forced
-def res_width_jup(p, q):
-    m, m_c = 9.54e-4, 1
-    a_jup = 5.2
-    ecc_jup = 0.048
+def res_width_jup(p, q, ecc_jup=ecc_jup, m_jup=m_jup):
     j1 = p + q
     j2 = -p
     alpha = (-j2/j1)**(2./3.)
-    ecc = ko.lap(2, 3/2, alpha)/ko.lap(1, 3/2, alpha)*ecc_jup
     dist = alpha*a_jup
-    rw = ko.res_width(m, m_c, ecc, j1, j2)*dist
+    ecc = e_forced(dist, ecc_jup)
+    rw = ko.res_width(m_jup, mc, ecc, j1, j2)*dist
     return rw
 
 def plot_res(axis, res=-1, vertical=True, show_widths=False):
@@ -88,6 +93,26 @@ s0_c = pb.load(s_c_files[0])
 s_e_files = np.array([path + 'hkshiftfull/hkshiftfull.ic']+ \
 	                  ns.natsorted(gl.glob(path + 'hkshiftfull/*.[0-9]*[0-9]')))
 s0_e = pb.load(s_e_files[0])
+s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
+pl_c, pl_e = ko.orb_params(s_c), ko.orb_params(s_e)
+
+s_m1_files = np.array([path + 'm1/m1.ic']+ \
+	                  ns.natsorted(gl.glob(path + 'm1/m1_coll.[0-9]*[0-9]')))
+s0_m1 = pb.load(s_m1_files[0])
+s_m2_files = np.array([path + 'm2/m2.ic']+ \
+	                  ns.natsorted(gl.glob(path + 'm2/m2_coll.[0-9]*[0-9]')))
+s0_m2 = pb.load(s_m2_files[0])
+s_m1, s_m2 = pb.load(s_m1_files[-1]), pb.load(s_m2_files[-1])
+pl_m1, pl_m2 = ko.orb_params(s_m1), ko.orb_params(s_m2)
+
+s_e1_files = np.array([path + 'e1/e1.ic']+ \
+	                  ns.natsorted(gl.glob(path + 'e1/e1.[0-9]*[0-9]')))
+s0_e1 = pb.load(s_e1_files[0])
+s_e2_files = np.array([path + 'e2/e2.ic']+ \
+	                  ns.natsorted(gl.glob(path + 'e2/e2.[0-9]*[0-9]')))
+s0_e2 = pb.load(s_e2_files[0])
+s_e1, s_e2 = pb.load(s_e1_files[-1]), pb.load(s_e2_files[-1])
+pl_e1, pl_e2 = ko.orb_params(s_e1), ko.orb_params(s_e2)
 
 # Skip the first 2000 years of the collision output. This is about how long it
 # takes the resonances to fully show up in the a-e plane
@@ -106,6 +131,7 @@ s = 0.0001
 
 # Circular Jupiter case
 mc = s0_c['mass'][0]
+mj = s0_c['mass'][1]
 coll_c_log = coll.CollisionLog(path + 'hkshiftfullJupCirc/collisions', mc)
 coll_c = coll_c_log.coll
 # The v2y output in the collision log is messed up. Fortunately, we can recover it from
@@ -152,8 +178,6 @@ coll_m2['v2y'] = (coll_e2['m1']*coll_m2['v1y'] - (coll_m2['m1'] + coll_m2['m2'])
 coll_m2 = coll_m2
 
 # Positions of particles in polar coordinates
-s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
-pl_c, pl_e = ko.orb_params(s_c), ko.orb_params(s_e)
 x_c, y_c = pl_c['pos'][:,0], pl_c['pos'][:,1]
 r_c, theta_c = np.sqrt(x_c**2 + y_c**2), np.arctan2(y_c, x_c) + np.pi
 x_e, y_e = pl_e['pos'][:,0], pl_e['pos'][:,1]
@@ -361,9 +385,96 @@ def make_coll_hist_e_and_m():
 	plt.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
+def make_lib_width():
+	file_str = 'figures/lib_width.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	# 3:1 MMR
+	res_idx = 0
+	ecc_perturber = np.logspace(np.log10(1e-3), np.log10(5e-1))
+	ecc_vals = e_forced(res_dist[res_idx], ecc_perturber)
+	mass_vals = np.logspace(np.log10(mj/100), np.log10(mj*10))
+
+	rw_vals_31 = np.zeros((len(ecc_vals), len(mass_vals)))
+	for idx in range(len(mass_vals)):
+	    rw_vals_31[idx] = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_vals, mass_vals[idx])
+
+	# 2:1 MMR
+	res_idx = 1
+	ecc_vals = e_forced(res_dist[res_idx], ecc_perturber)
+	rw_vals_21 = np.zeros((len(ecc_vals), len(mass_vals)))
+	for idx in range(len(mass_vals)):
+	    rw_vals_21[idx] = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_vals, mass_vals[idx])
+
+	# Points to mark jupiter masses and eccentricities that we've tried
+	mvals = [0.5, 1, 2, 1 , 1]
+	evals = [0.048, 0.048, 0.048, 0.024, 0.096]
+
+	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2)
+	cmap = mpl.cm.get_cmap('inferno_r', 10)
+	cax = ax1.pcolormesh(mass_vals/mj, ecc_perturber, np.flipud(np.rot90(rw_vals_31)), norm=mpl.colors.LogNorm(vmin=1e-3, vmax=1), cmap=cmap)
+	ax1.scatter(mvals, evals, color='r', s=100)
+	ax1.set_xlabel('Mass of Perturber [m$_{jup}$]')
+	ax1.set_ylabel('Eccentricity of Perturber')
+	ax1.set_xscale('log')
+	ax1.set_yscale('log')
+	ax1.set_title('3:1 MMR')
+	cax = ax2.pcolormesh(mass_vals/mj, ecc_perturber, np.flipud(np.rot90(rw_vals_21)), norm=mpl.colors.LogNorm(vmin=1e-3, vmax=1), cmap=cmap)
+	ax2.scatter(mvals, evals, color='r', s=100)
+	cb = fig.colorbar(cax)
+	cb.set_label('Libration Width [AU]')
+	ax2.set_xlabel('Mass of Perturber [m$_{jup}$]')
+	ax2.set_ylabel('Eccentricity of Perturber')
+	ax2.set_xscale('log')
+	ax2.set_yscale('log')
+	ax2.set_title('2:1 MMR')
+
+	plt.tight_layout()
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+def make_e_and_m_surf_den():
+	file_str = 'figures/e_and_m_surf_den.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	nbins=80
+
+	p_e1 = pb.analysis.profile.Profile(pl_e1, min=a_in, max=a_out, nbins=nbins)
+	surf_den_e1 = (p_e1['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
+	p_e = pb.analysis.profile.Profile(pl_e, min=a_in, max=a_out, nbins=nbins)
+	surf_den_e = (p_e['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
+	p_e2 = pb.analysis.profile.Profile(pl_e2, min=a_in, max=a_out, nbins=nbins)
+	surf_den_e2 = (p_e2['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
+
+	p_m1 = pb.analysis.profile.Profile(pl_m1, min=a_in, max=a_out, nbins=nbins)
+	surf_den_m1 = (p_m1['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
+	p_m2 = pb.analysis.profile.Profile(pl_m2, min=a_in, max=a_out, nbins=nbins)
+	surf_den_m2 = (p_m2['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
+
+	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True)
+	ax1.plot(p_e1['rbins'], surf_den_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax1.plot(p_e['rbins'], surf_den_e, label=r'e$_{pl}$ = e$_{jup}$')
+	ax1.plot(p_e2['rbins'], surf_den_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
+	ax1.set_ylabel(r'Surface Density [g cm$^{-2}$]')
+	ax1.legend()
+
+	ax2.plot(p_m1['rbins'], surf_den_m1, label=r'm$_{pl}$ = 1/2 m$_{jup}$')
+	ax2.plot(p_e['rbins'], surf_den_e, label=r'm$_{pl}$ = m$_{jup}$')
+	ax2.plot(p_m2['rbins'], surf_den_m2, label=r'm$_{pl}$ = 2 m$_{jup}$')
+	ax2.set_xlabel('Heliocentric Distance [AU]')
+	ax2.set_ylabel(r'Surface Density [g cm$^{-2}$]')
+	ax2.legend()
+
+	plt.tight_layout()
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
 #make_xy()
 #make_ae()
 #make_long_ph()
 #make_coll_hist_a()
 #make_coll_hist_r()
-make_coll_hist_e_and_m()
+#make_coll_hist_e_and_m()
+#make_lib_width()
+make_e_and_m_surf_den()
