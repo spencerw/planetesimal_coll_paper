@@ -100,13 +100,13 @@ nbins = 30
 # Regenerate existing plots?
 clobber = True
 fmt = 'png'
-s = 0.005
+s = 0.0001
 
 # Collision log data
 
 # Circular Jupiter case
-mc_c = s0_c['mass'][0]
-coll_c_log = coll.CollisionLog(path + 'hkshiftfullJupCirc/collisions', mc_c)
+mc = s0_c['mass'][0]
+coll_c_log = coll.CollisionLog(path + 'hkshiftfullJupCirc/collisions', mc)
 coll_c = coll_c_log.coll
 # The v2y output in the collision log is messed up. Fortunately, we can recover it from
 # v1y and vNewy
@@ -115,11 +115,41 @@ coll_c = coll_c[np.logical_and(coll_c['time']/(2*np.pi) <= t_max, coll_c['time']
 
 # Eccentric Jupiter case
 mc_e = s0_e['mass'][0]
-coll_e_log = coll.CollisionLog(path + 'hkshiftfull/collisions', mc_e)
+coll_e_log = coll.CollisionLog(path + 'hkshiftfull/collisions', mc)
 coll_e = coll_e_log.coll
 # Fix the v2y output again
 coll_e['v2y'] = (coll_e['m1']*coll_e['v1y'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewy'])/coll_e['m2']
 coll_e = coll_e[np.logical_and(coll_e['time']/(2*np.pi) <= t_max, coll_e['time']/(2*np.pi) >= t_skip)]
+
+# Low eccentricity Jupiter
+mc_e = s0_e['mass'][0]
+coll_e1_log = coll.CollisionLog(path + 'e1/collisions', mc)
+coll_e1 = coll_e1_log.coll
+# Fix the v2y output again
+coll_e1['v2y'] = (coll_e1['m1']*coll_e1['v1y'] - (coll_e1['m1'] + coll_e1['m2'])*coll_e1['vNewy'])/coll_e1['m2']
+
+# High eccentricity Jupiter
+mc_e = s0_e['mass'][0]
+coll_e2_log = coll.CollisionLog(path + 'e2/collisions', mc)
+coll_e2 = coll_e2_log.coll
+# Fix the v2y output again
+coll_e2['v2y'] = (coll_e2['m1']*coll_e2['v1y'] - (coll_e2['m1'] + coll_e2['m2'])*coll_e2['vNewy'])/coll_e2['m2']
+coll_e2 = coll_e2
+
+# Low mass Jupiter
+mc_e = s0_e['mass'][0]
+coll_m1_log = coll.CollisionLog(path + 'm1/collisions', mc)
+coll_m1 = coll_m1_log.coll
+# Fix the v2y output again
+coll_m1['v2y'] = (coll_m1['m1']*coll_m1['v1y'] - (coll_m1['m1'] + coll_m1['m2'])*coll_m1['vNewy'])/coll_m1['m2']
+
+# High mass Jupiter
+mc_e = s0_e['mass'][0]
+coll_m2_log = coll.CollisionLog(path + 'm2/collisions', mc)
+coll_m2 = coll_m2_log.coll
+# Fix the v2y output again
+coll_m2['v2y'] = (coll_e2['m1']*coll_m2['v1y'] - (coll_m2['m1'] + coll_m2['m2'])*coll_m2['vNewy'])/coll_m2['m2']
+coll_m2 = coll_m2
 
 # Positions of particles in polar coordinates
 s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
@@ -280,59 +310,44 @@ def make_coll_hist_r():
 	plt.tight_layout(h_pad=0)
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
-def make_m_hist():
-	file_str = 'figures/m_hist.' + fmt
+def make_coll_hist_e_and_m():
+	file_str = 'figures/coll_hist_e_and_m.' + fmt
 	if not clobber and os.path.exists(file_str):
 		return
 
-	a11, a12 = 3.2, 3.34
-	a21, a22 = 2.7, 2.8
+	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True, sharey=True)
 
-	def ang_diff(ang1, ang2):
-		return ((ang1 - ang2) + np.pi)%(2*np.pi) - np.pi
+	coll_dist_e1 = np.sqrt(coll_e1['x1x']**2 + coll_e1['x1y']**2)
+	coll_bins_r_e1, coll_pdf_r_e1 = kde(coll_dist_e1)
+	coll_dist_e = np.sqrt(coll_e['x1x']**2 + coll_e['x1y']**2)
+	coll_bins_r_e, coll_pdf_r_e = kde(coll_dist_e)
+	coll_dist_e2 = np.sqrt(coll_e2['x1x']**2 + coll_e2['x1y']**2)
+	coll_bins_r_e2, coll_pdf_r_e2 = kde(coll_dist_e2)
+	coll_dist_m1 = np.sqrt(coll_m1['x1x']**2 + coll_m1['x1y']**2)
+	coll_bins_r_m1, coll_pdf_r_m1 = kde(coll_dist_m1)
+	coll_dist_m2 = np.sqrt(coll_m2['x1x']**2 + coll_m2['x1y']**2)
+	coll_bins_r_m2, coll_pdf_r_m2 = kde(coll_dist_m2)
 
-	fig, ax = plt.subplots(2, 2, figsize=(16,12))
+	ax1.plot(coll_bins_r_e1, coll_pdf_r_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
+	ax1.plot(coll_bins_r_e, coll_pdf_r_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
+	ax1.plot(coll_bins_r_e2, coll_pdf_r_e2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
 
-	mask = np.logical_and(a_c_e1 > a11, a_c_e1 < a12)
-	hist, bins = np.histogram(M_c_e1[mask], bins=np.linspace(0, 2*np.pi, num=20))
-	bins = 0.5*(bins[1:] + bins[:-1])
-	ax[0,0].plot(bins, hist, linestyle='steps-mid')
-	ax[0,0].set_xlabel('Mean Anomaly')
-	ax[0,0].set_ylabel('Number of Collisions')
-	ax[0,0].set_ylim(0, np.max(hist)*1.1)
-	ax[0,0].set_title(str(a11) + ' < a < ' + str(a12) + ' (' + str(len(M_c_e1[mask])) + ' coll)')
+	ax2.plot(coll_bins_r_m1, coll_pdf_r_m1, label=r'm$_{pl}$ = 1/2 m$_{jup}$', linestyle='steps-mid')
+	ax2.plot(coll_bins_r_e, coll_pdf_r_e, label=r'm$_{pl}$ = m$_{jup}$', linestyle='steps-mid')
+	ax2.plot(coll_bins_r_m2, coll_pdf_r_m2, label=r'm$_{pl}$ = 2 m$_{jup}$', linestyle='steps-mid')
 
-	mask = np.logical_and(a_c_e1 > a21, a_c_e1 < a22)
-	hist, bins = np.histogram(M_c_e1[mask], bins=np.linspace(0, 2*np.pi, num=20))
-	bins = 0.5*(bins[1:] + bins[:-1])
-	ax[1,0].plot(bins, hist, linestyle='steps-mid')
-	ax[1,0].set_xlabel('Mean Anomaly')
-	ax[1,0].set_ylabel('Number of Collisions')
-	ax[1,0].set_ylim(0, np.max(hist)*1.1)
-	ax[1,0].set_title(str(a21) + ' < a < ' + str(a22) + ' (' + str(len(M_c_e1[mask])) + ' coll)')
+	ax1.set_ylabel('dn/dr')
+	ax2.set_xlabel('Heliocentric Distance [AU]')
+	ax2.set_ylabel('dn/dr')
 
-	mask = np.logical_and(a_c_c1 > a11, a_c_c1 < a12)
-	hist, bins = np.histogram(M_c_c1[mask], bins=np.linspace(0, 2*np.pi, num=20))
-	bins = 0.5*(bins[1:] + bins[:-1])
-	ax[0,1].plot(bins, hist, linestyle='steps-mid')
-	ax[0,1].set_xlabel('Mean Anomaly')
-	ax[0,1].set_ylabel('Number of Collisions')
-	ax[0,1].set_ylim(0, np.max(hist)*1.1)
-	ax[0,1].set_title(str(a11) + ' < a < ' + str(a12) + ' (' + str(len(M_c_c1[mask])) + ' coll)')
+	ax1.legend()
+	ax2.legend()
 
-	mask = np.logical_and(a_c_c1 > a21, a_c_c1 < a22)
-	hist, bins = np.histogram(M_c_c1[mask], bins=np.linspace(0, 2*np.pi, num=20))
-	bins = 0.5*(bins[1:] + bins[:-1])
-	ax[1,1].plot(bins, hist, linestyle='steps-mid')
-	ax[1,1].set_xlabel('Mean Anomaly')
-	ax[1,1].set_ylabel('Number of Collisions')
-	ax[1,1].set_ylim(0, np.max(hist)*1.1)
-	ax[1,1].set_title(str(a21) + ' < a < ' + str(a22) + ' (' + str(len(M_c_c1[mask])) + ' coll)')
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
-
 
 make_xy()
 make_ae()
 make_long_ph()
 make_coll_hist_a()
 make_coll_hist_r()
+make_coll_hist_e_and_m()
