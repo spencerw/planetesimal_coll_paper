@@ -39,8 +39,8 @@ ecc_jup = 0.048
 
 # Build a PDF from a series of data points using a KDE
 from sklearn.neighbors import KernelDensity
-def kde(qty, bw=0.01):
-    bins = np.linspace(np.log10(np.min(qty)), np.log10(np.max(qty)))
+def kde(qty, bw=0.1):
+    bins = np.linspace(np.min(qty), np.max(qty))
     
     def kde_helper(x, x_grid, **kwargs):
         kde_skl = KernelDensity(kernel='tophat', bandwidth=bw, **kwargs)
@@ -48,10 +48,9 @@ def kde(qty, bw=0.01):
         log_pdf = kde_skl.score_samples(x_grid[:, np.newaxis])
         return np.exp(log_pdf)
     
-    pdf = kde_helper(np.log10(qty), bins)
-    cum_df = np.cumsum(pdf[::-1])[::-1]
+    pdf = kde_helper(qty, bins)
     
-    return 10.**bins, pdf
+    return bins, pdf
 
 def e_forced(a, ecc_jup):
 	return ko.lap(2, 3/2, a/a_jup)/ko.lap(1, 3/2, a/a_jup)*ecc_jup
@@ -59,13 +58,13 @@ def e_forced(a, ecc_jup):
 # Width of a resonance with jupiter (in AU)
 # Assume body has an eccentricity of e_forced
 def res_width_jup(p, q, ecc_jup=ecc_jup, m_jup=m_jup):
-    j1 = p + q
-    j2 = -p
-    alpha = (-j2/j1)**(2./3.)
-    dist = alpha*a_jup
-    ecc = e_forced(dist, ecc_jup)
-    rw = ko.res_width(m_jup, mc, ecc, j1, j2)*dist
-    return rw
+	j1 = p + q
+	j2 = -p
+	alpha = (-j2/j1)**(2./3.)
+	ecc = ko.lap(2, 3/2, alpha)/ko.lap(1, 3/2, alpha)*ecc_jup
+	dist = alpha*a_jup
+	rw = ko.res_width(m_jup, mc, ecc, j1, j2)*dist
+	return rw
 
 def plot_res(axis, res=-1, vertical=True, show_widths=False):
 	xmin, xmax = axis.get_xlim()
@@ -132,50 +131,41 @@ s = 0.0001
 # Circular Jupiter case
 mc = s0_c['mass'][0]
 mj = s0_c['mass'][1]
-coll_c_log = coll.CollisionLog(path + 'hkshiftfullJupCirc/collisions', mc)
+coll_c_log = coll.CollisionLog(path + 'hkshiftfullJupCirc/collisions', mc, fix_v2y=True)
 coll_c = coll_c_log.coll
-# The v2y output in the collision log is messed up. Fortunately, we can recover it from
-# v1y and vNewy
-coll_c['v2y'] = (coll_c['m1']*coll_c['v1y'] - (coll_c['m1'] + coll_c['m2'])*coll_c['vNewy'])/coll_c['m2']
 coll_c = coll_c[np.logical_and(coll_c['time']/(2*np.pi) <= t_max, coll_c['time']/(2*np.pi) >= t_skip)]
+coll_c['dist2'] = np.sqrt(coll_c['x2x']**2 + coll_c['x2y']**2)
 
 # Eccentric Jupiter case
 mc_e = s0_e['mass'][0]
-coll_e_log = coll.CollisionLog(path + 'hkshiftfull/collisions', mc)
+coll_e_log = coll.CollisionLog(path + 'hkshiftfull/collisions', mc, fix_v2y=True)
 coll_e = coll_e_log.coll
-# Fix the v2y output again
-coll_e['v2y'] = (coll_e['m1']*coll_e['v1y'] - (coll_e['m1'] + coll_e['m2'])*coll_e['vNewy'])/coll_e['m2']
 coll_e = coll_e[np.logical_and(coll_e['time']/(2*np.pi) <= t_max, coll_e['time']/(2*np.pi) >= t_skip)]
+coll_e['dist2'] = np.sqrt(coll_e['x2x']**2 + coll_e['x2y']**2)
 
 # Low eccentricity Jupiter
 mc_e = s0_e['mass'][0]
-coll_e1_log = coll.CollisionLog(path + 'e1/collisions', mc)
+coll_e1_log = coll.CollisionLog(path + 'e1/collisions', mc, fix_v2y=True)
 coll_e1 = coll_e1_log.coll
-# Fix the v2y output again
-coll_e1['v2y'] = (coll_e1['m1']*coll_e1['v1y'] - (coll_e1['m1'] + coll_e1['m2'])*coll_e1['vNewy'])/coll_e1['m2']
+coll_e1['dist2'] = np.sqrt(coll_e1['x2x']**2 + coll_e1['x2y']**2)
 
 # High eccentricity Jupiter
 mc_e = s0_e['mass'][0]
-coll_e2_log = coll.CollisionLog(path + 'e2/collisions', mc)
+coll_e2_log = coll.CollisionLog(path + 'e2/collisions', mc, fix_v2y=True)
 coll_e2 = coll_e2_log.coll
-# Fix the v2y output again
-coll_e2['v2y'] = (coll_e2['m1']*coll_e2['v1y'] - (coll_e2['m1'] + coll_e2['m2'])*coll_e2['vNewy'])/coll_e2['m2']
-coll_e2 = coll_e2
+coll_e2['dist2'] = np.sqrt(coll_e2['x2x']**2 + coll_e2['x2y']**2)
 
 # Low mass Jupiter
 mc_e = s0_e['mass'][0]
-coll_m1_log = coll.CollisionLog(path + 'm1/collisions', mc)
+coll_m1_log = coll.CollisionLog(path + 'm1/collisions', mc, fix_v2y=True)
 coll_m1 = coll_m1_log.coll
-# Fix the v2y output again
-coll_m1['v2y'] = (coll_m1['m1']*coll_m1['v1y'] - (coll_m1['m1'] + coll_m1['m2'])*coll_m1['vNewy'])/coll_m1['m2']
+coll_m1['dist2'] = np.sqrt(coll_m1['x2x']**2 + coll_m1['x2y']**2)
 
 # High mass Jupiter
 mc_e = s0_e['mass'][0]
-coll_m2_log = coll.CollisionLog(path + 'm2/collisions', mc)
+coll_m2_log = coll.CollisionLog(path + 'm2/collisions', mc, fix_v2y=True)
 coll_m2 = coll_m2_log.coll
-# Fix the v2y output again
-coll_m2['v2y'] = (coll_e2['m1']*coll_m2['v1y'] - (coll_m2['m1'] + coll_m2['m2'])*coll_m2['vNewy'])/coll_m2['m2']
-coll_m2 = coll_m2
+coll_m2['dist2'] = np.sqrt(coll_m2['x2x']**2 + coll_m2['x2y']**2)
 
 # Positions of particles in polar coordinates
 x_c, y_c = pl_c['pos'][:,0], pl_c['pos'][:,1]
@@ -385,87 +375,149 @@ def make_coll_hist_e_and_m():
 	plt.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
-def make_lib_width():
-	file_str = 'figures/lib_width.' + fmt
+def make_coll_hist_hot_cold_a():
+	file_str = 'figures/coll_hist_hot_cold_a.' + fmt
 	if not clobber and os.path.exists(file_str):
 		return
 
-	# 3:1 MMR
-	res_idx = 0
-	ecc_perturber = np.logspace(np.log10(1e-3), np.log10(5e-1))
-	ecc_vals = e_forced(res_dist[res_idx], ecc_perturber)
-	mass_vals = np.logspace(np.log10(mj/100), np.log10(mj*10))
+	def coll_hot_cold(coll):
+		xv_rel = coll['v2x'] - coll['v1x']
+		yv_rel = coll['v2y'] - coll['v1y']
+		zv_rel = coll['v2z'] - coll['v1z']
+		coll_speed = np.sqrt(xv_rel**2 + yv_rel**2 + zv_rel**2)
+		mut_escape = np.sqrt(2*np.min(coll['m1'])/np.min(coll['r1']))
+		coll_hot = coll[coll_speed/mut_escape > 1]
+		coll_cold = coll[coll_speed/mut_escape < 1]
+		return coll_hot, coll_cold
 
-	rw_vals_31 = np.zeros((len(ecc_vals), len(mass_vals)))
-	for idx in range(len(mass_vals)):
-	    rw_vals_31[idx] = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_vals, mass_vals[idx])
+	coll_e1_hot, coll_e1_cold = coll_hot_cold(coll_e1)
+	coll_e2_hot, coll_e2_cold = coll_hot_cold(coll_e2)
 
-	# 2:1 MMR
-	res_idx = 1
-	ecc_vals = e_forced(res_dist[res_idx], ecc_perturber)
-	rw_vals_21 = np.zeros((len(ecc_vals), len(mass_vals)))
-	for idx in range(len(mass_vals)):
-	    rw_vals_21[idx] = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_vals, mass_vals[idx])
+	coll_bins_a_e1_cold, coll_pdf_a_e1_cold = kde(coll_e1_cold['a1'])
+	coll_bins_a_e1_hot, coll_pdf_a_e1_hot = kde(coll_e1_hot['a1'])
+	coll_bins_a_e2_cold, coll_pdf_a_e2_cold = kde(coll_e2_cold['a1'])
+	coll_bins_a_e2_hot, coll_pdf_a_e2_hot = kde(coll_e2_hot['a1'])
 
-	# Points to mark jupiter masses and eccentricities that we've tried
-	mvals = [0.5, 1, 2, 1 , 1]
-	evals = [0.048, 0.048, 0.048, 0.024, 0.096]
+	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True, sharey=True)
 
-	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2)
-	cmap = mpl.cm.get_cmap('inferno_r', 10)
-	cax = ax1.pcolormesh(mass_vals/mj, ecc_perturber, np.flipud(np.rot90(rw_vals_31)), norm=mpl.colors.LogNorm(vmin=1e-3, vmax=1), cmap=cmap)
-	ax1.scatter(mvals, evals, color='r', s=100)
-	ax1.set_xlabel('Mass of Perturber [m$_{jup}$]')
-	ax1.set_ylabel('Eccentricity of Perturber')
-	ax1.set_xscale('log')
-	ax1.set_yscale('log')
-	ax1.set_title('3:1 MMR')
-	cax = ax2.pcolormesh(mass_vals/mj, ecc_perturber, np.flipud(np.rot90(rw_vals_21)), norm=mpl.colors.LogNorm(vmin=1e-3, vmax=1), cmap=cmap)
-	ax2.scatter(mvals, evals, color='r', s=100)
-	cb = fig.colorbar(cax)
-	cb.set_label('Libration Width [AU]')
-	ax2.set_xlabel('Mass of Perturber [m$_{jup}$]')
-	ax2.set_ylabel('Eccentricity of Perturber')
-	ax2.set_xscale('log')
-	ax2.set_yscale('log')
-	ax2.set_title('2:1 MMR')
+	ax[0].plot(coll_bins_a_e1_cold, coll_pdf_a_e1_cold, label=r'Cold Collisions (v < v$_{esc}$)')
+	ax[0].plot(coll_bins_a_e1_hot, coll_pdf_a_e1_hot, label=r'Hot Collisions (v > v$_{esc}$)')
+	ax[1].plot(coll_bins_a_e2_cold, coll_pdf_a_e2_cold, label=r'Cold Collisions (v < v$_{esc}$)')
+	ax[1].plot(coll_bins_a_e2_hot, coll_pdf_a_e2_hot, label=r'Hot Collisions (v > v$_{esc}$)')
+	ax[0].set_title(r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax[0].legend()
+	ax[0].set_ylabel('dn/da')
+	ax[0].set_xlabel('Semimajor Axis [AU]')
+	ax[1].set_xlabel('Semimajor Axis [AU]')
+	ax[1].set_title(r'e$_{pl}$ = 2 e$_{jup}$')
 
 	plt.tight_layout()
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+def make_coll_gf_vary():
+	file_str = 'figures/coll_gf_vary.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	v_mut_esc = np.sqrt(2*np.min(pl_e['mass'])/np.min(pl_e['eps'][1:]*2))
+	ecc_vals = np.logspace(-3, -0.8)
+	vrel_vals_31 = ecc_vals*np.sqrt(1/res_dist[0])
+	vrel_vals_21 = ecc_vals*np.sqrt(1/res_dist[2])
+	cross_31 = (1+v_mut_esc**2/vrel_vals_31**2)*vrel_vals_31
+	cross_21 = (1+v_mut_esc**2/vrel_vals_21**2)*vrel_vals_21
+
+	fig, axes = plt.subplots(figsize=(8,8))
+	axes.plot(ecc_vals, cross_31/cross_31[0], label='3:1 MMR')
+	axes.plot(ecc_vals, cross_21/cross_21[0], label='2:1 MMR')
+
+	axes.set_xscale('log')
+	axes.legend()
+	axes.set_xlabel(r'$\left< e^{2} \right>^{1/2}$')
+	axes.set_ylabel(r'$\left< \sigma v \right>$/$\left< \sigma v \right>_{0}$')
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
-def make_e_and_m_surf_den():
-	file_str = 'figures/e_and_m_surf_den.' + fmt
+def make_coll_hist_r_inout_res():
+	file_str = 'figures/coll_hist_r_inout_res.' + fmt
 	if not clobber and os.path.exists(file_str):
 		return
 
-	nbins=80
+	a21_in, a21_out = 3.2, 3.35
 
-	p_e1 = pb.analysis.profile.Profile(pl_e1, min=a_in, max=a_out, nbins=nbins)
-	surf_den_e1 = (p_e1['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
-	p_e = pb.analysis.profile.Profile(pl_e, min=a_in, max=a_out, nbins=nbins)
-	surf_den_e = (p_e['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
-	p_e2 = pb.analysis.profile.Profile(pl_e2, min=a_in, max=a_out, nbins=nbins)
-	surf_den_e2 = (p_e2['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
+	def coll_in_out_21(coll):
+		mask = np.logical_and(coll['a1'] > a21_in, coll['a1'] < a21_out)
+		coll_in = coll[mask]
+		coll_out = coll[~mask]
+		return coll_in, coll_out
 
-	p_m1 = pb.analysis.profile.Profile(pl_m1, min=a_in, max=a_out, nbins=nbins)
-	surf_den_m1 = (p_m1['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
-	p_m2 = pb.analysis.profile.Profile(pl_m2, min=a_in, max=a_out, nbins=nbins)
-	surf_den_m2 = (p_m2['density']*u.M_sun/u.AU**2).to(u.g/u.cm**2)
+	coll_in_21_e1, coll_out_21_e1 = coll_in_out_21(coll_e1)
+	coll_in_21_e2, coll_out_21_e2 = coll_in_out_21(coll_e2)
 
-	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True)
-	ax1.plot(p_e1['rbins'], surf_den_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
-	ax1.plot(p_e['rbins'], surf_den_e, label=r'e$_{pl}$ = e$_{jup}$')
-	ax1.plot(p_e2['rbins'], surf_den_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
-	ax1.set_ylabel(r'Surface Density [g cm$^{-2}$]')
-	ax1.legend()
+	coll_bins_in_21_e1, coll_pdf_in_21_e1 = kde(coll_in_21_e1['dist2'])
+	coll_bins_out_21_e1, coll_pdf_out_21_e1 = kde(coll_out_21_e1['dist2'])
+	coll_bins_in_21_e2, coll_pdf_in_21_e2 = kde(coll_in_21_e2['dist2'])
+	coll_bins_out_21_e2, coll_pdf_out_21_e2 = kde(coll_out_21_e2['dist2'])
 
-	ax2.plot(p_m1['rbins'], surf_den_m1, label=r'm$_{pl}$ = 1/2 m$_{jup}$')
-	ax2.plot(p_e['rbins'], surf_den_e, label=r'm$_{pl}$ = m$_{jup}$')
-	ax2.plot(p_m2['rbins'], surf_den_m2, label=r'm$_{pl}$ = 2 m$_{jup}$')
-	ax2.set_xlabel('Heliocentric Distance [AU]')
-	ax2.set_ylabel(r'Surface Density [g cm$^{-2}$]')
-	ax2.legend()
+	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True, sharey=True)
+	ax[0].plot(coll_bins_in_21_e1, coll_pdf_in_21_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax[0].plot(coll_bins_in_21_e2, coll_pdf_in_21_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
+	ax[1].plot(coll_bins_out_21_e1, coll_pdf_out_21_e1)
+	ax[1].plot(coll_bins_out_21_e2, coll_pdf_out_21_e2)
+	ax[0].legend()
+	ax[0].set_xlabel('Heliocentric Distance [AU]')
+	ax[0].set_title(str(a21_in) + ' < a < ' + str(a21_out))
+	ax[1].set_xlabel('Heliocentric Distance [AU]')
+	ax[0].set_ylabel('dn/dr')
+	ax[1].set_title(str(a21_in) + ' > a > ' + str(a21_out))
+
+	plt.tight_layout()
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+def make_wander_res_scale():
+	file_str = 'figures/wander_res_scale.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	jup_ecc_fac = [0.5, 1, 2]
+	labels = ['e$_{pl}$ = 1/2 e$_{jup}$', 'e$_{pl}$ = e$_{jup}$', 'e$_{pl}$ = 2 e$_{jup}$']
+
+	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2)
+
+	res_idx = 0
+	for idx, jef in enumerate(jup_ecc_fac):
+		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
+
+		avals = np.linspace(2,4)
+		evals = np.zeros_like(avals)
+		for idx1, val in enumerate(avals):
+			evals[idx1] = e_forced(val, ecc_jup*jef)
+
+		color = next(ax[0]._get_lines.prop_cycler)['color']
+		ax[0].axhline(rw*2, color=color, linestyle='--')
+		ax[0].axvline(res_dist[0], linestyle='--', color='k')
+		ax[0].plot(avals, avals*(1+evals) - avals, color=color)
+		ax[0].set_xlim(2, 3)
+		ax[0].set_xlabel('Semimajor Axis [AU]')
+		ax[0].set_ylabel('Size Scale [AU]')
+		ax[0].set_title('3:1 MMR')
+
+	res_idx = 2
+	for idx, jef in enumerate(jup_ecc_fac):
+		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
+
+		avals = np.linspace(2,4)
+		evals = np.zeros_like(avals)
+		for idx1, val in enumerate(avals):
+			evals[idx1] = e_forced(val, ecc_jup*jef)
+
+		color = next(ax[1]._get_lines.prop_cycler)['color']
+		ax[1].axhline(rw*2, color=color, linestyle='--')
+		ax[1].axvline(res_dist[1], linestyle='--', color='k')
+		ax[1].plot(avals, avals*(1+evals) - avals, color=color, label=labels[idx])
+		ax[1].set_xlim(2.87, 3.67)
+		ax[1].set_xlabel('Semimajor Axis [AU]')
+		ax[1].set_title('2:1 MMR')
+		ax[1].legend()
 
 	plt.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
@@ -476,5 +528,7 @@ def make_e_and_m_surf_den():
 #make_coll_hist_a()
 #make_coll_hist_r()
 #make_coll_hist_e_and_m()
-#make_lib_width()
-make_e_and_m_surf_den()
+make_coll_hist_hot_cold_a()
+#make_coll_gf_vary()
+#make_coll_hist_r_inout_res()
+make_wander_res_scale()
