@@ -39,7 +39,7 @@ ecc_jup = 0.048
 
 # Build a PDF from a series of data points using a KDE
 from sklearn.neighbors import KernelDensity
-def kde(qty, bw=0.1):
+def kde(qty, bw=0.05):
     bins = np.linspace(np.min(qty), np.max(qty))
     
     def kde_helper(x, x_grid, **kwargs):
@@ -264,11 +264,11 @@ def make_coll_hist_a():
 	coll_bins_a_e, coll_pdf_a_e = kde(coll_e['a1'])
 
 	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True)
-	ax1.plot(coll_bins_a_c, coll_pdf_a_c, linestyle='steps-mid')
+	ax1.plot(coll_bins_a_c, coll_pdf_a_c)
 	plot_res(ax1, show_widths=False)
 	ax1.set_ylabel('dN/da')
 	ax1.set_title('Circular Jupiter')
-	ax2.plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
+	ax2.plot(coll_bins_a_e, coll_pdf_a_e)
 	plot_res(ax2, show_widths=False)
 	ax2.set_xlabel('Semimajor Axis [AU]')
 	ax2.set_ylabel('dN/da')
@@ -297,7 +297,7 @@ def make_coll_hist_r():
 
 	fig, ax = plt.subplots(figsize=(16,12), nrows=3, ncols=2, sharey='row', sharex='col')
 	
-	ax[0][0].plot(coll_bins_r_c, coll_pdf_r_c, linestyle='steps-mid')
+	ax[0][0].plot(coll_bins_r_c, coll_pdf_r_c)
 	plot_res(ax[0][0])
 	ax[0][0].set_ylabel('dN/dr')
 	ax[0][0].set_title('Circular Jupiter')
@@ -310,7 +310,7 @@ def make_coll_hist_r():
 	ax[2][0].set_xlim(a_in, a_out)
 	ax[2][0].set_ylim(-0.02, 0.35)
 
-	ax[0][1].plot(coll_bins_r_e, coll_pdf_r_e, linestyle='steps-mid')
+	ax[0][1].plot(coll_bins_r_e, coll_pdf_r_e)
 	plot_res(ax[0][1])
 	ax[0][1].set_ylabel('dN/dr')
 	ax[0][1].set_title('Eccentric Jupiter')
@@ -331,38 +331,48 @@ def make_coll_hist_e_and_m():
 
 	fig, ax = plt.subplots(figsize=(16,12), nrows=2, ncols=2, sharex=True, sharey=True)
 
-	coll_bins_a_e1, coll_pdf_a_e1 = kde(coll_e1['a1'])
 	coll_bins_a_e, coll_pdf_a_e = kde(coll_e['a1'])
+
+	coll_bins_a_e1, coll_pdf_a_e1 = kde(coll_e1['a1'])
+	coll_pdf_a_e1 *= len(coll_e1)/len(coll_e)
 	coll_bins_a_e2, coll_pdf_a_e2 = kde(coll_e2['a1'])
+	coll_pdf_a_e2 *= len(coll_e2)/len(coll_e)
 	coll_bins_a_m1, coll_pdf_a_m1 = kde(coll_m1['a1'])
+	coll_pdf_a_m1 *= len(coll_m1)/len(coll_e)
 	coll_bins_a_m2, coll_pdf_a_m2 = kde(coll_m2['a1'])
+	coll_pdf_a_m2 *= len(coll_m2)/len(coll_e)
+
+	coll_dist_e = np.sqrt(coll_e['x1x']**2 + coll_e['x1y']**2)
+	coll_bins_r_e, coll_pdf_r_e = kde(coll_dist_e)
 
 	coll_dist_e1 = np.sqrt(coll_e1['x1x']**2 + coll_e1['x1y']**2)
 	coll_bins_r_e1, coll_pdf_r_e1 = kde(coll_dist_e1)
-	coll_dist_e = np.sqrt(coll_e['x1x']**2 + coll_e['x1y']**2)
-	coll_bins_r_e, coll_pdf_r_e = kde(coll_dist_e)
+	coll_pdf_r_e1 *= len(coll_e1)/len(coll_e)
 	coll_dist_e2 = np.sqrt(coll_e2['x1x']**2 + coll_e2['x1y']**2)
 	coll_bins_r_e2, coll_pdf_r_e2 = kde(coll_dist_e2)
+	coll_pdf_r_e2 *= len(coll_e2)/len(coll_e)
 	coll_dist_m1 = np.sqrt(coll_m1['x1x']**2 + coll_m1['x1y']**2)
 	coll_bins_r_m1, coll_pdf_r_m1 = kde(coll_dist_m1)
+	coll_pdf_r_m1 *= len(coll_m1)/len(coll_e)
 	coll_dist_m2 = np.sqrt(coll_m2['x1x']**2 + coll_m2['x1y']**2)
 	coll_bins_r_m2, coll_pdf_r_m2 = kde(coll_dist_m2)
+	coll_pdf_r_m2 *= len(coll_m2)/len(coll_e)
 
-	ax[0][0].plot(coll_bins_a_e1, coll_pdf_a_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
-	ax[0][0].plot(coll_bins_a_e, coll_pdf_a_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
-	ax[0][0].plot(coll_bins_a_e2, coll_pdf_a_e2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
+	ax[0][0].plot(coll_bins_a_e1, coll_pdf_a_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax[0][0].plot(coll_bins_a_e, coll_pdf_a_e, label=r'e$_{pl}$ = e$_{jup}$')
+	ax[0][0].plot(coll_bins_a_e2, coll_pdf_a_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
 
-	ax[1][0].plot(coll_bins_a_m1, coll_pdf_a_m1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
-	ax[1][0].plot(coll_bins_a_e, coll_pdf_a_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
-	ax[1][0].plot(coll_bins_a_m2, coll_pdf_a_m2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
+	ax[1][0].plot(coll_bins_a_m1, coll_pdf_a_m1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax[1][0].plot(coll_bins_a_e, coll_pdf_a_e, label=r'e$_{pl}$ = e$_{jup}$')
+	ax[1][0].plot(coll_bins_a_m2, coll_pdf_a_m2, label=r'e$_{pl}$ = 2 e$_{jup}$')
 
-	ax[0][1].plot(coll_bins_r_e1, coll_pdf_r_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$', linestyle='steps-mid')
-	ax[0][1].plot(coll_bins_r_e, coll_pdf_r_e, label=r'e$_{pl}$ = e$_{jup}$', linestyle='steps-mid')
-	ax[0][1].plot(coll_bins_r_e2, coll_pdf_r_e2, label=r'e$_{pl}$ = 2 e$_{jup}$', linestyle='steps-mid')
+	ax[0][1].plot(coll_bins_r_e1, coll_pdf_r_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax[0][1].plot(coll_bins_r_e, coll_pdf_r_e, label=r'e$_{pl}$ = e$_{jup}$')
+	ax[0][1].plot(coll_bins_r_e2, coll_pdf_r_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
 
-	ax[1][1].plot(coll_bins_r_m1, coll_pdf_r_m1, label=r'm$_{pl}$ = 1/2 m$_{jup}$', linestyle='steps-mid')
-	ax[1][1].plot(coll_bins_r_e, coll_pdf_r_e, label=r'm$_{pl}$ = m$_{jup}$', linestyle='steps-mid')
-	ax[1][1].plot(coll_bins_r_m2, coll_pdf_r_m2, label=r'm$_{pl}$ = 2 m$_{jup}$', linestyle='steps-mid')
+	ax[1][1].plot(coll_bins_r_m1, coll_pdf_r_m1, label=r'm$_{pl}$ = 1/2 m$_{jup}$')
+	ax[1][1].plot(coll_bins_r_e, coll_pdf_r_e, label=r'm$_{pl}$ = m$_{jup}$')
+	ax[1][1].plot(coll_bins_r_m2, coll_pdf_r_m2, label=r'm$_{pl}$ = 2 m$_{jup}$')
 
 	ax[0][0].set_ylabel('dn/dr')
 	ax[1][0].set_xlabel('Semimajor Axis [AU]')
@@ -395,8 +405,10 @@ def make_coll_hist_hot_cold_a():
 
 	coll_bins_a_e1_cold, coll_pdf_a_e1_cold = kde(coll_e1_cold['a1'])
 	coll_bins_a_e1_hot, coll_pdf_a_e1_hot = kde(coll_e1_hot['a1'])
+	coll_pdf_a_e1_hot *= len(coll_e1_hot)/len(coll_e1_cold)
 	coll_bins_a_e2_cold, coll_pdf_a_e2_cold = kde(coll_e2_cold['a1'])
 	coll_bins_a_e2_hot, coll_pdf_a_e2_hot = kde(coll_e2_hot['a1'])
+	coll_pdf_a_e2_hot *= len(coll_e2_hot)/len(coll_e2_cold)
 
 	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True, sharey=True)
 
@@ -454,11 +466,13 @@ def make_coll_hist_r_inout_res():
 	coll_in_21_e2, coll_out_21_e2 = coll_in_out_21(coll_e2)
 
 	coll_bins_in_21_e1, coll_pdf_in_21_e1 = kde(coll_in_21_e1['dist2'])
-	coll_bins_out_21_e1, coll_pdf_out_21_e1 = kde(coll_out_21_e1['dist2'])
 	coll_bins_in_21_e2, coll_pdf_in_21_e2 = kde(coll_in_21_e2['dist2'])
+	coll_pdf_in_21_e2 *= len(coll_in_21_e1)/len(coll_in_21_e2)
+	coll_bins_out_21_e1, coll_pdf_out_21_e1 = kde(coll_out_21_e1['dist2'])
 	coll_bins_out_21_e2, coll_pdf_out_21_e2 = kde(coll_out_21_e2['dist2'])
+	coll_pdf_out_21_e2 *= len(coll_out_21_e1)/len(coll_out_21_e2)
 
-	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True, sharey=True)
+	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True)
 	ax[0].plot(coll_bins_in_21_e1, coll_pdf_in_21_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
 	ax[0].plot(coll_bins_in_21_e2, coll_pdf_in_21_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
 	ax[1].plot(coll_bins_out_21_e1, coll_pdf_out_21_e1)
@@ -487,7 +501,7 @@ def make_wander_res_scale():
 	for idx, jef in enumerate(jup_ecc_fac):
 		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
 
-		avals = np.linspace(2,4)
+		avals = np.linspace(2,3)
 		evals = np.zeros_like(avals)
 		for idx1, val in enumerate(avals):
 			evals[idx1] = e_forced(val, ecc_jup*jef)
@@ -505,7 +519,7 @@ def make_wander_res_scale():
 	for idx, jef in enumerate(jup_ecc_fac):
 		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
 
-		avals = np.linspace(2,4)
+		avals = np.linspace(2.87,3.67)
 		evals = np.zeros_like(avals)
 		for idx1, val in enumerate(avals):
 			evals[idx1] = e_forced(val, ecc_jup*jef)
@@ -528,7 +542,7 @@ def make_wander_res_scale():
 #make_coll_hist_a()
 #make_coll_hist_r()
 #make_coll_hist_e_and_m()
-make_coll_hist_hot_cold_a()
+#make_coll_hist_hot_cold_a()
 #make_coll_gf_vary()
-#make_coll_hist_r_inout_res()
+make_coll_hist_r_inout_res()
 make_wander_res_scale()
