@@ -67,6 +67,9 @@ can be done quickly and efficiently. This considerably relaxes the constraints o
 explore the collision rate structure of the planetesimal disk in the vicinity of mean motion resonances. In particular, we would like to 
 determine: 1. whether MMRs leave a detectable signature in the collisionally-generated dust. 2. If these signatures can be used to determine the orbital properties of the perturbing planet.
 
+Also mention \citet{2020A&A...635A..10S}, looked at dust trapping in resonances with terrestrial SS planets. Also mention 
+\citet{2020arXiv200408736G}, detection of a planetesimal collision around Fomalhut.
+
 This work is organized in the following way: In section \ref{sec:dynamics}, we provide an overview of the relevant dynamics that drive 
 the evolution of a planetesimal disk under the gravitational influence of an external perturber. We also highlight the shortcomings of secular theory in trying to predict the radial collision rate and motivate the need for N-body simulations with massive, collisional particles. In section \ref{sec:sims} we describe the N-body code that we use and detail the initial conditions that are used for two simulations: one in which the perturber is on a circular orbit and another in which the perturber is given a mildly eccentric orbit. Section \ref{sec:results} presents the results of the two simulations. Next, we generate dust emission maps in section \ref{sec:dust}, under the assumption that collisionally-generated dust will quickly couple with the gas and circularize, and show that radial structure is produced in the vicinity of the MMRs. Using the dust emission maps, section \ref{sec:fitting} explores the feasibility of measuring properties of the perturbing planet from the MMR features in the dust. We then conclude in section \ref{sec:discuss}. 
 
@@ -253,11 +256,7 @@ MMR spikes also grows because the strength of a MMR scales as $e^{q}$, where $q$
 \begin{figure}
     \begin{center}
     \includegraphics[width=0.4\columnwidth]{figures/ae.png}
-    \caption{The semimajor axis - eccentricity state of the remaining planetesimals are shown at the end of the CJ (top) and EJ (bottom) 
-    simulations. The vertical bars mark the nominal locations of prominent resonances. Planetesimals affected by resonance with Jupiter gain
-     eccentricity, and due to conservation of the Jacobi energy, reduce their semimajor axes. This produces the curved fingerlike structure 
-     extending off of the resonances. In the EJ case, some bodies in resonance take on eccentricities smaller than their initial forced values as 
-     they undergo libration.\label{fig:ae}}
+    \caption{The semimajor axis and eccentricities of planetesimals at the end of the eccentric Jupiter simulations. Near the location of mean motion resonances, the resonant angle librates and drives corresponding oscillations in eccentricity. Due to the conservation of the Jacobi energy, these changes in eccentricity also drive slight, inward changes in semimajor axis.\label{fig:ae}}
     \end{center}
 \end{figure}
 
@@ -270,11 +269,8 @@ eccentricity of $e_{forced}$ at each resonance, which approximately shows the zo
 
 \begin{figure}
     \begin{center}
-    \includegraphics[width=0.4\columnwidth]{figures/long_ph.png}
-    \caption{The semimajor axis and pericenter orientation of remaining planetesimals at the end of the EJ simulation. All bodies start with their 
-    pericenters closely aligned with Jupiter's ($\varpi = \pi$). Near the resonances, bodies undergo strong precession which randomizes their 
-    orbital orientations. Two-body interactions between the planetesimals in resonance and nearby non-resonant planetesimals drags their 
-    longitude of perihelia along with.\label{fig:long_ph}}
+    \includegraphics[width=\columnwidth]{figures/long_ph.png}
+    \caption{The semimajor axis and pericenter orientation of remaining planetesimals at the end of the eccentric Jupiter simulations. When the forced eccentricity of the planetesimal disk is large, planetesimals near the edge of the mean motion resonances become more resistant to precession induced by the resonances.\label{fig:long_ph}}
     \end{center}
 \end{figure}
 
@@ -403,7 +399,7 @@ features can be used to place any constraints on the mass and eccentricity of th
 \begin{figure*}
     \begin{center}
     \includegraphics[width=\textwidth]{figures/coll_hist_r_inout_res.png}
-    \caption{KDE of the number of collisions at a given heliocentric distance for planetesimals inside (left) and outside (right) of the 2:1 MMR. In the $e_{pl} = 2 e_{jup}$ case, a bump, rather than a dip appears near the 2:1 MMR (see figure \ref{fig:coll_hist_e_and_m}). This bump is produced by non-resonant planetesimals undergoing collisions near the center of the 2:1 MMR.\label{fig:coll_hist_r_inout_res}}
+    \caption{KDE of the number of collisions at a given heliocentric distance for planetesimals inside (left) and outside (right) of the 2:1 MMR. In the $e_{pl} = 2 e_{jup}$ case, a bump, rather than a dip appears near the 2:1 MMR (see figure \ref{fig:coll_hist_e_and_m}). This bump is produced by non-resonant planetesimals undergoing collisions near the center of the 2:1 MMR. In the right panel, the dashed curves represent collisions where the longitude of perihelion of either collider was strongly misaligned with Jupiter. In the high eccentricity case, bodies near the edge of the resonance with randomly oriented orbits can reach across the resonance and collide with planetesimals on the other side.\label{fig:coll_hist_r_inout_res}}
     \end{center}
 \end{figure*}
 

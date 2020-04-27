@@ -226,19 +226,28 @@ def make_ae():
 
 	# Libration width varies with eccentricity so it doesn't make much sense
 	# to do show_widths=True here
-	fig, (ax1, ax2) = plt.subplots(figsize=(8,8), nrows=2, ncols=1, sharex=True, sharey=True)
-	ax1.scatter(pl_c['a'], pl_c['e'], s=s)
-	plot_res(ax1, show_widths=False)
-	ax1.set_ylabel('Eccentricity')
-	ax1.set_title('Circular Jupiter')
-	ax2.scatter(pl_e['a'], pl_e['e'], s=s)
-	plot_res(ax2, show_widths=False)
-	ax2.set_xlim(2, 4)
-	ax2.set_xlabel('Semimajor Axis [AU]')
-	ax2.set_ylabel('Eccentricity')
-	ax2.set_title('Eccentric Jupiter')
+	fig, ax = plt.subplots(figsize=(8,12), nrows=3, ncols=1, sharex=True, sharey=True)
+	ax[0].scatter(pl_e1['a'], pl_e1['e'], s=s)
+	#plot_res(ax[0], show_widths=False)
+	ax[0].set_ylabel('Eccentricity')
+	ax[0].set_title(r'e$_{pl}$ = 1/2 e$_{jup}$')
+
+	ax[1].scatter(pl_e['a'], pl_e['e'], s=s)
+	#plot_res(ax[1], show_widths=False)
+	ax[1].set_ylabel('Eccentricity')
+	ax[1].set_title(r'e$_{pl}$ = e$_{jup}$')
+
+	ax[2].scatter(pl_e2['a'], pl_e2['e'], s=s)
+	#plot_res(ax[2], show_widths=False)
+	ax[2].set_ylabel('Eccentricity')
+	ax[2].set_title(r'e$_{pl}$ = 2 e$_{jup}$')
+
+	ax[2].set_xlabel('Semimajor Axis [AU')
+
 	# sharey=true hides the tick labels
-	ax2.yaxis.set_tick_params(labelleft=True)
+	ax[2].yaxis.set_tick_params(labelleft=True)
+	ax[2].set_xlim(2, 4)
+	ax[2].set_ylim(-0.001, 0.2)
 	#plt.tight_layout(h_pad=0)
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -247,12 +256,22 @@ def make_long_ph():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	fig, ax = plt.subplots(figsize=(8,8))
-	ax.scatter((pl_e['asc_node'] + pl_e['omega'] + np.pi)%(2*np.pi), pl_e['a'], s=s)
-	plot_res(ax, vertical=False, show_widths=True)
-	ax.set_ylim(2, 4)
-	ax.set_xlabel('Longitude of Perihelion')
-	ax.set_ylabel('Semimajor Axis [AU]')
+	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=3, sharex=True, sharey=True)
+	ax[0].scatter((pl_e1['asc_node'] + pl_e1['omega'] + np.pi)%(2*np.pi), pl_e1['a'], s=s)
+	plot_res(ax[0], vertical=False, show_widths=True)
+	ax[0].set_title(label=r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax[0].set_ylim(2, 4)
+	ax[1].set_xlabel('Longitude of Perihelion')
+	ax[0].set_ylabel('Semimajor Axis [AU]')
+
+	ax[1].scatter((pl_e['asc_node'] + pl_e['omega'] + np.pi)%(2*np.pi), pl_e['a'], s=s)
+	plot_res(ax[1], vertical=False, show_widths=True)
+	ax[1].set_title(label=r'e$_{pl}$ = e$_{jup}$')
+
+	ax[2].scatter((pl_e2['asc_node'] + pl_e2['omega'] + np.pi)%(2*np.pi), pl_e2['a'], s=s)
+	plot_res(ax[2], vertical=False, show_widths=True)
+	ax[2].set_title(label=r'e$_{pl}$ = 2 e$_{jup}$')
+	fig.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 def make_coll_hist_a():
@@ -472,6 +491,63 @@ def make_coll_hist_r_inout_res():
 	coll_bins_out_21_e2, coll_pdf_out_21_e2 = kde(coll_out_21_e2['dist2'])
 	coll_pdf_out_21_e2 *= len(coll_out_21_e1)/len(coll_out_21_e2)
 
+	# Cut out secularly aligned collisions from out_21
+	cut_angle = 0.5
+
+	curlypi_diff_e11 = np.fabs((coll_out_21_e1['omega1'] + coll_out_21_e1['Omega1'] + np.pi)%(2*np.pi) - np.pi)
+	curlypi_diff_e12 = np.fabs((coll_out_21_e1['omega2'] + coll_out_21_e1['Omega2'] + np.pi)%(2*np.pi) - np.pi)
+	curlypi_mask_e1 = np.logical_or(curlypi_diff_e11 > cut_angle, curlypi_diff_e12 > cut_angle)
+	coll_bins_out_spread_21_e1, coll_pdf_out_spread_21_e1 = kde(coll_out_21_e1[curlypi_mask_e1]['dist2'])
+	coll_pdf_out_spread_21_e1 *= len(coll_out_21_e1[curlypi_mask_e1])/len(coll_out_21_e1)
+
+	curlypi_diff_e21 = np.fabs((coll_out_21_e2['omega1'] + coll_out_21_e2['Omega1'] + np.pi)%(2*np.pi) - np.pi)
+	curlypi_diff_e22 = np.fabs((coll_out_21_e2['omega2'] + coll_out_21_e2['Omega2'] + np.pi)%(2*np.pi) - np.pi)
+	curlypi_mask_e2 = np.logical_or(curlypi_diff_e21 > cut_angle, curlypi_diff_e22 > cut_angle)
+	coll_bins_out_spread_21_e2, coll_pdf_out_spread_21_e2 = kde(coll_out_21_e2[curlypi_mask_e2]['dist2'])
+	coll_pdf_out_spread_21_e2 *= len(coll_out_21_e2[curlypi_mask_e2])/len(coll_out_21_e2)
+
+	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True)
+	ax[0].plot(coll_bins_in_21_e1, coll_pdf_in_21_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax[0].plot(coll_bins_in_21_e2, coll_pdf_in_21_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
+	c = next(ax[1]._get_lines.prop_cycler)['color']
+	ax[1].plot(coll_bins_out_21_e1, coll_pdf_out_21_e1, color=c)
+	ax[1].plot(coll_bins_out_spread_21_e1, coll_pdf_out_spread_21_e1, color=c, linestyle='--')
+	c = next(ax[1]._get_lines.prop_cycler)['color']
+	ax[1].plot(coll_bins_out_21_e2, coll_pdf_out_21_e2, color=c)
+	ax[1].plot(coll_bins_out_spread_21_e2, coll_pdf_out_spread_21_e2, color=c, linestyle='--')
+	ax[0].legend()
+	ax[0].set_xlabel('Heliocentric Distance [AU]')
+	ax[0].set_title(str(a21_in) + ' < a < ' + str(a21_out))
+	ax[1].set_xlabel('Heliocentric Distance [AU]')
+	ax[0].set_ylabel('dn/dr')
+	ax[1].set_title(str(a21_in) + ' > a > ' + str(a21_out))
+
+	plt.tight_layout()
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+def make_coll_hist_r_inout_res31():
+	file_str = 'figures/coll_hist_r_inout_res31.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	a21_in, a21_out = 2.49, 2.51
+
+	def coll_in_out_21(coll):
+		mask = np.logical_and(coll['a1'] > a21_in, coll['a1'] < a21_out)
+		coll_in = coll[mask]
+		coll_out = coll[~mask]
+		return coll_in, coll_out
+
+	coll_in_21_e1, coll_out_21_e1 = coll_in_out_21(coll_e1)
+	coll_in_21_e2, coll_out_21_e2 = coll_in_out_21(coll_e2)
+
+	coll_bins_in_21_e1, coll_pdf_in_21_e1 = kde(coll_in_21_e1['dist2'])
+	coll_bins_in_21_e2, coll_pdf_in_21_e2 = kde(coll_in_21_e2['dist2'])
+	coll_pdf_in_21_e2 *= len(coll_in_21_e1)/len(coll_in_21_e2)
+	coll_bins_out_21_e1, coll_pdf_out_21_e1 = kde(coll_out_21_e1['dist2'])
+	coll_bins_out_21_e2, coll_pdf_out_21_e2 = kde(coll_out_21_e2['dist2'])
+	coll_pdf_out_21_e2 *= len(coll_out_21_e1)/len(coll_out_21_e2)
+
 	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2, sharex=True)
 	ax[0].plot(coll_bins_in_21_e1, coll_pdf_in_21_e1, label=r'e$_{pl}$ = 1/2 e$_{jup}$')
 	ax[0].plot(coll_bins_in_21_e2, coll_pdf_in_21_e2, label=r'e$_{pl}$ = 2 e$_{jup}$')
@@ -537,12 +613,13 @@ def make_wander_res_scale():
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 #make_xy()
-#make_ae()
+make_ae()
 #make_long_ph()
-#make_coll_hist_a()
+make_coll_hist_a()
 #make_coll_hist_r()
 #make_coll_hist_e_and_m()
 #make_coll_hist_hot_cold_a()
 #make_coll_gf_vary()
-make_coll_hist_r_inout_res()
-make_wander_res_scale()
+#make_coll_hist_r_inout_res()
+#make_coll_hist_r_inout_res31()
+#make_wander_res_scale()
