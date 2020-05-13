@@ -1,6 +1,8 @@
 #/bin/bash
 import matplotlib.pylab as plt
 import matplotlib as mpl
+from matplotlib import cm
+import matplotlib.colors as colors
 
 mpl.rcParams.update({'font.size': 18, 'font.family': 'STIXGeneral', 'mathtext.fontset': 'stix',
                             'image.cmap': 'viridis'})
@@ -45,11 +47,11 @@ for idx in range(len(res_p)):
 
 # Build a PDF from a series of data points using a KDE
 from sklearn.neighbors import KernelDensity
-def kde(qty, bw=0.03):
+def kde(qty, bw=0.02):
     bins = np.linspace(2, 4, (4-2)/bw)
     
     def kde_helper(x, x_grid, **kwargs):
-        kde_skl = KernelDensity(kernel='tophat', bandwidth=bw, **kwargs)
+        kde_skl = KernelDensity(kernel='gaussian', bandwidth=bw, **kwargs)
         kde_skl.fit(x[:, np.newaxis])
         log_pdf = kde_skl.score_samples(x_grid[:, np.newaxis])
         return np.exp(log_pdf)
@@ -239,7 +241,7 @@ def make_coll_polar_e():
 	ax00.invert_xaxis()
 
 	ax00.plot(coll_hist_e1, coll_bins_e1, linestyle='steps-mid')
-	ax01.scatter(theta_e1, r_e1, s=s)
+	ax01.scatter(theta_e1, r_e1, s=s*10)
 
 	ax00.axhline(outer_peri_31)
 	ax00.axhline(outer_apo_31, linestyle='--')
@@ -263,7 +265,7 @@ def make_coll_polar_e():
 	ax00.set_ylim(rmin, rmax)
 	ax01.set_xlim(-np.pi, np.pi)
 	ax01.set_ylim(rmin, rmax)
-	ax00.set_xlabel('Number of Collisions')
+	ax00.set_xlabel('Rel. # of Collisions')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
 	ax01.set_title(r'e$_{g}$ = 1/2 e$_{jup}$')
@@ -291,7 +293,7 @@ def make_coll_polar_e():
 	ax10.invert_xaxis()
 
 	ax10.plot(coll_hist_e, coll_bins_e, linestyle='steps-mid')
-	ax11.scatter(theta_e, r_e, s=s)
+	ax11.scatter(theta_e, r_e, s=s*10)
 
 	ax10.axhline(outer_peri_31)
 	ax10.axhline(outer_apo_31, linestyle='--')
@@ -315,7 +317,7 @@ def make_coll_polar_e():
 	ax11.set_ylim(rmin, rmax)
 	ax11.set_xlim(-np.pi, np.pi)
 	ax11.set_ylim(rmin, rmax)
-	ax10.set_xlabel('Number of Collisions')
+	ax10.set_xlabel('Rel. # of Collisions')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
 	ax11.set_title(r'e$_{g}$ = e$_{jup}$')
@@ -343,7 +345,7 @@ def make_coll_polar_e():
 	ax20.invert_xaxis()
 
 	ax20.plot(coll_hist_e2, coll_bins_e2, linestyle='steps-mid')
-	ax21.scatter(theta_e2, r_e2, s=s)
+	ax21.scatter(theta_e2, r_e2, s=s*10)
 
 	ax20.axhline(outer_peri_31)
 	ax20.axhline(outer_apo_31, linestyle='--')
@@ -367,7 +369,7 @@ def make_coll_polar_e():
 	ax21.set_ylim(rmin, rmax)
 	ax21.set_xlim(-np.pi, np.pi)
 	ax21.set_ylim(rmin, rmax)
-	ax20.set_xlabel('Number of Collisions')
+	ax20.set_xlabel('Rel. # of Collisions')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
 	ax21.set_title(r'$e_{g}$ = 2 e$_{jup}$')
@@ -409,7 +411,7 @@ def make_coll_polar_m():
 	ax00.invert_xaxis()
 
 	ax00.plot(coll_hist_m1, coll_bins_m1, linestyle='steps-mid')
-	ax01.scatter(theta_m1, r_m1, s=s)
+	ax01.scatter(theta_m1, r_m1, s=s*10)
 
 	ax00.axhline(outer_peri_31)
 	ax00.axhline(outer_apo_31, linestyle='--')
@@ -433,7 +435,7 @@ def make_coll_polar_m():
 	ax00.set_ylim(rmin, rmax)
 	ax01.set_xlim(-np.pi, np.pi)
 	ax01.set_ylim(rmin, rmax)
-	ax00.set_xlabel('Number of Collisions')
+	ax00.set_xlabel('Rel. # of Collisions')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
 	ax01.set_title(r'M$_{g}$ = 1/2 M$_{jup}$')
@@ -461,7 +463,7 @@ def make_coll_polar_m():
 	ax10.invert_xaxis()
 
 	ax10.plot(coll_hist_e, coll_bins_e, linestyle='steps-mid')
-	ax11.scatter(theta_e, r_e, s=s)
+	ax11.scatter(theta_e, r_e, s=s*10)
 
 	ax10.axhline(outer_peri_31)
 	ax10.axhline(outer_apo_31, linestyle='--')
@@ -485,7 +487,7 @@ def make_coll_polar_m():
 	ax11.set_ylim(rmin, rmax)
 	ax11.set_xlim(-np.pi, np.pi)
 	ax11.set_ylim(rmin, rmax)
-	ax10.set_xlabel('Number of Collisions')
+	ax10.set_xlabel('Rel. # of Collisions')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
 	ax11.set_title(r'M$_{g}$ = M$_{jup}$')
@@ -513,7 +515,7 @@ def make_coll_polar_m():
 	ax20.invert_xaxis()
 
 	ax20.plot(coll_hist_m2, coll_bins_m2, linestyle='steps-mid')
-	ax21.scatter(theta_m2, r_m2, s=s)
+	ax21.scatter(theta_m2, r_m2, s=s*10)
 
 	ax20.axhline(outer_peri_31)
 	ax20.axhline(outer_apo_31, linestyle='--')
@@ -537,7 +539,7 @@ def make_coll_polar_m():
 	ax21.set_ylim(rmin, rmax)
 	ax21.set_xlim(-np.pi, np.pi)
 	ax21.set_ylim(rmin, rmax)
-	ax20.set_xlabel('Number of Collisions')
+	ax20.set_xlabel('Rel. # of Collisions')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
 	ax21.set_title(r'M$_{g}$ = 2 M$_{jup}$')
@@ -549,7 +551,7 @@ def bump_dip_diag():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	res_idx = 2
+	res_idx = 1
 	ngrid = 50
 	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
 	m_jup_vals = np.logspace(-1, 1, ngrid)
@@ -612,6 +614,93 @@ def bump_dip_diag():
 	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
 	axes.text(0.75, 0.25, 'Bump at 2:1, \nBump at 3:1', transform=axes.transAxes, fontsize=14,
 	        verticalalignment='top', bbox=props)
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+def bump_dip_diag2():
+	file_str = 'figures/bump_dip_diag.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	res_idx = 1
+	ngrid = 50
+	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
+	m_jup_vals = np.logspace(-1, 1, ngrid)
+
+	bump_21 = np.zeros((ngrid, ngrid))
+	strength_21 = np.zeros((ngrid, ngrid))
+	for idx in range(ngrid):
+	    for idx1 in range(ngrid):
+	        a_res = res_dist[res_idx]
+	        rw = res_width_jup(res_idx, ecc_jup=e_jup_vals[idx], \
+	                              m_jup=(m_jup_vals[idx1]*u.M_jup).to(u.M_sun).value)*2
+	        fecc = e_forced(a_res, e_jup_vals[idx])
+	        apo_inner = (a_res - rw)*(1 + fecc)
+	        peri_outer = (a_res + rw)*(1 - fecc)
+	        
+	        bump_21[idx][idx1] = (apo_inner - peri_outer)/(rw)
+        	strength_21[idx][idx1] = m_jup_vals[idx1]*e_jup_vals[idx]
+	            
+	res_idx = 0
+	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
+	m_jup_vals = np.logspace(-1, 1, ngrid)
+
+	bump_31 = np.zeros((ngrid, ngrid))
+	strength_31 = np.zeros((ngrid, ngrid))
+	for idx in range(ngrid):
+	    for idx1 in range(ngrid):
+	        a_res = res_dist[res_idx]
+	        rw = res_width_jup(res_idx, ecc_jup=e_jup_vals[idx], \
+	                              m_jup=(m_jup_vals[idx1]*u.M_jup).to(u.M_sun).value)*2
+	        fecc = e_forced(a_res, e_jup_vals[idx])
+	        apo_inner = (a_res - rw)*(1 + fecc)
+	        peri_outer = (a_res + rw)*(1 - fecc)
+	        
+	        bump_31[idx][idx1] = (apo_inner - peri_outer)/rw
+        	strength_31[idx][idx1] = m_jup_vals[idx1]*e_jup_vals[idx]**2
+
+	strength_21 /= strength_21[-1][-1]
+	strength_31 /= strength_31[-1][-1]
+
+	fig, axes = plt.subplots(figsize=(12,6), ncols=2)
+	cmap = cm.get_cmap('viridis', 8)
+	axes[0].contour(e_jup_vals, m_jup_vals, np.transpose(bump_21), levels=[-1, 1], colors='k', linestyles='--')
+	cax = axes[0].pcolormesh(e_jup_vals, m_jup_vals, np.flipud(np.rot90(strength_21)), \
+	                         norm=colors.LogNorm(vmin=1e-8, vmax=1), cmap=cmap)
+	axes[1].contour(e_jup_vals, m_jup_vals, np.transpose(bump_31), levels=[-1, 1], colors='k', linestyles='--')
+	cax = axes[1].pcolormesh(e_jup_vals, m_jup_vals, np.flipud(np.rot90(strength_31)), \
+	                         norm=colors.LogNorm(vmin=1e-8, vmax=1), cmap=cmap)
+	cbax,kw = mpl.colorbar.make_axes([ax for ax in axes.flat])
+	cbar = plt.colorbar(cax, cax=cbax, **kw)
+	cbar.set_label('Relative Strength of Resonance')
+	axes[0].set_xscale('log')
+	axes[0].set_yscale('log')
+	axes[0].set_xlabel('Eccentricity of Perturber')
+	axes[0].set_ylabel(r'Mass of Perturber [M$_{jup}$]')
+	axes[0].set_title('2:1 MMR')
+	axes[1].set_xscale('log')
+	axes[1].set_yscale('log')
+	axes[1].set_xlabel('Eccentricity of Perturber')
+	axes[1].set_yticks([])
+	axes[1].set_title('3:1 MMR')
+
+	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
+	axes[0].text(0.1, 0.85, 'Central Dip', transform=axes[0].transAxes, fontsize=14,
+	        verticalalignment='top', bbox=props)
+	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
+	axes[0].text(0.65, 0.1, 'Central Bump', transform=axes[0].transAxes, fontsize=14,
+	        verticalalignment='top', bbox=props)
+	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
+	axes[1].text(0.1, 0.85, 'Central Dip', transform=axes[1].transAxes, fontsize=14,
+	        verticalalignment='top', bbox=props)
+	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
+	axes[1].text(0.65, 0.1, 'Central Bump', transform=axes[1].transAxes, fontsize=14,
+	        verticalalignment='top', bbox=props)
+
+	mvals = [0.5, 1, 2, 1 , 1]
+	evals = [0.048, 0.048, 0.048, 0.024, 0.096]
+	axes[0].scatter(evals, mvals, color='k', s=100, zorder=3)
+	axes[1].scatter(evals, mvals, color='k', s=100, zorder=3)
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -1073,12 +1162,12 @@ def make_wander_res_scale():
 
 #make_coll_polar_e()
 #make_coll_polar_m()
-#bump_dip_diag()
-make_xy()
-make_ae()
-make_long_ph()
-make_coll_hist_a()
-make_coll_hist_r()
+bump_dip_diag2()
+#make_xy()
+#make_ae()
+#make_long_ph()
+#make_coll_hist_a()
+#make_coll_hist_r()
 #make_coll_hist_e_and_m()
 #make_coll_hist_hot_cold_a()
 #make_coll_gf_vary()
