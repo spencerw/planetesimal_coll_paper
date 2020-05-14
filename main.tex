@@ -24,7 +24,7 @@ produce nonaxisymmetric structures, as well as gaps in disks, regardless of the 
 different dynamics compared with planetesimals when in the presence of gas, and as such, the collisional evolution of planetesimals could 
 create dusty disk structures that would not exist otherwise. In particular, mean motion resonances (MMRs) are extremely nonlinear and could 
 drive disk morphologies. We use a direct N-body model to track collision rates in a planetesimal disk under the gravitational influence of an 
-external Jupiter-sized planet. We show that a perturbing planet can produce significant variations in the collision rate of planetesimals near the 
+external giant planet. We show that a perturbing planet can produce significant variations in the collision rate of planetesimals near the 
 MMRs and we explore how the mass and eccentricity of the perturbing planet alters this structure. Finally, we use the CASA image simulator to 
 predict what the dust emission sturcture should look like with ALMA and the NG-VLA. Although the dust structure produced by MMRs cannot 
 be used to directly measure the properties of the perturbing planet, we show that it can be used to place constraints on its mass and 
@@ -47,6 +47,9 @@ eccentric perturbers can produce even more complicated structures through secula
 2015MNRAS.448.3679P}. Mean motion resonances (MMRs) have been shown to open gaps as well
 \citep{2015ApJ...798...83N, 2016ApJ...818..159T, 2018ApJ...857....3T}.
 
+Also mention \citet{2020A&A...635A..10S}, looked at dust trapping in resonances with terrestrial SS planets. Also mention 
+\citet{2020arXiv200408736G}, detection of a planetesimal collision around Fomalhut.
+
 The dynamics governing the motion of bodies near MMRs is extremely nonlinear, as is determining what the collision rates between 
 planetesimals should look like in these regions. For a collection of bodies massive enough to experience the effects of gravitational 
 focusing, a large eccentricity dispersion tends to reduce the probability of collision, while enhancements in surface density tends to 
@@ -65,27 +68,180 @@ To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa
 influence of a Jupiter sized body. Because particle positions are sorted into a tree structure, neighbor finding and collision detection 
 can be done quickly and efficiently. This considerably relaxes the constraints on resolution and integration time. With this toolset, we 
 explore the collision rate structure of the planetesimal disk in the vicinity of mean motion resonances. In particular, we would like to 
-determine: 1. whether MMRs leave a detectable signature in the collisionally-generated dust. 2. If these signatures can be used to determine the orbital properties of the perturbing planet.
-
-Also mention \citet{2020A&A...635A..10S}, looked at dust trapping in resonances with terrestrial SS planets. Also mention 
-\citet{2020arXiv200408736G}, detection of a planetesimal collision around Fomalhut.
+determine: 1. whether MMRs leave a detectable signature in the collisionally-generated dust. 2. If these signatures can be used to determine or constrain the orbital properties of the perturbing planet.
 
 This work is organized in the following way: In section \ref{sec:dynamics}, we provide an overview of the relevant dynamics that drive 
 the evolution of a planetesimal disk under the gravitational influence of an external perturber. We also highlight the shortcomings of secular theory in trying to predict the radial collision rate and motivate the need for N-body simulations with massive, collisional particles. In section \ref{sec:sims} we describe the N-body code that we use and detail the initial conditions that are used for two simulations: one in which the perturber is on a circular orbit and another in which the perturber is given a mildly eccentric orbit. Section \ref{sec:results} presents the results of the two simulations. Next, we generate dust emission maps in section \ref{sec:dust}, under the assumption that collisionally-generated dust will quickly couple with the gas and circularize, and show that radial structure is produced in the vicinity of the MMRs. Using the dust emission maps, section \ref{sec:fitting} explores the feasibility of measuring properties of the perturbing planet from the MMR features in the dust. We then conclude in section \ref{sec:discuss}. 
 
 \section{Overview of Relavant Dynamics} \label{sec:dynamics}
 
-\subsection{Collision Rates of Massive Bodies}
+\subsection{Secular Forcing}\label{sec:sec_force}
+
+The most direct and widespread effect that a giant perturber will have on a planetesimal disk is through secular forcing of the 
+eccentricities of the planetesimals. This will cause the complex eccentricities of the planetesimals to take on a time independent 
+forced value, given by \citep{1999ApJ...527..918W} as
+
+\begin{equation}\label{eq:eforced}
+	z_{f} = \frac{b^{2}_{3/2} (\alpha)}{b^{1}_{3/2} (\alpha)} e_{g} ~ \mathrm{exp} ~ i \omega_{g}.
+\end{equation}
+
+\noindent Here, $\alpha = a_{g} / a$ where $a_{g}$ and $a$ are the semi-major axes of the giant planet and the planetesimal, 
+respectively. $e_{g}$ and $\omega_{g}$ are the eccentricity and longitude of pericenter of the giant and $b^{j}_{s} (\alpha)$ is a 
+Laplace coefficient given by \citep{2000ssd..book.....M} as
+
+\begin{equation}\label{eq:lap}
+	b_{s}^{j}(\alpha) = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{cos \, j \theta \, d \theta}{\left( 1 - 2 \alpha \, cos \theta + \alpha^2 \right)^{s}}.
+\end{equation}
+
+Without any nearby secular or mean motion resonances, equation \ref{eq:eforced} will completely describe the eccentricities and longitude of  
+pericenter orientations of the planetesimals. Additional forces due to two-body scattering between planetesimals, along with 
+aerodynamic gas drag will add an additional free component to the complex eccentricity, which will be randomly oriented. The 
+magnitude of the free eccentricity describes how dynamically hot the planetesimal disk is and sets the random encounter speeds of 
+planetesimals. When the dynamical excitation of the disk is driven by gravitational stirring, the magnitude of the free eccentricity can 
+be described by a Rayleigh distribution \citep{1992Icar...96..107I}.
 
 \subsection{Mean Motion Resonances}
+
+In regions where there are commensurabilities between frequencies, secular theory breaks down and bodies are subject to strong 
+perturbations. For the purposes of this study, we will ignore secular resonances, which generally occur on rather large timescales 
+and will focus on mean motion resonances (MMRs). A MMR occurs  when the orbital period ratio between two bodies is sufficiently 
+close to
+
+\begin{equation}\label{eq:per_mmr}
+	\frac{P}{P'} = \frac{p + q}{p},
+\end{equation}
+
+\noindent where  $p$ and $q$ are integers $>$ 0 and the unprimed and primed quantities correspond to the perturber and the body 
+being perturbed, respectively. If the perturber is much more massive than the other body, the condition for MMR is set  by the semi-major 
+axes of the two bodies by
+
+\begin{equation}\label{eq:a_mmr}
+	\frac{a}{a'} = \left( \frac{p}{p + q} \right)^{2/3}.
+\end{equation}
+
+If we further assume that the two bodies are orbiting in the same plane, the behavior of the bodies near resonance is determined by the
+behavior of a critical angle
+
+\begin{equation}\label{eq:phi_crit}
+	\phi = (p + q) \lambda' - q \lambda - (2 p + q) \varpi,
+\end{equation}
+
+\noindent where $\lambda = \varpi + M$ is the mean longitude of a body. For bodies in resonance, the critical angle will librate around an 
+equlibrium value, while this angle will circulate outside of resonance. This behavior is analogous to the motion of a pendulum. Changes in the 
+critical angle are coupled to changes in the mean motion and semimajor axis \citet{2000ssd..book.....M}. An important point to note, which will 
+become important later, is that the circulation frequency approaches zero near the edge of a resonance. The width of a resonance can be 
+defined by determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of the pendulum. For 
+second and higher order resonances, the maximum libration width is given by
+
+\begin{equation}\label{eq:res_so}
+	\frac{\delta a}{a} = \left( \frac{16}{3} \frac{\left| C_{r} \right|}{n} e^{\left| 2 p + q \right|} \right)^{1/2},
+\end{equation}
+
+\noindent where n, a and e are the mean motion, semimajor axis and eccentricity of the unperturbed body. $C_{r}$ is a constant defined by $m'/m_{c} n \alpha f_{d}(\alpha)$, where $\alpha$ = $a/a'$ and $f_{d}$ is the resonant part of the disturbing function. For an interior second-order resonance,
+
+\begin{equation}\label{eq:fd_so}
+	f_{d} (\alpha) = \frac{1}{8} \left[ -5(p+q) + 4(p+q)^{2} - 2 \alpha D + 4(p+q) \alpha D + \alpha^{2} D^{2} \right] b^{p+q}_{1/2},
+\end{equation}
+
+\noindent where $D b^{j}_{s}$ is the first derivative with respect to $\alpha$ of the Laplace coefficient defined in equation \ref{eq:lap}. This can 
+be written as
+
+\begin{equation}\label{eq:lap_d}
+	\frac{d b_{s}^{j}}{d \alpha} = s \left( b_{s+1}^{j-1} - 2 \alpha b_{s+1}^{j} + b_{s+1}^{j+1} \right).
+\end{equation}
+
+For a first order resonance, the associated disturbing function terms are slightly simpler
+
+\begin{equation}\label{eq:fd_fo}
+	f_{d}(\alpha) = (p+q) b_{1/2}^{p+q} + \frac{\alpha}{2} D b_{1/2}^{p+q},
+\end{equation}
+
+\noindent and there is an additional contribution to the motion of the critical angle by the pericenter precession rate such that
+
+\begin{equation}\label{eq:res_fo}
+	\frac{\delta a}{a} = \pm \left(\frac{16}{3} \frac{\left| C_{r} \right|}{n} e \right)^{1/2} \left(  1 + \frac{1}{27 p^2 e^3} \frac{\left| C_{r} \right|}{n} 
+	\right)^{1/2} - \frac{2}{9 p e}  \frac{\left| C_{r} \right|}{n}.
+\end{equation}
+
+Changes in eccentricity are correlated with changes in semimajor axis variations according to the Tisserand relation
+
+\begin{equation}\label{eq:tiss}
+	\frac{de}{da} = \frac{a^{3/2} - 1}{2 a^{5/2} e}.
+\end{equation}
+
+The net result of this is that MMRs will produce 'spikes' in the semimajor axis - eccentricity distribution of a planetesimal disk. In order to 
+preserve the Jacobi energy, equation \ref{eq:tiss} predicts that these spikes will tend to curve away from the perturbing body. This lowers the 
+surface density of the disk near the locations of resonances, while producing a pileup of bodies on eccentric orbits adjacent to the MMR. The 
+enhanced surface density will increase the collision rate. At the same time, the large eccentricites will either lower it due to the decreased 
+effectiveness of gravitational focusing, or raise it due to the more vigorous encounter rate, depending on how large the encounter velocity gets 
+compared to the escape velocity of the planetesimals. In addition, the MMRs cause the orbits of planetesimals to precess on relatively short 
+timescales, which effectively randomizes their longitudes of perihelion. In a secularly forced disk, there will be an interface between aligned 
+and randomly oriented orbits at the edge of the resonance. Due to the complicated dynamics that are at play in this region, we turn to a direct 
+N-body treatment to better understand how the collision rate varies in the vicinity of a MMR.
 
 \section{Simulations} \label{sec:sims}
 
 \subsection{Numerical Methods}\label{sec:methods}
 
+To follow the dynamical and collisional evolution of a planetesimal disk, we use the highly parallel N-body code {\sc ChaNGa} 
+\footnote{A public version of {\sc ChaNGa} can be downloaded from \url{http://www-hpcc.astro.washington.edu/tools/ChaNGa.html}}. 
+This code, which is written in the {\sc CHARM++} parallel programming language, was originally designed for cosmology simulations 
+and has been shown to perform well on up to half a million processors \citep{2015AphCom..2..1}. {\sc ChaNGa} calculates 
+gravitational forces using a modified Barnes-Hut \citep{1986Natur.324..446B} tree with hexadecapole expansions of the moments. 
+All of the simulations we perform use a node opening criterion of $\theta_{BH}$ = 0.7. More information about the code can be found 
+in \citet{2008IEEEpds...ChaNGa}. We have also recently modified {\sc ChaNGa} to handle solid-body collisions. A full description of 
+the collision module implementation can be found in \citet{2019MNRAS.489.2159W}.
+
 \subsection{Initial Conditions}\label{sec:ics}
 
+In total, five simulations are run. The first is a 'nominal' case, in which the perturbing planet's mass and eccentricity are set to that of Jupiter's. 
+In the other four cases, the mass (eccentricity) is increased or decreased by a factor of two, while the mass (eccentricity) is held at the nominal 
+value. In all cases, the perturbing giant is placed on a 5.2 AU orbit around a 1 $M_{\odot}$ star. The planetesimal disk extends from 2.2 to 3.8 
+AU, which covers the two most prominent mean motion resonances with the giant planet, the 2:1 at 3.27 AU and the 3:1 at 2.5 AU.The 
+planetesimal disk follows a minimum-mass solar nebula surface density profile \citep{1981PThPS..70...35H}
+
+\begin{equation}\label{eq:surf_den}
+	\Sigma = \Sigma_{0} r^{-\alpha},
+\end{equation}
+
+\noindent with $\alpha$ = 3/2 and $\Sigma_{0}$ = 10 g cm$^{-2}$. Planetesimals are given a bulk density of 2 g cm$^{-3}$ and a diameter of 
+300 km. This corresponds to a disk containing roughly 500,000 bodies. Each simulation is evolved for 5,000 years, which is about 400 Jupiter 
+orbits.
+
+The dynamical effects of secular forcing by the giant planet, along with  the effects of viscous stirring and gas drag on the planetesimals, are 
+built into the initial conditions. This is done by first calculating the equilibirum eccentricity $e_{eq}$ due to viscous stirring and gas drag as a 
+function of semimajor axis according to equation 12 of \citet{2002ApJ...581..666K}. Although {\sc ChaNGa} does not account for the effects of 
+gas drag on the planetesimals, the viscous stirring timescale is long compared to our integration time and should not cause the velocity 
+distribution to significantly evolve. The eccentricities of the bodies are drawn randomly from a Rayleigh distribution with a mode of $e_{eq}$, 
+while the inclinations are drawn from a similar distribution with a mode of $e_{eq}$/2 \citep{1993MNRAS.263..875I}. The longitude of perihelia 
+$\omega$ and the mean anomalies $M$ of the bodies are drawn from a uniform polar distribution.
+
+To account for the effects of secular forcing, the eccentricity vectors of the planetesimals are first decomposed into real and imaginary 
+components:
+
+\begin{equation}\label{eq:hk}
+	z = (h, k) = e \, exp(i \omega)
+\end{equation}
+
+\noindent and a forced component is added to $h$ according to equation \ref{eq:eforced} (where we have set $\omega_{g}$ = 0).
+
 \subsection{Time Stepping Scheme}\label{sec:timestep}
+
+For the purposes of the integrator, there are two relevant timescales in this system. The first is the orbital dynamical time $\sqrt{a^3/
+G M_{\odot}}$. All particles are placed on a fixed time step of $\Delta T$ = 0.01 yr. This is roughly 3\% of an orbital dynamical time at 
+the inner edge of the planetesimal disk. From numerical tests with {\sc ChaNGa}, we have found that this time step size preserves 
+the symplectic nature of the integration without being too computationally expensive. Although using $\Delta T$ = 0.01 yr keeps the 
+integration symplectic, we find that a small amount of artificial precession is produced. We reduce the base time step size by an additional 
+factor of 4 to the keep longitude of perihelia of planetesimals near the inner edge of the disk from drifting too far over the course of our 
+integrations.
+
+An additional timescale is set by the dynamical time of the planetesimals ($\sim 1/\sqrt{G \rho}$), which is about 45 minutes. To 
+resolve the base time step and the dynamical timescale of planetesimals simultaneously, we use a two-tiered time stepping scheme. 
+At the beginning of each time step, all bodies are placed on the orbital time step. A first pass of collision detection is then run in 
+which the radii of all bodies are inflated by a factor of 2.5. Any bodies with imminent collisions predicted using the inflated radii are 
+placed on a time step that is a factor of 16 smaller than the orbital time step. The purpose of two-tiered scheme is to properly resolve 
+the gravitational interactions between any bodies that undergo a close encounter. This prevents the coarser base time step from 
+reducing the effectiveness of gravitational focusing, while minimizing the additional computational expense.
 
 \section{Results} \label{sec:results}
 
