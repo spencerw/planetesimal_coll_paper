@@ -110,7 +110,8 @@ s0_c = pb.load(s_c_files[0])
 s_e_files = np.array([path + 'hkshiftfull/hkshiftfull.ic']+ \
 	                  ns.natsorted(gl.glob(path + 'hkshiftfull/*.[0-9]*[0-9]')))
 s0_e = pb.load(s_e_files[0])
-s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-1])
+s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-2])
+print(s_e_files[-2])
 pl_c, pl_e = ko.orb_params(s_c), ko.orb_params(s_e)
 
 s_m1_files = np.array([path + 'm1/m1.ic']+ \
@@ -891,6 +892,71 @@ def make_coll_hist_r():
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
+def make_polar_hk_plots():
+	file_str = 'figures/polar_hk.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	a211, a212 = 3.16, 3.2
+	a211a, a212a = 3.38, 3.43
+
+	fig = plt.figure(figsize=(8, 8), constrained_layout=True)
+	gs = fig.add_gridspec(2, 2)
+
+	ax1 = fig.add_subplot(gs[0, :])
+	theta1, theta2 = np.pi-0.1, np.pi+0.1
+	theta1a, theta2a = 3*np.pi/2-0.1, 3*np.pi/2+0.1
+	pl = pl_e
+	x, y = pl['pos'][:,0], pl['pos'][:,1]
+	theta_jup = np.arctan2(y[0], x[0])
+	rad, theta = np.sqrt(x**2 + y**2), (np.arctan2(y, x) - theta_jup)%(2*np.pi)
+	mask_21 = np.logical_and(np.logical_and(pl['a'] > a211, pl['a'] < a212), \
+	                         np.logical_and(theta > theta1, theta < theta2))
+	mask_21a = np.logical_and(np.logical_and(pl['a'] > a211a, pl['a'] < a212a), \
+	                          np.logical_and(theta > theta1, theta < theta2))
+	mask_a21 = np.logical_and(np.logical_and(pl['a'] > a211, pl['a'] < a212), \
+	                         np.logical_and(theta > theta1a, theta < theta2a))
+	mask_a21a = np.logical_and(np.logical_and(pl['a'] > a211a, pl['a'] < a212a), \
+	                          np.logical_and(theta > theta1a, theta < theta2a))
+	ax1.scatter(theta[~mask_21], rad[~mask_21], s=0.01)
+	ax1.scatter(theta[mask_21], rad[mask_21], s=0.5, color='orange')
+	ax1.scatter(theta[mask_21a], rad[mask_21a], s=0.5, color='orange')
+	ax1.scatter(theta[mask_a21], rad[mask_a21], s=0.5, color='red')
+	ax1.scatter(theta[mask_a21a], rad[mask_a21a], s=0.5, color='red')
+	ax1.set_xlim(0, 2*np.pi)
+	ax1.set_ylim(2.8, 3.8)
+	ax1.set_xlabel('Azimuth')
+	ax1.set_ylabel('Cylindrical Distance [AU]')
+
+	curlypi = (pl['omega'] + pl['asc_node'])%(2*np.pi)
+	hvals = pl['e']*np.cos(curlypi)
+	kvals = pl['e']*np.sin(curlypi)
+
+	hmin, hmax = -0.05, 0.05
+	kmin, kmax = -0.05, 0.05
+	hshift = 0.03
+	ax2 = fig.add_subplot(gs[1, :-1])
+	ax2.scatter(hvals, kvals, s=0.5)
+	ax2.scatter(hvals[mask_21], kvals[mask_21], s=0.5, color='orange')
+	ax2.scatter(hvals[mask_a21], kvals[mask_a21], s=0.5, color='red')
+	ax2.set_xlabel('h')
+	ax2.set_ylabel('k')
+	ax2.set_title('Interior to Resonance')
+	ax2.set_xlim(hmin + hshift, hmax + hshift)
+	ax2.set_ylim(kmin, kmax)
+
+	ax3 = fig.add_subplot(gs[1, -1])
+	ax3.scatter(hvals, kvals, s=0.5)
+	ax3.scatter(hvals[mask_21a], kvals[mask_21a], s=0.5, color='orange')
+	ax3.scatter(hvals[mask_a21a], kvals[mask_a21a], s=0.5, color='red')
+	ax3.set_xlabel('h')
+	ax3.set_ylabel('k')
+	ax3.set_title('Exterior to Resonance')
+	ax3.set_xlim(hmin + hshift, hmax + hshift)
+	ax3.set_ylim(kmin, kmax)
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
 def make_coll_hist_e_and_m():
 	file_str = 'figures/coll_hist_e_and_m.' + fmt
 	if not clobber and os.path.exists(file_str):
@@ -1162,12 +1228,13 @@ def make_wander_res_scale():
 
 #make_coll_polar_e()
 #make_coll_polar_m()
-bump_dip_diag2()
+#bump_dip_diag2()
 #make_xy()
 #make_ae()
 #make_long_ph()
 #make_coll_hist_a()
 #make_coll_hist_r()
+make_polar_hk_plots()
 #make_coll_hist_e_and_m()
 #make_coll_hist_hot_cold_a()
 #make_coll_gf_vary()
