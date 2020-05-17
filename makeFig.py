@@ -29,9 +29,9 @@ simV = u.AU/simT
 path = 'data/'
 
 # Resonances
-res_label = ['3:1', '2:1', '5:3']
-res_p = [1, 1, 3]
-res_q = [2, 1, 2]
+res_label = ['7:2', '10:3', '3:1', '8:3', '5:2', '2:1', '5:3']
+res_p = [2, 3, 1, 3, 2, 1, 3]
+res_q = [5, 7, 2, 4, 3, 1, 2]
 
 mc = 1
 m_jup = 9.54e-4
@@ -84,25 +84,28 @@ def res_width_jup(res_idx, ecc_jup=ecc_jup, m_jup=m_jup):
 	rw = ko.res_width(m_jup, mc, ecc, j1, j2)*dist
 	return rw
 
-def plot_res(axis, res=-1, vertical=True, show_widths=False):
+def plot_res(axis, res=-1, vertical=True, show_widths=False, all=False):
 	xmin, xmax = axis.get_xlim()
 	ymin, ymax = axis.get_ylim()
+	res_ind = range(len(res_dist))
+	if all == False:
+		res_ind = [2, 5]
 	if res == -1:
-		for idx, dist in enumerate(res_dist):
+		for idx, val in enumerate(res_ind):
 			if vertical:
-				axis.vlines(dist, ymin, ymax, linestyles='-')
-				axis.text(dist, ymax, res_label[idx])
+				axis.vlines(res_dist[val], ymin, ymax, linestyles='--', lw=0.5)
+				axis.text(res_dist[val], ymax, res_label[val], verticalalignment='top', fontsize=12)
 				if show_widths:
-					width = res_width_jup(idx)
-					axis.vlines(res_dist[idx] - width, ymin, ymax, linestyle='--')
-					axis.vlines(res_dist[idx] + width, ymin, ymax, linestyle='--')
+					width = res_width_jup(val)
+					axis.vlines(res_dist[val] - width, ymin, ymax, linestyle='-', lw=0.5)
+					axis.vlines(res_dist[val] + width, ymin, ymax, linestyle='-', lw=0.5)
 			else:
-				axis.hlines(dist, xmin, xmax, linestyles='-')
-				axis.text(xmax, dist, res_label[idx])
+				axis.hlines(res_dist[val], xmin, xmax, linestyles='--', lw=0.5)
+				axis.text(xmax, res_dist[val], res_label[val], horizontalalignment='right', fontsize=12)
 				if show_widths:
-					width = res_width_jup(idx)
-					axis.hlines(res_dist[idx] - width, xmin, xmax, linestyle='--')
-					axis.hlines(res_dist[idx] + width, xmin, xmax, linestyle='--')
+					width = res_width_jup(val)
+					axis.hlines(res_dist[val] - width, xmin, xmax, linestyle='-', lw=0.5)
+					axis.hlines(res_dist[val] + width, xmin, xmax, linestyle='-', lw=0.5)
 # Snapshots
 s_c_files = np.array([path + 'hkshiftfullJupCirc/hkshiftfullJupCirc.ic']+ \
 	                  ns.natsorted(gl.glob(path + 'hkshiftfullJupCirc/*.[0-9]*[0-9]')))
@@ -221,14 +224,14 @@ def make_coll_polar_e():
 
 	# Low eccentricity case
 	ecc = ecc_jup/2
-	ridx = 0
+	ridx = 2
 	rw_31 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 1
+	ridx = 5
 	rw_21 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -242,6 +245,8 @@ def make_coll_polar_e():
 	ax00.invert_xaxis()
 
 	ax00.plot(coll_hist_e1, coll_bins_e1, linestyle='steps-mid')
+	theta_jup = np.arctan2(pl_e1['pos'][0][1], pl_e1['pos'][0][0])
+	ax01.axvline(theta_jup, color='k')
 	ax01.scatter(theta_e1, r_e1, s=s*10)
 
 	ax00.axhline(outer_peri_31)
@@ -266,21 +271,21 @@ def make_coll_polar_e():
 	ax00.set_ylim(rmin, rmax)
 	ax01.set_xlim(-np.pi, np.pi)
 	ax01.set_ylim(rmin, rmax)
-	ax00.set_xlabel('Rel. # of Collisions')
+	ax00.set_xlabel('Rel. # of Collisions and Flux')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
 	ax01.set_title(r'e$_{g}$ = 1/2 e$_{jup}$')
 
 	# Moderate eccentricity case
 	ecc = ecc_jup
-	ridx = 0
+	ridx = 2
 	rw_31 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 1
+	ridx = 5
 	rw_21 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -294,6 +299,11 @@ def make_coll_polar_e():
 	ax10.invert_xaxis()
 
 	ax10.plot(coll_hist_e, coll_bins_e, linestyle='steps-mid')
+	radius, flux, flux_conv = np.loadtxt(path + 'hkshiftfull/ecc_0p1.profile', unpack=True)
+	A = 1/np.trapz(flux_conv, radius)
+	ax10.plot(A*flux_conv, radius)
+	theta_jup = np.arctan2(pl_e['pos'][0][1], pl_e['pos'][0][0])
+	ax11.axvline(theta_jup, color='k')
 	ax11.scatter(theta_e, r_e, s=s*10)
 
 	ax10.axhline(outer_peri_31)
@@ -318,21 +328,21 @@ def make_coll_polar_e():
 	ax11.set_ylim(rmin, rmax)
 	ax11.set_xlim(-np.pi, np.pi)
 	ax11.set_ylim(rmin, rmax)
-	ax10.set_xlabel('Rel. # of Collisions')
+	ax10.set_xlabel('Rel. # of Collisions and Flux')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
 	ax11.set_title(r'e$_{g}$ = e$_{jup}$')
 
 	# High eccentricity case
 	ecc = ecc_jup*2
-	ridx = 0
+	ridx = 2
 	rw_31 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 1
+	ridx = 5
 	rw_21 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -346,6 +356,8 @@ def make_coll_polar_e():
 	ax20.invert_xaxis()
 
 	ax20.plot(coll_hist_e2, coll_bins_e2, linestyle='steps-mid')
+	theta_jup = np.arctan2(pl_e2['pos'][0][1], pl_e2['pos'][0][0])
+	ax21.axvline(theta_jup, color='k')
 	ax21.scatter(theta_e2, r_e2, s=s*10)
 
 	ax20.axhline(outer_peri_31)
@@ -370,7 +382,7 @@ def make_coll_polar_e():
 	ax21.set_ylim(rmin, rmax)
 	ax21.set_xlim(-np.pi, np.pi)
 	ax21.set_ylim(rmin, rmax)
-	ax20.set_xlabel('Rel. # of Collisions')
+	ax20.set_xlabel('Rel. # of Collisions and Flux')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
 	ax21.set_title(r'$e_{g}$ = 2 e$_{jup}$')
@@ -391,14 +403,14 @@ def make_coll_polar_m():
 
 	# Low mass case
 	mass = 0.5*m_jup
-	ridx = 0
+	ridx = 2
 	rw_31 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 1
+	ridx = 5
 	rw_21 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -412,6 +424,8 @@ def make_coll_polar_m():
 	ax00.invert_xaxis()
 
 	ax00.plot(coll_hist_m1, coll_bins_m1, linestyle='steps-mid')
+	theta_jup = np.arctan2(pl_m1['pos'][0][1], pl_m1['pos'][0][0])
+	ax01.axvline(theta_jup, color='k')
 	ax01.scatter(theta_m1, r_m1, s=s*10)
 
 	ax00.axhline(outer_peri_31)
@@ -436,21 +450,21 @@ def make_coll_polar_m():
 	ax00.set_ylim(rmin, rmax)
 	ax01.set_xlim(-np.pi, np.pi)
 	ax01.set_ylim(rmin, rmax)
-	ax00.set_xlabel('Rel. # of Collisions')
+	ax00.set_xlabel('Rel. # of Collisions and Flux')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
 	ax01.set_title(r'M$_{g}$ = 1/2 M$_{jup}$')
 
 	# Moderate mass case
 	mass = m_jup
-	ridx = 0
+	ridx = 2
 	rw_31 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 1
+	ridx = 5
 	rw_21 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -464,6 +478,11 @@ def make_coll_polar_m():
 	ax10.invert_xaxis()
 
 	ax10.plot(coll_hist_e, coll_bins_e, linestyle='steps-mid')
+	radius, flux, flux_conv = np.loadtxt(path + 'hkshiftfull/ecc_0p1.profile', unpack=True)
+	A = 1/np.trapz(flux_conv, radius)
+	ax10.plot(A*flux_conv, radius)
+	theta_jup = np.arctan2(pl_e['pos'][0][1], pl_e['pos'][0][0])
+	ax11.axvline(theta_jup, color='k')
 	ax11.scatter(theta_e, r_e, s=s*10)
 
 	ax10.axhline(outer_peri_31)
@@ -488,21 +507,21 @@ def make_coll_polar_m():
 	ax11.set_ylim(rmin, rmax)
 	ax11.set_xlim(-np.pi, np.pi)
 	ax11.set_ylim(rmin, rmax)
-	ax10.set_xlabel('Rel. # of Collisions')
+	ax10.set_xlabel('Rel. # of Collisions and Flux')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
 	ax11.set_title(r'M$_{g}$ = M$_{jup}$')
 
 	# High mass case
 	mass = m_jup*2
-	ridx = 0
+	ridx = 2
 	rw_31 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 1
+	ridx = 5
 	rw_21 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -516,6 +535,8 @@ def make_coll_polar_m():
 	ax20.invert_xaxis()
 
 	ax20.plot(coll_hist_m2, coll_bins_m2, linestyle='steps-mid')
+	theta_jup = np.arctan2(pl_m2['pos'][0][1], pl_m2['pos'][0][0])
+	ax21.axvline(theta_jup, color='k')
 	ax21.scatter(theta_m2, r_m2, s=s*10)
 
 	ax20.axhline(outer_peri_31)
@@ -540,7 +561,7 @@ def make_coll_polar_m():
 	ax21.set_ylim(rmin, rmax)
 	ax21.set_xlim(-np.pi, np.pi)
 	ax21.set_ylim(rmin, rmax)
-	ax20.set_xlabel('Rel. # of Collisions')
+	ax20.set_xlabel('Rel. # of Collisions and Flux')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
 	ax21.set_title(r'M$_{g}$ = 2 M$_{jup}$')
@@ -552,7 +573,7 @@ def bump_dip_diag():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	res_idx = 1
+	res_idx = 2
 	ngrid = 50
 	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
 	m_jup_vals = np.logspace(-1, 1, ngrid)
@@ -570,7 +591,7 @@ def bump_dip_diag():
 	        if (apo_inner - peri_outer)/rw > 0:
 	            is_bump_21[idx][idx1] = 1.0
 	            
-	res_idx = 0
+	res_idx = 5
 	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
 	m_jup_vals = np.logspace(-1, 1, ngrid)
 
@@ -622,8 +643,8 @@ def bump_dip_diag2():
 	file_str = 'figures/bump_dip_diag.' + fmt
 	if not clobber and os.path.exists(file_str):
 		return
-
-	res_idx = 1
+	            
+	res_idx = 5
 	ngrid = 50
 	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
 	m_jup_vals = np.logspace(-1, 1, ngrid)
@@ -639,69 +660,34 @@ def bump_dip_diag2():
 	        apo_inner = (a_res - rw)*(1 + fecc)
 	        peri_outer = (a_res + rw)*(1 - fecc)
 	        
-	        bump_21[idx][idx1] = (apo_inner - peri_outer)/(rw)
-        	strength_21[idx][idx1] = m_jup_vals[idx1]*e_jup_vals[idx]
-	            
-	res_idx = 0
-	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
-	m_jup_vals = np.logspace(-1, 1, ngrid)
-
-	bump_31 = np.zeros((ngrid, ngrid))
-	strength_31 = np.zeros((ngrid, ngrid))
-	for idx in range(ngrid):
-	    for idx1 in range(ngrid):
-	        a_res = res_dist[res_idx]
-	        rw = res_width_jup(res_idx, ecc_jup=e_jup_vals[idx], \
-	                              m_jup=(m_jup_vals[idx1]*u.M_jup).to(u.M_sun).value)*2
-	        fecc = e_forced(a_res, e_jup_vals[idx])
-	        apo_inner = (a_res - rw)*(1 + fecc)
-	        peri_outer = (a_res + rw)*(1 - fecc)
-	        
-	        bump_31[idx][idx1] = (apo_inner - peri_outer)/rw
-        	strength_31[idx][idx1] = m_jup_vals[idx1]*e_jup_vals[idx]**2
+	        bump_21[idx][idx1] = (apo_inner - peri_outer)/rw
+        	strength_21[idx][idx1] = m_jup_vals[idx1]*e_jup_vals[idx]**2
 
 	strength_21 /= strength_21[-1][-1]
-	strength_31 /= strength_31[-1][-1]
 
-	fig, axes = plt.subplots(figsize=(12,6), ncols=2)
+	fig, axes = plt.subplots(figsize=(8,8))
 	cmap = cm.get_cmap('viridis', 8)
-	axes[0].contour(e_jup_vals, m_jup_vals, np.transpose(bump_21), levels=[-1, 1], colors='k', linestyles='--')
-	cax = axes[0].pcolormesh(e_jup_vals, m_jup_vals, np.flipud(np.rot90(strength_21)), \
+	axes.contour(e_jup_vals, m_jup_vals, np.transpose(bump_21), levels=[-1, 1], colors='k', linestyles='--')
+	cax = axes.pcolormesh(e_jup_vals, m_jup_vals, np.flipud(np.rot90(strength_21)), \
 	                         norm=colors.LogNorm(vmin=1e-8, vmax=1), cmap=cmap)
-	axes[1].contour(e_jup_vals, m_jup_vals, np.transpose(bump_31), levels=[-1, 1], colors='k', linestyles='--')
-	cax = axes[1].pcolormesh(e_jup_vals, m_jup_vals, np.flipud(np.rot90(strength_31)), \
-	                         norm=colors.LogNorm(vmin=1e-8, vmax=1), cmap=cmap)
-	cbax,kw = mpl.colorbar.make_axes([ax for ax in axes.flat])
-	cbar = plt.colorbar(cax, cax=cbax, **kw)
+	cbar = plt.colorbar(cax)
 	cbar.set_label('Relative Strength of Resonance')
-	axes[0].set_xscale('log')
-	axes[0].set_yscale('log')
-	axes[0].set_xlabel('Eccentricity of Perturber')
-	axes[0].set_ylabel(r'Mass of Perturber [M$_{jup}$]')
-	axes[0].set_title('2:1 MMR')
-	axes[1].set_xscale('log')
-	axes[1].set_yscale('log')
-	axes[1].set_xlabel('Eccentricity of Perturber')
-	axes[1].set_yticks([])
-	axes[1].set_title('3:1 MMR')
+	axes.set_xscale('log')
+	axes.set_yscale('log')
+	axes.set_xlabel('Eccentricity of Perturber')
+	axes.set_ylabel(r'Mass of Perturber [M$_{jup}$]')
+	axes.set_title('2:1 MMR')
 
 	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
-	axes[0].text(0.1, 0.85, 'Central Dip', transform=axes[0].transAxes, fontsize=14,
+	axes.text(0.1, 0.85, 'Central Dip', transform=axes.transAxes, fontsize=14,
 	        verticalalignment='top', bbox=props)
 	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
-	axes[0].text(0.65, 0.1, 'Central Bump', transform=axes[0].transAxes, fontsize=14,
-	        verticalalignment='top', bbox=props)
-	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
-	axes[1].text(0.1, 0.85, 'Central Dip', transform=axes[1].transAxes, fontsize=14,
-	        verticalalignment='top', bbox=props)
-	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
-	axes[1].text(0.65, 0.1, 'Central Bump', transform=axes[1].transAxes, fontsize=14,
+	axes.text(0.65, 0.1, 'Central Bump', transform=axes.transAxes, fontsize=14,
 	        verticalalignment='top', bbox=props)
 
 	mvals = [0.5, 1, 2, 1 , 1]
 	evals = [0.048, 0.048, 0.048, 0.024, 0.096]
-	axes[0].scatter(evals, mvals, color='k', s=100, zorder=3)
-	axes[1].scatter(evals, mvals, color='k', s=100, zorder=3)
+	axes.scatter(evals, mvals, color='k', s=100, zorder=3)
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -766,17 +752,18 @@ def make_ae():
 	# to do show_widths=True here
 	fig, ax = plt.subplots(figsize=(8,12), nrows=3, ncols=1, sharex=True, sharey=True)
 	ax[0].scatter(pl_e1['a'], pl_e1['e'], s=s)
-	#plot_res(ax[0], show_widths=False)
+	ax[0].set_ylim(-0.001, 0.2)
+	plot_res(ax[0], all=True)
 	ax[0].set_ylabel('Eccentricity')
 	ax[0].set_title(r'e$_{g}$ = 1/2 e$_{jup}$')
 
 	ax[1].scatter(pl_e['a'], pl_e['e'], s=s)
-	#plot_res(ax[1], show_widths=False)
+	plot_res(ax[1], all=True)
 	ax[1].set_ylabel('Eccentricity')
 	ax[1].set_title(r'e$_{g}$ = e$_{jup}$')
 
 	ax[2].scatter(pl_e2['a'], pl_e2['e'], s=s)
-	#plot_res(ax[2], show_widths=False)
+	plot_res(ax[2], all=True)
 	ax[2].set_ylabel('Eccentricity')
 	ax[2].set_title(r'e$_{g}$ = 2 e$_{jup}$')
 
@@ -785,7 +772,6 @@ def make_ae():
 	# sharey=true hides the tick labels
 	ax[2].yaxis.set_tick_params(labelleft=True)
 	ax[2].set_xlim(2, 4)
-	ax[2].set_ylim(-0.001, 0.2)
 	#plt.tight_layout(h_pad=0)
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -795,20 +781,20 @@ def make_long_ph():
 		return
 
 	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=3, sharex=True, sharey=True)
-	ax[0].scatter((pl_e1['asc_node'] + pl_e1['omega'] + np.pi)%(2*np.pi) - np.pi, pl_e1['a'], s=s)
-	plot_res(ax[0], vertical=False, show_widths=False)
-	ax[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$')
 	ax[0].set_ylim(2, 4)
 	ax[0].set_xlim(-np.pi, np.pi)
+	ax[0].scatter((pl_e1['asc_node'] + pl_e1['omega'] + np.pi)%(2*np.pi) - np.pi, pl_e1['a'], s=s)
+	plot_res(ax[0], vertical=False, all=True)
+	ax[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$')
 	ax[1].set_xlabel('Longitude of Perihelion')
 	ax[0].set_ylabel('Semimajor Axis [AU]')
 
 	ax[1].scatter((pl_e['asc_node'] + pl_e['omega'] + np.pi)%(2*np.pi) - np.pi, pl_e['a'], s=s)
-	plot_res(ax[1], vertical=False, show_widths=False)
+	plot_res(ax[1], vertical=False, all=True)
 	ax[1].set_title(label=r'e$_{g}$ = e$_{jup}$')
 
 	ax[2].scatter((pl_e2['asc_node'] + pl_e2['omega']+ np.pi)%(2*np.pi) - np.pi, pl_e2['a'], s=s)
-	plot_res(ax[2], vertical=False, show_widths=False)
+	plot_res(ax[2], vertical=False, all=True)
 	ax[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$')
 	fig.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
@@ -823,16 +809,16 @@ def make_coll_hist_a():
 	coll_bins_a_e2, coll_pdf_a_e2 = kde(coll_e2['a1'])
 
 	fig, axes = plt.subplots(figsize=(8,12), nrows=3, ncols=1, sharex=True)
-	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1)
-	plot_res(axes[0], show_widths=False)
+	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1, linestyle='steps-mid')
+	plot_res(axes[0])
 	axes[0].set_ylabel('dN/da')
 	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$')
-	axes[1].plot(coll_bins_a_e, coll_pdf_a_e)
-	plot_res(axes[1], show_widths=False)
+	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
+	plot_res(axes[1])
 	axes[1].set_ylabel('dN/da')
 	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$')
-	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2)
-	plot_res(axes[2], show_widths=False)
+	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, linestyle='steps-mid')
+	plot_res(axes[2])
 	axes[2].set_ylabel('dN/da')
 	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$')
 	axes[2].set_xlabel('Semimajor Axis [AU]')
@@ -871,19 +857,19 @@ def make_coll_hist_r():
 	e2_norm = len(c[res_mask])/len(coll_e2)
 
 	fig, axes = plt.subplots(figsize=(8,12), nrows=3, ncols=1, sharex=True)
-	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1)
-	axes[0].plot(coll_bins_a_e1_ex, coll_pdf_a_e1_ex*e1_norm)
-	plot_res(axes[0], show_widths=False)
+	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1, linestyle='steps-mid')
+	axes[0].plot(coll_bins_a_e1_ex, coll_pdf_a_e1_ex*e1_norm, linestyle='steps-mid')
+	plot_res(axes[0])
 	axes[0].set_ylabel('dN/da')
 	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$')
-	axes[1].plot(coll_bins_a_e, coll_pdf_a_e)
-	axes[1].plot(coll_bins_a_e_ex, coll_pdf_a_e_ex*e_norm)
-	plot_res(axes[1], show_widths=False)
+	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
+	axes[1].plot(coll_bins_a_e_ex, coll_pdf_a_e_ex*e_norm, linestyle='steps-mid')
+	plot_res(axes[1])
 	axes[1].set_ylabel('dN/da')
 	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$')
-	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2)
-	axes[2].plot(coll_bins_a_e2_ex, coll_pdf_a_e2_ex*e2_norm)
-	plot_res(axes[2], show_widths=False)
+	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, linestyle='steps-mid')
+	axes[2].plot(coll_bins_a_e2_ex, coll_pdf_a_e2_ex*e2_norm, linestyle='steps-mid')
+	plot_res(axes[2])
 	axes[2].set_ylabel('dN/da')
 	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$')
 	axes[2].set_xlabel('Cylindrical Distance [AU]')
@@ -954,6 +940,31 @@ def make_polar_hk_plots():
 	ax3.set_title('Exterior to Resonance')
 	ax3.set_xlim(hmin + hshift, hmax + hshift)
 	ax3.set_ylim(kmin, kmax)
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+def plot_alma_prof():
+	file_str = 'figures/alma_prof.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	fig, axes = plt.subplots(figsize=(8,12), nrows=5, sharex=True)
+
+	axes[0].set_title(r'$e_{lo}$')
+	axes[0].set_ylabel('Flux [Units?]')
+	axes[1].set_title(r'$m_{lo}$')
+	axes[1].set_ylabel('Flux [Units?]')
+
+	axes[2].set_title('n')
+	radius, flux, flux_conv = np.loadtxt(path + 'hkshiftfull/ecc_0p1.profile', unpack=True)
+	axes[2].plot(radius, flux_conv)
+	axes[2].set_ylabel('Flux [Units?]')
+	axes[3].set_title(r'$e_{hi}$')
+	axes[3].set_ylabel('Flux [Units?]')
+	axes[4].set_title(r'$m_{hi}$')
+	axes[4].set_xlabel('Cylindrical Distance [AU]')
+	axes[4].set_ylabel('Flux [Units?]')
+	axes[4].set_xlim(2, 4)
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -1187,7 +1198,7 @@ def make_wander_res_scale():
 
 	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2)
 
-	res_idx = 0
+	res_idx = 2
 	for idx, jef in enumerate(jup_ecc_fac):
 		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
 
@@ -1205,7 +1216,7 @@ def make_wander_res_scale():
 		ax[0].set_ylabel('Size Scale [AU]')
 		ax[0].set_title('3:1 MMR')
 
-	res_idx = 1
+	res_idx = 5
 	for idx, jef in enumerate(jup_ecc_fac):
 		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
 
@@ -1228,13 +1239,14 @@ def make_wander_res_scale():
 
 #make_coll_polar_e()
 #make_coll_polar_m()
-#bump_dip_diag2()
+bump_dip_diag2()
 #make_xy()
 #make_ae()
 #make_long_ph()
 #make_coll_hist_a()
 #make_coll_hist_r()
-make_polar_hk_plots()
+#make_polar_hk_plots()
+#plot_alma_prof()
 #make_coll_hist_e_and_m()
 #make_coll_hist_hot_cold_a()
 #make_coll_gf_vary()
