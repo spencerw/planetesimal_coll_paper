@@ -274,7 +274,7 @@ def make_coll_polar_e():
 	ax00.set_xlabel('Rel. # of Collisions and Flux')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
-	ax01.set_title(r'e$_{g}$ = 1/2 e$_{jup}$')
+	ax01.set_title(r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
 
 	# Moderate eccentricity case
 	ecc = ecc_jup
@@ -331,7 +331,7 @@ def make_coll_polar_e():
 	ax10.set_xlabel('Rel. # of Collisions and Flux')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
-	ax11.set_title(r'e$_{g}$ = e$_{jup}$')
+	ax11.set_title(r'e$_{g}$ = e$_{jup}$ (e2m2)')
 
 	# High eccentricity case
 	ecc = ecc_jup*2
@@ -385,7 +385,7 @@ def make_coll_polar_e():
 	ax20.set_xlabel('Rel. # of Collisions and Flux')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
-	ax21.set_title(r'$e_{g}$ = 2 e$_{jup}$')
+	ax21.set_title(r'$e_{g}$ = 2 e$_{jup}$ (e3m2)')
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -453,7 +453,7 @@ def make_coll_polar_m():
 	ax00.set_xlabel('Rel. # of Collisions and Flux')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
-	ax01.set_title(r'M$_{g}$ = 1/2 M$_{jup}$')
+	ax01.set_title(r'M$_{g}$ = 1/2 M$_{jup}$ (e2m1)')
 
 	# Moderate mass case
 	mass = m_jup
@@ -510,7 +510,7 @@ def make_coll_polar_m():
 	ax10.set_xlabel('Rel. # of Collisions and Flux')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
-	ax11.set_title(r'M$_{g}$ = M$_{jup}$')
+	ax11.set_title(r'M$_{g}$ = M$_{jup}$ (e2m2)')
 
 	# High mass case
 	mass = m_jup*2
@@ -564,7 +564,7 @@ def make_coll_polar_m():
 	ax20.set_xlabel('Rel. # of Collisions and Flux')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
-	ax21.set_title(r'M$_{g}$ = 2 M$_{jup}$')
+	ax21.set_title(r'M$_{g}$ = 2 M$_{jup}$ (e2m3)')
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -717,7 +717,7 @@ def make_xy():
 	ax1.plot([0, x_peri_e1], [0, y_peri_e1], linestyle='--')
 	ax1.set_xlabel('X [AU]')
 	ax1.set_ylabel('Y [AU]')
-	ax1.set_title(r'e$_{pl}$ = 1/2 e$_{jup}$')
+	ax1.set_title(r'e$_{pl}$ = 1/2 e$_{jup}$ (e1m2)')
 	ax1.set_xlim(-5.5, 5.5)
 	ax1.set_ylim(-5.5, 5.5)
 	ax2.scatter(x_e_rot, y_e_rot, s=s)
@@ -725,13 +725,13 @@ def make_xy():
 	ax2.plot([0, x_peri_e], [0, y_peri_e], linestyle='--')
 	ax2.set_xlabel('X [AU]')
 	ax2.set_ylabel('Y [AU]')
-	ax2.set_title(r'e$_{pl}$ = e$_{jup}$')
+	ax2.set_title(r'e$_{pl}$ = e$_{jup}$ (e2m2)')
 	ax3.scatter(x_e2_rot, y_e2_rot, s=s)
 	ax3.scatter(x_e2_rot[0], y_e2_rot[0], color='r')
 	ax3.plot([0, x_peri_e2], [0, y_peri_e2], linestyle='--')
 	ax3.set_xlabel('X [AU]')
 	ax3.set_ylabel('Y [AU]')
-	ax3.set_title(r'e$_{pl}$ = 2 e$_{jup}$')
+	ax3.set_title(r'e$_{pl}$ = 2 e$_{jup}$ (e3m2)')
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 def make_rtheta():
@@ -762,17 +762,17 @@ def make_ae():
 	ax[0].set_ylim(-0.001, 0.2)
 	plot_res(ax[0], all=True)
 	ax[0].set_ylabel('Eccentricity')
-	ax[0].set_title(r'e$_{g}$ = 1/2 e$_{jup}$')
+	ax[0].set_title(r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
 
 	ax[1].scatter(pl_e['a'], pl_e['e'], s=s)
 	plot_res(ax[1], all=True)
 	ax[1].set_ylabel('Eccentricity')
-	ax[1].set_title(r'e$_{g}$ = e$_{jup}$')
+	ax[1].set_title(r'e$_{g}$ = e$_{jup}$ (e2m2)')
 
 	ax[2].scatter(pl_e2['a'], pl_e2['e'], s=s)
 	plot_res(ax[2], all=True)
 	ax[2].set_ylabel('Eccentricity')
-	ax[2].set_title(r'e$_{g}$ = 2 e$_{jup}$')
+	ax[2].set_title(r'e$_{g}$ = 2 e$_{jup}$ (e3m2)')
 
 	ax[2].set_xlabel('Semimajor Axis [AU')
 
@@ -792,17 +792,17 @@ def make_long_ph():
 	ax[0].set_xlim(-np.pi, np.pi)
 	ax[0].scatter((pl_e1['asc_node'] + pl_e1['omega'] + np.pi)%(2*np.pi) - np.pi, pl_e1['a'], s=s)
 	plot_res(ax[0], vertical=False, all=True)
-	ax[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$')
+	ax[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
 	ax[1].set_xlabel('Longitude of Perihelion')
 	ax[0].set_ylabel('Semimajor Axis [AU]')
 
 	ax[1].scatter((pl_e['asc_node'] + pl_e['omega'] + np.pi)%(2*np.pi) - np.pi, pl_e['a'], s=s)
 	plot_res(ax[1], vertical=False, all=True)
-	ax[1].set_title(label=r'e$_{g}$ = e$_{jup}$')
+	ax[1].set_title(label=r'e$_{g}$ = e$_{jup}$ (e2m2)')
 
 	ax[2].scatter((pl_e2['asc_node'] + pl_e2['omega']+ np.pi)%(2*np.pi) - np.pi, pl_e2['a'], s=s)
 	plot_res(ax[2], vertical=False, all=True)
-	ax[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$')
+	ax[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$ (e3m2)')
 	fig.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -819,15 +819,15 @@ def make_coll_hist_a():
 	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1, linestyle='steps-mid')
 	plot_res(axes[0])
 	axes[0].set_ylabel('dN/da')
-	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$')
+	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
 	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
 	plot_res(axes[1])
 	axes[1].set_ylabel('dN/da')
-	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$')
+	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$ (e2m2)')
 	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, linestyle='steps-mid')
 	plot_res(axes[2])
 	axes[2].set_ylabel('dN/da')
-	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$')
+	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$ (e3m2)')
 	axes[2].set_xlabel('Semimajor Axis [AU]')
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
@@ -868,17 +868,17 @@ def make_coll_hist_r():
 	axes[0].plot(coll_bins_a_e1_ex, coll_pdf_a_e1_ex*e1_norm, linestyle='steps-mid')
 	plot_res(axes[0])
 	axes[0].set_ylabel('dN/da')
-	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$')
+	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
 	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
 	axes[1].plot(coll_bins_a_e_ex, coll_pdf_a_e_ex*e_norm, linestyle='steps-mid')
 	plot_res(axes[1])
 	axes[1].set_ylabel('dN/da')
-	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$')
+	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$ (e2m2)')
 	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, linestyle='steps-mid')
 	axes[2].plot(coll_bins_a_e2_ex, coll_pdf_a_e2_ex*e2_norm, linestyle='steps-mid')
 	plot_res(axes[2])
 	axes[2].set_ylabel('dN/da')
-	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$')
+	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$ (e3m2)')
 	axes[2].set_xlabel('Cylindrical Distance [AU]')
 
 	# Also show plots with particles in resonance excluded
@@ -1244,14 +1244,14 @@ def make_wander_res_scale():
 	plt.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
-#make_coll_polar_e()
-#make_coll_polar_m()
+make_coll_polar_e()
+make_coll_polar_m()
 #bump_dip_diag2()
 make_xy()
-#make_ae()
-#make_long_ph()
-#make_coll_hist_a()
-#make_coll_hist_r()
+make_ae()
+make_long_ph()
+make_coll_hist_a()
+make_coll_hist_r()
 #make_polar_hk_plots()
 #plot_alma_prof()
 #make_coll_hist_e_and_m()
