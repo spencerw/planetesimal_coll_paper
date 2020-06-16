@@ -1244,8 +1244,31 @@ def make_wander_res_scale():
 	plt.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
-make_coll_polar_e()
-make_coll_polar_m()
+def gen_coll_PDF():
+	c = coll_e1
+	coll_bins_r_e1, coll_pdf_r_e1 = kde(c['dist1'])
+
+	c = coll_e
+	coll_bins_r_e, coll_pdf_r_e = kde(c['dist1'])
+
+	c = coll_e2
+	coll_bins_r_e2, coll_pdf_r_e2 = kde(c['dist1'])
+
+	c = coll_m1
+	coll_bins_r_m1, coll_pdf_r_m1 = kde(c['dist1'])
+
+	c = coll_m2
+	coll_bins_r_m2, coll_pdf_r_m2 = kde(c['dist1'])
+
+	np.savetxt('e1m2_coll.txt', [coll_bins_r_e1, coll_pdf_r_e1])
+	np.savetxt('e2m2_coll.txt', [coll_bins_r_e, coll_pdf_r_e])
+	np.savetxt('e3m2_coll.txt', [coll_bins_r_e2, coll_pdf_r_e2])
+	np.savetxt('e2m1_coll.txt', [coll_bins_r_m1, coll_pdf_r_m1])
+	np.savetxt('e2m3_coll.txt', [coll_bins_r_m2, coll_pdf_r_m2])
+
+gen_coll_PDF()
+#make_coll_polar_e()
+#make_coll_polar_m()
 #bump_dip_diag2()
 make_xy()
 make_ae()
