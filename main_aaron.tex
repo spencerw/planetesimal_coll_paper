@@ -75,7 +75,7 @@ explore the collision rate structure of the planetesimal disk in the vicinity of
 determine \ACBc{(1)} whether MMRs leave a detectable signature in the collisionally-generated dust\ACBc{, and (2) whether} these signatures can be used to determine or 
 constrain the orbital properties of the perturbing planet.
 
- \ACBc{[Feel free to omit this, particularly because it has a self citation, but I think it is important to highlight that your results could be relevant beyond debris systems]  While the focus here is on the evolution of planetesimal disks in general, with the most direct application being debris systems, we note that the results may be relevant for interpreting structures observed in young, gas-rich disks. For example, assuming giant planet formation requires first the presence of planetesimals, then systems such as HL Tau that have purported embedded giant planets, could have localized regions of dust enhancement due to the corresponding planetesimal collisions  \citep{2017ApJ...850..103B}.  The main difference between such cases and debris disks is that the dust in the former situation couples to gas. }
+ \ACBc{[UPDATED to take into account further discussion later in the article. Much of the discussion above is on debris discs, so I am trying to reframe the discussion for what follows later in the manuscript. Feel free to omit this, particularly because it has a self citation, but I think it is important because the intro is a bit off point otherwise.]  The focus here is on the collisional evolution of planetesimal disks in general, and the results are not intended to be confined to debris disks.   During planet formation, which occurs in the presence of planetesimals and gas, the coupling between gas and collisionally-produced dust could lead to observable signatures \citep{2017ApJ...850..103B}, as we will explore.  }
 
 This work is organized in the following way: In section \ref{sec:dynamics}, we provide an overview of the relevant dynamics that drive the evolution 
 of a planetesimal disk under the gravitational influence of an external perturber. In section \ref{sec:sims} we provide an overview of the N-body code 
@@ -100,10 +100,10 @@ forced value, given by \citep{1999ApJ...527..918W} as
 
 \noindent Here, $\alpha = a_{g} / a$ where $a_{g}$ and $a$ are the semi-major axes of the giant planet and the planetesimal, 
 respectively. $e_{g}$ and $\varpi_{g}$ are the eccentricity and longitude of pericenter of the giant and $b^{j}_{s} (\alpha)$ is a 
-Laplace coefficient given by \citep{2000ssd..book.....M} as
+Laplace coefficient given by \citep{2000ssd..book.....M} as \ACBc{[fixed $cos$ to $\cos$.]}
 
 \begin{equation}\label{eq:lap}
-	b_{s}^{j}(\alpha) = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{cos \, j \theta \, d \theta}{\left( 1 - 2 \alpha \, cos \theta + \alpha^2 \right)^{s}}.
+	b_{s}^{j}(\alpha) = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{\cos \, j \theta \, d \theta}{\left( 1 - 2 \alpha \, \cos \theta + \alpha^2 \right)^{s}}.
 \end{equation}
 
 Without any nearby secular or mean motion resonances, equation \ref{eq:eforced} will completely describe the eccentricities and longitude of  
@@ -115,7 +115,7 @@ be described by a Rayleigh distribution \citep{1992Icar...96..107I}.
 
 \subsection{Mean Motion Resonances}
 
-In regions where there are commensurabilities between frequencies, secular theory breaks down and bodies are subject to strong 
+In regions where there are commensurabilities between frequencies, \ACBc{Laplace-Langrange} secular theory breaks down and bodies are subject to strong 
 perturbations. For the purposes of this study, we will ignore secular resonances, which generally occur on rather large timescales 
 and will focus on mean motion resonances (MMRs). A MMR occurs  when the orbital period ratio between two bodies is sufficiently 
 close to
@@ -125,7 +125,7 @@ close to
 \end{equation}
 
 \noindent where  $p$ and $q$ are integers $>$ 0 and the unprimed and primed quantities correspond to the perturber and the body 
-being perturbed, respectively. If the perturber is much more massive than the other body, the condition for MMR is set  by the semi-major 
+being perturbed, respectively. \ACBc{[Might as well state the order and degree of the resonance to fully define the equation.]} If the perturber is much more massive than the other body, the condition for MMR is set  by the semi-major 
 axes of the two bodies by
 
 \begin{equation}\label{eq:a_mmr}
@@ -141,8 +141,8 @@ behavior of a critical angle
 
 \noindent where $\lambda = \varpi + M$ is the mean longitude of a body. For bodies in resonance, the critical angle will librate around an 
 equlibrium value, while this angle will circulate outside of resonance. For small eccentricities, this behavior is analogous to the motion of a 
-pendulum. Variations in the critical angle are coupled to changes in the mean motion and semimajor axis \citet{2000ssd..book.....M}. An important 
-point to note, which will become important later, is that the variation frequency of this angle approaches zero near the edge of a resonance. The 
+pendulum. Variations in the critical angle are coupled to changes in the mean motion and semimajor axis \citep{2000ssd..book.....M}\ACBc{[fixed citation]}. An important 
+point to note, which \sout{will become important}\ACBc{we will come back to} later, is that the variation frequency of this angle approaches zero near the edge of a resonance. The 
 width of a resonance can be defined by determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of 
 the $\phi$. For second and higher order resonances, the maximum libration width is given by
 
@@ -185,7 +185,7 @@ Changes in eccentricity are correlated with changes in semimajor axis variations
 	\frac{de}{da} = \frac{a^{3/2} - 1}{2 a^{5/2} e}.
 \end{equation}
 
-The net result of this is that MMRs will produce spikes in the semimajor axis - eccentricity distribution of a planetesimal disk. In order to 
+The net result of this is that MMRs will produce spikes in the semimajor \ACBc{axis-eccentricity} distribution of a planetesimal disk. In order to 
 preserve the Jacobi energy, equation \ref{eq:tiss} predicts that these spikes will tend to curve away from the perturbing body. This lowers the 
 surface density of the disk near the locations of resonances, while producing a pileup of bodies on eccentric orbits adjacent to the MMR. The 
 enhanced surface density will increase the collision rate. At the same time, the large eccentricites will either lower it due to the decreased 
@@ -225,9 +225,9 @@ e2m3 & 2.0 $M_{jup}$                     & 1.0 $e_{jup}$                        
 
 \subsection{Initial Conditions}\label{sec:ics}
 
-In total, five simulations are run. The first is a 'nominal' case, in which the perturbing planet's mass and eccentricity are set to that of Jupiter's. 
+In total, five simulations are run\ACBc{[Reference table!]}. The first is a `nominal' \ACBc{[fixed quotes]} case, in which the perturbing planet's mass and eccentricity are set to that of Jupiter's. 
 In the other four cases, the mass (eccentricity) is increased or decreased by a factor of two, while the eccentricity (mass) is held at the nominal 
-value. In all cases, the perturbing giant is placed on a 5.2 AU orbit around a 1 $M_{\odot}$ star. The planetesimal disk extends from 2.2 to 3.8 
+value. In all cases, the perturbing giant is placed on a 5.2 AU orbit around a 1 $M_{\odot}$ star\ACBc{, although the overall dynamics presented here are scalable to different scales [true, right?]}. The planetesimal disk extends from 2.2 to 3.8 
 AU, which covers the two most prominent mean motion resonances with the giant planet, the 2:1 at 3.27 AU and the 3:1 at 2.5 AU. The 
 planetesimal disk follows a minimum-mass solar nebula surface density profile \citep{1981PThPS..70...35H}
 
@@ -254,7 +254,7 @@ components:
 	z = (h, ik) = e \, exp(i \varpi)
 \end{equation}
 
-\noindent and a forced component is added to $h$ according to equation \ref{eq:eforced} (where we have set $\varpi_{g}$ = 0).
+\noindent and a forced component is added to $h$ according to equation \ref{eq:eforced} (where we have set $\varpi_{g}$ = 0). \ACBc{[question and minor.  Doesn't the convention place the cosine with k or q (for inclination).  I tend to recall this because the mnemonic device is that the hard sound goes with the cosine. I do not have my standard references on me to verify!  Feel free to ignore me.]}
 
 \subsection{Time Stepping Scheme}\label{sec:timestep}
 
@@ -267,18 +267,18 @@ planetesimal disk. We reduce the base time step size by an additional
 factor of 4 to the keep longitude of perihelia of planetesimals near the inner edge of the disk from drifting too far over the course of our 
 integrations. \ACBc{Define too far.}
 
-An additional timescale is set by the dynamical time of the planetesimals ($\sim 1/\sqrt{G \rho}$), which is about 45 minutes. To 
+An additional timescale is set by the dynamical time of the planetesimals ($\sim 1/\sqrt{G \rho}$), which is about 45 minutes. To o i
 resolve the base time step and the dynamical timescale of planetesimals simultaneously, we use a two-tiered time stepping scheme. 
 To start, all bodies are placed on the orbital time step. A first pass of collision detection is then run in 
 which the radii of all bodies are inflated by a factor of 2.5. Any bodies with imminent collisions predicted using the inflated radii are 
-placed on a time step that is a factor of 16 smaller than the orbital time step. The purpose of two-tiered scheme is to properly resolve 
+placed on a time step that is a factor of 16 smaller than the orbital time step. The purpose of \ACBc{the} two-tiered scheme is to properly resolve 
 the gravitational interactions between any bodies that undergo a close encounter. This prevents the coarser base time step from 
 reducing the effectiveness of gravitational focusing, while minimizing the additional computational expense.
 
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/xy.png}
-    \caption{\ACBc{fix aspect ratino so a circle is a circle.}  The positions of the remaining planetesimals at the end of the e1m2 (left), e2m2 (center) and e3m2 (right) simulations. The red dot 
+    \caption{\ACBc{[Is this aspect ratio right? I.e., is a circle a circle?]}  The positions of the remaining planetesimals at the end of the e1m2 (left), e2m2 (center) and e3m2 (right) simulations. The red dot 
     indicates the position of the giant planet and the dashed line points in the direction of the planet's longitude of perihelion. Non-axisymmetric gaps 
     are apparent near the locations of MMRs. At higher eccentricities, more resonances become visible. At the 2:1 MMR, gap features at $\theta$ = 0 
     and $\theta = \pi$ follow the giant planet in its orbit.\label{fig:xy}}
@@ -324,8 +324,8 @@ shown in figure \ref{fig:xy}. In all cases, the coordinate system is rotated so 
 the planet is shown by the dashed line. Resonances with the perturbing planet are visible as nonaxisymmetric gaps. Upon close inspection of a 
 series of simulation snapshots, these gaps appear to follow the planet in its orbit, rather than aligning themselves with the longitude of perihelion. A 
 similar substructure, which is most noticeable near the 2:1 MMR, reveals itself in \citet{2000Icar..143...45R} (see bottom panel of figure 3) and 
-\citet{2016ApJ...818..159T} (figure 3). It is worth noting that \citet{2000Icar..143...45R} started with a completely cold planetesimal disk and a Jupiter 
-mass planet on a circular, coplanar orbit. The presence of these features seems robust to the choice of initial conditions.
+\citet{2016ApJ...818..159T} (figure 3). \ACBc{This structure was also seen in the \citet{2017ApJ...850..103B} simulations, although it was not reported at the time (see Appendix BLAH).}  It is worth noting that \citet{2000Icar..143...45R} started with a completely cold planetesimal disk and a Jupiter 
+mass planet on a circular, coplanar orbit. \ACBc{ \citet{2017ApJ...850..103B} used a similar setup.  Thus, t}he presence of these features seems robust to the choice of initial conditions.
 
 The effects of the resonances become much more apparent in semimajor axis-eccentricity space, which is shown in figure \ref{fig:ae}. In all cases, 
 the 3:1, 2:1 and 5:3 resonances are readily visible as 'spikes' in the eccentricity that bend slightly inward (due to the conservation of $E_{J}$). In the 
@@ -361,7 +361,7 @@ focusing cross section, which reduces the collision rate from its non-perturbed 
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/coll_hist_a.png}
     \caption{In semimajor axis space, prominent features appear near the 3:1 and 2:1 MMRs. Near the 3:1, the collision
-    rate decreases from its unperturbed value, while an enhancement apepars near the 2:1.\label{fig:coll_hist_a}}
+    rate decreases from its unperturbed value, while an enhancement apepars near the 2:1. \ACBc{[Suggest state bin width and mention density estimator -- basically, many people will just look at the figures, so some of this information is appropriate to repeat. ]} .\label{fig:coll_hist_a}} 
 \end{center}
 \end{figure}
 
