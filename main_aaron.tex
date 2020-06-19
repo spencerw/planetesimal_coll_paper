@@ -388,7 +388,7 @@ coupled to the gas. For a dust grain larger than the mean free path of the gas p
 density of 1 g cm$^{-3}$ and an eccentricity of 0.05, the damping timescale is $4 \times 10^{-3}$ years. This is orders of magnitude smaller than the 
 orbital timescale, therefore we conclude that collisionally generated dust grains will immediately couple to the gas.
 
-Operating under this assumption, a map of the relative concentration of second-generation dust can be constructed from the cylindrical 
+Operating under this assumption\footnote{\ACBc{As discussed in \cite{2017ApJ...850..103B}, the local generation of second-generation dust is only one consideration.  The dust will also evolve spatially due to drag effects, but can also evolve in size or be re-accreted onto planetesimals. For simplicity, we focus on local dust sourcing only while acknowledging that subsequent evolution could affect the morphology.}}, a map of the relative concentration of second-generation dust can be constructed from the cylindrical 
 distance at which the collisions occur. This is shown in figure \ref{fig:coll_hist_r}. Similar to figure \ref{fig:coll_hist_a}, we use a KDE with a bandwidth 
 of 0.02 AU to assemble the collision locations into a radial distribution. Most strikingly, the bump that was present near the 2:1 resonance is no 
 longer visible in cylindrical distance space, although it suddenly appears again in the e3m2 simulation. The dip that is visible near the 3:1 MMR 
@@ -398,22 +398,22 @@ resonance), which is shown by the orange curve. Qualitatively, none of the bump 
 suggests that the features near resonance seen in semimajor axis space become smeared out in cylindrical distance space due to the large spread 
 in eccentricity and orbital orientation.
 
-This also suggests that the most prominent bumps and dips seen in figure \ref{fig:coll_hist_r} are being produced by bodies outside of resonance. To 
-further understand this, we consider the nonaxisymmetric structure seen in figure \ref{fig:xy}. In figure \ref{fig:coll_polar_e}, we compare the radial 
-collision profile to the radial structure seen in the e1m2, e2m2 and e3m2 simulations. In the lowest forced eccentricity case, the pileups near the 
-edges of the resonances line up with the boundaries of the dip feature seen in the radial collision profile. The locations of the edges of the 
-resonances are calculated using equations \ref{eq:res_fo} and \ref{eq:res_so}. The pileups are especially prominent for the 2:1 resonance. As 
-discussed previously, the pileups and gaps seen in polar coordinates follow the position of the giant planet in its orbit, which is shown by the vertical 
-line.
+This also suggests that the \sout{most} prominent bumps and dips seen in figure \ref{fig:coll_hist_r} are \sout{being}\ACBc{mainly} produced by bodies outside of resonance\ACBc{, although the resonant population does make some of the features more pronounced. [I think this is more accurate to write.]} To 
+further understand this, we consider the nonaxisymmetric structure seen in figure \ref{fig:xy}. \ACBc{We compare} in figure \ref{fig:coll_polar_e}\sout{, we compare} the radial 
+collision profile to the radial structure \sout{seen} in the e1m2, e2m2 and e3m2 simulations. In the lowest forced eccentricity case \ACBc{(e1m2)}, the pileups near the 
+edges of the \sout{resonances}\ACBc{2:1 resonance} line up with the boundaries of the dip feature seen in the radial collision profile \ACBc{[I think this needs to be expanded.  Perhaps something similar to what follows] }. The locations of the edges of the 
+resonances are calculated using equations \ref{eq:res_fo} and \ref{eq:res_so}. The pileups are \sout{especially prominent for the 2:1 resonance}\ACBc{not as pronounced around the other resonances}. As 
+discussed previously, the \sout{pileups}\ACBc{planetesimal density enhancements} and gaps seen in polar coordinates follow the position of the giant planet in its orbit, which is shown by the vertical 
+line. \ACBc{For the e2m2 case, the density enhancements take up a much larger radial width, which smears out the corresponding collisional dust profile.  In the highest forced eccentricity case (e3m2), the density enhancements occur well within an annulus containing the resonant region, completely altering the radial peak-valley dust morphology.}     
 
 Although the nonaxisymmetric pileup of bodies near the edges of resonances has been seen previously 
-\citep{2000Icar..143...45R, 2016ApJ...818..159T}, we could not find a satisfactory explanation for why it happens and will provide one here. As 
-mentioned in section \ref{sec:dynamics}, the circulation frequency of the critical angle slows as one approaches the edge of the resonance from the outside. Following the pendulum analogy, this is equivalent to approaching the point where the pendulum becomes suspended in the vertical position. When the critical angle stays relatively stationary during an encounter, the net torque will drive the longitude of pericenter towards the point of conjunction \citep{1976ARA&A..14..215P}.  This is the basic mechanism that causes isolated resonances to be stable. Inside of resonance, the critical angles librates about some value and this configuration is maintained. Just outside of resonance, however, the critical angle slowly drifts away, with the drift direction changing sign across the resonance. The net result of this is that bodies just outside of the resonance experience a torque from that planet that temporarily drives their pericenters toward the current orbital position of the planet. After the encounter ends, differential rotation of the disk slowly destroys the configuration over part of an orbit. As the planet passes by, adjacent planetesimals near the resonance edges temporarily align themselves in this configuration. This explains why the concentration of planetesimals appears to 'follow' the the planet.
+\citep{2000Icar..143...45R, 2016ApJ...818..159T}, we could not find a satisfactory explanation for why it happens\sout{ and will provide one here}\ACBc{, which we will try to provide here [this makes the statement a bit more modest and by extension less confrontational, IMO].}. As 
+mentioned in section \ref{sec:dynamics}, the circulation frequency of the critical angle slows as one approaches the edge of the resonance from the outside. Following the pendulum analogy, this is equivalent to approaching the point where the pendulum becomes suspended in the vertical position. When the critical angle stays relatively stationary during an encounter, the net torque will drive the longitude of pericenter towards the point of conjunction \citep{1976ARA&A..14..215P}.  This is the basic mechanism that causes isolated resonances to be stable. Inside of resonance, the critical \sout{angles}\ACBc{angle} librates about some value and this configuration is maintained. Just outside of resonance, however, the critical angle slowly drifts away, with the drift direction changing sign across the resonance. The net result of this is that bodies just outside of the resonance experience a torque from that planet that temporarily drives their pericenters toward the current orbital position of the planet. After the encounter ends, differential rotation of the disk slowly destroys the configuration over part of an orbit. As the planet passes by, adjacent planetesimals near the resonance edges temporarily align themselves in this configuration. This explains why the concentration of planetesimals appears to \sout{'follow'}\ACBc{`follow'} the \sout{the} planet.
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/coll_polar_e.png}
     \caption{The collision profiles in figure \ref{fig:coll_hist_r} are shown alongside the positions of the planetesimals, in polar coordinates. The 
-    synthetic dust emission profiles are shown in orange. The dashed and solid lines show the pericenter and apocenter of bodies at the edge of the 
+    synthetic dust emission profiles are shown in orange \ACBc{(only for e2m2)}. The dashed and solid lines show the pericenter and apocenter\ACBc{, respectively,} of bodies at \sout{the} \ACBc{each} edge of the 
     3:1 and 2:1 MMR. In these figures, the longitude of pericenter of the planet lies at $\theta = 0$ and the present position of the planet is indicated 
     by the vertical line. For the 2:1 resonance, a bump, rather than a dip feature appears when the inner edge or the resonance's apocenter and outer 
     edge's pericenter distance cross. The collision profile near the 3:1 resonance does not appear to follow this same qualitative behavior.
@@ -428,35 +428,65 @@ mentioned in section \ref{sec:dynamics}, the circulation frequency of the critic
     resonance are too close together to produce much of a dip or a bump feature.\label{fig:coll_polar_m}}
 \end{figure*}
 
-\citet{2016ApJ...818..159T} provides a different explanation for this phenomenon. Instead, the nonaxisymmetric structure is claimed to be a product 
-of the path that a resonant test particle takes in a frame co-rotating with the planet (see figure 8.4 of \citet{2000ssd..book.....M}). This explanation, 
+\citet{2016ApJ...818..159T} \sout{provides}\ACBc{provide} a different explanation for this phenomenon\sout{. Instead,}\ACBc{, suggesting that} the nonaxisymmetric structure is \sout{claimed to be a}\ACBc{the} product 
+of the path that a resonant test particle takes in a frame co-rotating with the planet (see figure 8.4 of \citet{2000ssd..book.....M})\ACBc{[This wording is less confrontational. ]}. This explanation, 
 however, does not hold for a large collection of planetesimals, especially when there is no forced eccentricity. In such a case, the orbits of 
-planetesimals near resonance would be randomly aligned, and the axisymmetric structure should become washed out. In the case with a perturbing 
-planet planet on a circular orbit, this structure is still present (see figure 3 of \citet{2016ApJ...818..159T}). The only relation between the structure of 
+planetesimals near resonance would be randomly aligned, and the axisymmetric structure should become washed out. \sout{In the case with a}\ACBc{When the} perturbing 
+planet \sout{planet} \ACBc{is} on a circular orbit, this structure is still present (see figure 3 of \citet{2016ApJ...818..159T}\ACBc{ as well as Appendix BLAH}). 
+The only relation between the structure of 
 the gaps in the disk and the path of a resonant particle in the corotating frame is that both phenomena produce the same symmetries, which depend 
-on the resonance being considered.
+on the \ACBc{given} resonance \sout{being considered}.
 
 With no secular forcing, this dynamical phenomena should produce an underdensity in the radial surface density profile near the center of the 
 resonance and an overdensity at each edge in cylindrical distance space. When a forced eccentricity is introduced, the edges of the resonance 
-(indicated by the solid and dashed lines in figure \ref{fig:coll_polar_e}), where the pileups are located, begin to explore a wider range of radii over the 
+(indicated by the solid and dashed lines in figure \ref{fig:coll_polar_e}), where the pileups are located, \ACBc{[I think this description is confusing. The resonant region's edges are given by the density enhancements, but the solid and dashed lines indicated the largest excursions of the resonant region.]}begin to explore a wider range of radii over the 
 course of a single orbit. If the the aphelion distance of the inner edge becomes comparable to the perihelion distance of the outer edge, the 
 overdense regions on each side of the resonance meet and we should expect to see the central dip feature in the collision profile disappear. This is 
 exactly what appears to be happening in the middle panel of figure \ref{fig:coll_polar_e}. As the forced eccentricity is increased further, a region 
 forms at the center of the resonance where planetesimals on both sides of the resonance spend time (although not simultaneously). When this 
 occurs, a bump feature forms in the collision profile near the center of the resonance. This is apparent in the bottom panel of figure 
-\ref{fig:coll_polar_e}.
+\ref{fig:coll_polar_e}.  \ACBc{[As you can see from my suggested edits, I think this should be *also* discussed above with the first discussion of Figure 6.]}
 
 Although the same phenomenon appears to be happening near the 3:1 MMR, the pileups at the edges of the resonance are not as well defined. We 
-attribute this to the more comlex symmetry, compared to the 2:1 MMR. In addition, a number of other nearby resonances, including the 7:2 (at 
+attribute this to the more complex symmetry, compared to the 2:1 MMR. In addition, a number of other nearby resonances, including the 7:2 (at 
 2.25 AU), the 10:3 (at 2.33 AU), the 8:3 (at 2.71 AU) and the 5:2 (at 2.82 AU) also likely are contributing to the collision profile in cylindrical distance 
 space near the 3:1. The width of the 3:1 MMR is also much narrower than the 2:1, which means that any dip or bump features produced by it would 
-require much higher resolution observations. For these reasons, we will focus on the 2:1 MMR as the main diagnostic indicator.
+require much higher resolution observations. For these reasons, we will focus on the 2:1 MMR as the main diagnostic indicator. \ACBc{[Armed with the output from my sims, you might be able to comment more on this.]}
 
 \subsection{Observability of the Dust}
 
-Orange curves in figure \ref{fig:coll_polar_e} show the simulated ALMA flux profiles generated with {\sc CASA} \citep{2007ASPC..376..127M}. Have 
-Aaron add in some more text here describing exactly how the profiles were created. Should we add a separate figure to show the flux profiles, or 
-simply include them as an extra curve in the side panels of figures 6 and 7 like I've started to do here?
+\ACBc{[You will want to update the previously mentioned orange curves. New text follows]} 
+
+While the collisional dust profiles show radial amplitude variations, we still need to assess whether those variations could be observable.  
+To proceed, we create a skymodel for simulated ALMA observations as follows. First, we use the radially-averaged collision frequency from simulation e2m2 (Fig.~\ref{fig:coll_hist_r}) as the template for an azimuthally symmetric disk.  
+We then scale that profile by a factor of ten, which places ``Jupiter'' at 52 au.  
+This scaling is permitted by the dynamics and makes the disk comparable in size to the many disks that have now been observed by ALMA (maybe reference DSHARP).  
+The observed size scale is then set by envisaging a face-on disk at a distance of 100 pc.  
+
+The skymodel intensity (flux per pixel) is produced by interpolating the radial collision frequency onto a 2D Cartesian grid with cell widths of approximately 2 mas. 
+In doing so, we choose to make the intensity proportional to the collision frequency (i.e., the dust) because it is the most straightforward case. 
+Many different parameterizations are possible, depending on optical depth, grain size, disk temperature, etc., but we will avoid such complications here. 
+We normalize the intensity by setting the total disk flux density to be 100 mJy at about 350 GHz.  
+
+The simulated observations are performed using the {simobserve} task in {\sc CASA} \citep{2007ASPC..376..127M}.  The disk is given an $\rm RA = 11^{\rm h} 01^{\rm m} 52^{\rm s}$ and a $\delta = -34^\circ 42\arcmin 17\arcsec$ (i.e., the J2000 coordinates for TW Hydrae) and is ``observed'' through transit on March 20, 2020. 
+We observe the disk using configurations 8, 9, and 10 at 350 GHz (cycle 6 antenna file), spending six hr on-source in each configuration\footnote{We have imagined that the TAC likes us.}.  
+The visibilities are corrupted with thermal noise, setting $\rm PWV=1.5$. 
+They are then combined, imaged, and cleaned using the task tclean. Imaging uses Briggs weighting with a robustness parameter of -1. 
+
+The results are shown in Figure \ref{fig:alma_sim_obs}.  The 3:1 and 2:1 resonances can be easily identified in the cleaned image and in the corresponding radial profile.  Moreover, the features are qualitatively similar to the bright rings and dark gaps seen in actual disk profiles (maybe HL Tau cite). [We should make the skymodel available to anyone who wants to use it]
+
+
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{alma/skymodel_e2m2.png}
+    \includegraphics[width=0.5\textwidth]{alma/xy_e2m2.png}
+    \includegraphics[width=0.5\textwidth]{alma/profile_e2m2.eps}
+    \caption{Simulated ALMA observations.  Top. The skymodel based on the radial collision distribution from the e2m2 simulation. The size of the disk has been scaled by a factor of 10 and placed at 100 pc. Middle. The cleaned image using combined observations in configurations 8, 9, and 10. The 3:1 and 2:1 resonance dust gaps are visible. Bottom. The azimuthally-averaged radial profile based on the cleaned image. \label{fig:alma_sim_obs}}
+\end{center}
+\end{figure}
+
+
+
 
 \subsection{Varying the Mass}
 
