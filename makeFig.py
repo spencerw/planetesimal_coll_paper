@@ -834,20 +834,26 @@ def make_coll_hist_r():
 	a211, a212 = 3.2, 3.35
 
 	c = coll_e1
-	res_mask = np.logical_and(~np.logical_and(c['a1'] > a311, c['a1'] < a312), \
-                          ~np.logical_and(c['a1'] > a211, c['a1'] < a212))
+	res_mask = np.logical_and(np.logical_and(~np.logical_and(c['a1'] > a311, c['a1'] < a312), \
+                          ~np.logical_and(c['a1'] > a211, c['a1'] < a212)),
+							np.logical_and(~np.logical_and(c['a2'] > a311, c['a2'] < a312), \
+                          ~np.logical_and(c['a2'] > a211, c['a2'] < a212)))
 	coll_bins_a_e1_ex, coll_pdf_a_e1_ex = kde(c['dist1'][res_mask])
 	e1_norm = len(c[res_mask])/len(coll_e1)
 
 	c = coll_e
-	res_mask = np.logical_and(~np.logical_and(c['a1'] > a311, c['a1'] < a312), \
-                          ~np.logical_and(c['a1'] > a211, c['a1'] < a212))
+	res_mask = np.logical_and(np.logical_and(~np.logical_and(c['a1'] > a311, c['a1'] < a312), \
+                          ~np.logical_and(c['a1'] > a211, c['a1'] < a212)),
+							np.logical_and(~np.logical_and(c['a2'] > a311, c['a2'] < a312), \
+                          ~np.logical_and(c['a2'] > a211, c['a2'] < a212)))
 	coll_bins_a_e_ex, coll_pdf_a_e_ex = kde(c['dist1'][res_mask])
 	e_norm = len(c[res_mask])/len(coll_e)
 
 	c = coll_e2
-	res_mask = np.logical_and(~np.logical_and(c['a1'] > a311, c['a1'] < a312), \
-                          ~np.logical_and(c['a1'] > a211, c['a1'] < a212))
+	res_mask = np.logical_and(np.logical_and(~np.logical_and(c['a1'] > a311, c['a1'] < a312), \
+                          ~np.logical_and(c['a1'] > a211, c['a1'] < a212)),
+							np.logical_and(~np.logical_and(c['a2'] > a311, c['a2'] < a312), \
+                          ~np.logical_and(c['a2'] > a211, c['a2'] < a212)))
 	coll_bins_a_e2_ex, coll_pdf_a_e2_ex = kde(c['dist1'][res_mask])
 	e2_norm = len(c[res_mask])/len(coll_e2)
 
@@ -1297,7 +1303,7 @@ def gen_coll_PDF():
 	np.savetxt('e2m3_coll.txt', [coll_bins_r_m2, coll_pdf_r_m2])
 
 #gen_coll_PDF()
-make_boley_rtheta()
+#make_boley_rtheta()
 #make_alma_profile()
 #make_coll_polar_e()
 #make_coll_polar_m()
@@ -1306,7 +1312,7 @@ make_boley_rtheta()
 #make_ae()
 #make_long_ph()
 #make_coll_hist_a()
-#make_coll_hist_r()
+make_coll_hist_r()
 #make_polar_hk_plots()
 #make_coll_hist_e_and_m()
 #make_coll_hist_hot_cold_a()
