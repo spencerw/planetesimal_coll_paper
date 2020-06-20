@@ -32,6 +32,8 @@ upper or lower limits on the mass and eccentricity of the perturbing body.
 
 \section{Introduction} \label{sec:intro}
 
+Text width: \the\textwidth
+
 Recent observations of circumstellar disks by ALMA have revealed a rich variety of substructure. Features 
 such as gaps and asymmetries 
 \citep{2015ApJ...808L...3A, 2016Sci...353.1519P, PhysRevLett.117.251101, 2016ApJ...820L..40A, 2016Natur.535..258C} in the emission provide 
@@ -451,6 +453,19 @@ Orange curves in figure \ref{fig:coll_polar_e} show the simulated ALMA flux prof
 Aaron add in some more text here describing exactly how the profiles were created. Should we add a separate figure to show the flux profiles, or 
 simply include them as an extra curve in the side panels of figures 6 and 7 like I've started to do here?
 
+\begin{figure}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{alma/skymodel_e2m2.png}
+    \includegraphics[width=0.5\textwidth]{alma/xy_e2m2.png}
+    \caption{Simulated ALMA observations.  Top. The skymodel based on the radial collision distribution from the e2m2 simulation. The size of the disk has been scaled by a factor of 10 and placed at 100 pc. Middle. The cleaned image using combined observations in configurations 8, 9, and 10. The 3:1 and 2:1 resonance dust gaps are visible. \label{fig:alma_sim_obs}}
+\end{center}
+\end{figure}
+
+\begin{figure*}
+    \includegraphics[width=\textwidth]{figures/alma_profiles}
+    \caption{Caption goes here.\label{fig:alma_profiles}}
+\end{figure*}
+
 \subsection{Varying the Mass}
 
 The dynamical effects of varying the mass of the planet are somewhat simpler, in that doing so does not affect the forced eccentricity of the 
@@ -539,5 +554,12 @@ like Gaussian process fitting present a promising way to recover substructure at
 \bibliography{references}
 
 \clearpage
+
+\section{Appendix: Nonaxisymmetric Structure in Boley 2017}\label{sec:boley_plot}
+
+\begin{figure*}
+    \includegraphics[width=\textwidth]{figures/boley_rtheta}
+    \caption{Caption goes here\label{fig:boley_rtheta}}
+\end{figure*}
 
 \end{document}

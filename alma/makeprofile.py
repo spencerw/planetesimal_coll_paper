@@ -1,5 +1,5 @@
 import math as M
-import pylab as P
+import matplotlib.pylab as P
 import matplotlib as mplt
 import numpy as NP
 from astropy.io import fits as pyfits
@@ -8,10 +8,13 @@ import random as R
 import sys
 import numpy as np
 
+mplt.rcParams.update({'font.size': 16, 'font.family': 'STIXGeneral', 'mathtext.fontset': 'stix',
+                            'image.cmap': 'viridis', 'xtick.labelsize': 'x-small', 'ytick.labelsize': 'x-small'})
 
-SKYFITS="skymodel-e1m2.fits" # skymodel for simulated observations
-SIMFITS="e1m2_robustm1.fits"  # simulated observations, cleaned output file
-affix="e1m2"
+
+SKYFITS="skymodel-e2m2.fits" # skymodel for simulated observations
+SIMFITS="e2m2_robustm1.fits"  # simulated observations, cleaned output file
+affix="e2m2"
 
 hdul = pyfits.open(SIMFITS)
 
@@ -95,8 +98,8 @@ fig=P.figure()
 ax=fig.add_subplot(111)
 cnt=P.contourf(YS,XS,sky,256,cmap=P.get_cmap("gist_gray_r"))
 ax.set_aspect('equal')
-P.xlabel(r"$\Delta$RA (arcsec)")
-P.ylabel(r"$\Delta\delta$ (arcsec)")
+P.xlabel(r"$\Delta$RA [arcsec]")
+P.ylabel(r"$\Delta\delta$ [arcsec]")
 P.title("Skymodel, scaled "+affix)
 P.xlim([0.5,-0.5])
 P.ylim([-0.5,0.5])
@@ -106,8 +109,8 @@ fig=P.figure()
 ax=fig.add_subplot(111)
 cnt=P.contourf(Y,X,data,levels=levels,cmap=P.get_cmap("gist_gray_r"))
 ax.set_aspect('equal')
-P.xlabel(r"$\Delta$RA (arcsec)")
-P.ylabel(r"$\Delta\delta$ (arcsec)")
+P.xlabel(r"$\Delta$RA [arcsec]")
+P.ylabel(r"$\Delta\delta$ [arcsec]")
 P.title("Cleaned image, scaled "+affix)
 P.xlim([0.5,-0.5])
 P.ylim([-0.5,0.5])
@@ -125,3 +128,4 @@ P.savefig("profile_"+affix+".eps")
 
 P.show()
 
+NP.savetxt(affix + ".txt", [rad, profile])

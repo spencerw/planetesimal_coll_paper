@@ -4,8 +4,8 @@ import matplotlib as mpl
 from matplotlib import cm
 import matplotlib.colors as colors
 
-mpl.rcParams.update({'font.size': 18, 'font.family': 'STIXGeneral', 'mathtext.fontset': 'stix',
-                            'image.cmap': 'viridis'})
+mpl.rcParams.update({'font.size': 16, 'font.family': 'STIXGeneral', 'mathtext.fontset': 'stix',
+                            'image.cmap': 'viridis', 'xtick.labelsize': 'x-small', 'ytick.labelsize': 'x-small'})
 
 import numpy as np
 import pandas as pd
@@ -44,6 +44,13 @@ for idx in range(len(res_p)):
     j2 = -res_p[idx]
     alpha = (-j2/j1)**(2./3.)
     res_dist.append(a_jup*alpha)
+
+# Convert a simulation distance into an angle on the sky for the
+# simulated ALMA images
+def dist_to_ang(dist):
+	# Disk size expanded to increase angular size of observed disk
+	jup_pos_arcsec = ((52*u.AU).to(u.pc)/(100*u.pc)*u.rad).to(u.arcsec).value
+	return dist/a_jup*jup_pos_arcsec
 
 # Build a PDF from a series of data points using a KDE
 from sklearn.neighbors import KernelDensity
@@ -94,14 +101,14 @@ def plot_res(axis, res=-1, vertical=True, show_widths=False, all=False):
 		for idx, val in enumerate(res_ind):
 			if vertical:
 				axis.vlines(res_dist[val], ymin, ymax, linestyles='--', lw=0.5)
-				axis.text(res_dist[val], ymax, res_label[val], verticalalignment='top', fontsize=12)
+				axis.text(res_dist[val], ymax*0.99, res_label[val], verticalalignment='top', fontsize=16)
 				if show_widths:
 					width = res_width_jup(val)
 					axis.vlines(res_dist[val] - width, ymin, ymax, linestyle='-', lw=0.5)
 					axis.vlines(res_dist[val] + width, ymin, ymax, linestyle='-', lw=0.5)
 			else:
 				axis.hlines(res_dist[val], xmin, xmax, linestyles='--', lw=0.5)
-				axis.text(xmax, res_dist[val], res_label[val], horizontalalignment='right', fontsize=12)
+				axis.text(xmax*0.99, res_dist[val]*1.01, res_label[val], horizontalalignment='right', fontsize=16)
 				if show_widths:
 					width = res_width_jup(val)
 					axis.hlines(res_dist[val] - width, xmin, xmax, linestyle='-', lw=0.5)
@@ -244,7 +251,7 @@ def make_coll_polar_e():
 	ax01.set_yticks([])
 	ax00.invert_xaxis()
 
-	ax00.plot(coll_hist_e1, coll_bins_e1, linestyle='steps-mid')
+	ax00.plot(coll_hist_e1, coll_bins_e1, drawstyle='steps')
 	theta_jup = np.arctan2(pl_e1['pos'][0][1], pl_e1['pos'][0][0])
 	ax01.axvline(theta_jup, color='k')
 	ax01.scatter(theta_e1, r_e1, s=s*10)
@@ -271,7 +278,7 @@ def make_coll_polar_e():
 	ax00.set_ylim(rmin, rmax)
 	ax01.set_xlim(-np.pi, np.pi)
 	ax01.set_ylim(rmin, rmax)
-	ax00.set_xlabel('Rel. # of Collisions and Flux')
+	ax00.set_xlabel('Rel. # of Collisions')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
 	ax01.set_title(r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
@@ -298,10 +305,7 @@ def make_coll_polar_e():
 	ax11.set_yticks([])
 	ax10.invert_xaxis()
 
-	ax10.plot(coll_hist_e, coll_bins_e, linestyle='steps-mid')
-	radius, flux, flux_conv = np.loadtxt(path + 'hkshiftfull/ecc_0p1.profile', unpack=True)
-	A = 1/np.trapz(flux_conv, radius)
-	ax10.plot(A*flux_conv, radius)
+	ax10.plot(coll_hist_e, coll_bins_e, drawstyle='steps')
 	theta_jup = np.arctan2(pl_e['pos'][0][1], pl_e['pos'][0][0])
 	ax11.axvline(theta_jup, color='k')
 	ax11.scatter(theta_e, r_e, s=s*10)
@@ -328,7 +332,7 @@ def make_coll_polar_e():
 	ax11.set_ylim(rmin, rmax)
 	ax11.set_xlim(-np.pi, np.pi)
 	ax11.set_ylim(rmin, rmax)
-	ax10.set_xlabel('Rel. # of Collisions and Flux')
+	ax10.set_xlabel('Rel. # of Collisions')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
 	ax11.set_title(r'e$_{g}$ = e$_{jup}$ (e2m2)')
@@ -355,7 +359,7 @@ def make_coll_polar_e():
 	ax21.set_yticks([])
 	ax20.invert_xaxis()
 
-	ax20.plot(coll_hist_e2, coll_bins_e2, linestyle='steps-mid')
+	ax20.plot(coll_hist_e2, coll_bins_e2, drawstyle='steps')
 	theta_jup = np.arctan2(pl_e2['pos'][0][1], pl_e2['pos'][0][0])
 	ax21.axvline(theta_jup, color='k')
 	ax21.scatter(theta_e2, r_e2, s=s*10)
@@ -382,7 +386,7 @@ def make_coll_polar_e():
 	ax21.set_ylim(rmin, rmax)
 	ax21.set_xlim(-np.pi, np.pi)
 	ax21.set_ylim(rmin, rmax)
-	ax20.set_xlabel('Rel. # of Collisions and Flux')
+	ax20.set_xlabel('Rel. # of Collisions')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
 	ax21.set_title(r'$e_{g}$ = 2 e$_{jup}$ (e3m2)')
@@ -423,7 +427,7 @@ def make_coll_polar_m():
 	ax01.set_yticks([])
 	ax00.invert_xaxis()
 
-	ax00.plot(coll_hist_m1, coll_bins_m1, linestyle='steps-mid')
+	ax00.plot(coll_hist_m1, coll_bins_m1, drawstyle='steps')
 	theta_jup = np.arctan2(pl_m1['pos'][0][1], pl_m1['pos'][0][0])
 	ax01.axvline(theta_jup, color='k')
 	ax01.scatter(theta_m1, r_m1, s=s*10)
@@ -450,7 +454,7 @@ def make_coll_polar_m():
 	ax00.set_ylim(rmin, rmax)
 	ax01.set_xlim(-np.pi, np.pi)
 	ax01.set_ylim(rmin, rmax)
-	ax00.set_xlabel('Rel. # of Collisions and Flux')
+	ax00.set_xlabel('Rel. # of Collisions')
 	ax01.set_xlabel('Azimuth')
 	ax00.set_ylabel('Cylindrical Distance [AU]')
 	ax01.set_title(r'M$_{g}$ = 1/2 M$_{jup}$ (e2m1)')
@@ -477,10 +481,7 @@ def make_coll_polar_m():
 	ax11.set_yticks([])
 	ax10.invert_xaxis()
 
-	ax10.plot(coll_hist_e, coll_bins_e, linestyle='steps-mid')
-	radius, flux, flux_conv = np.loadtxt(path + 'hkshiftfull/ecc_0p1.profile', unpack=True)
-	A = 1/np.trapz(flux_conv, radius)
-	ax10.plot(A*flux_conv, radius)
+	ax10.plot(coll_hist_e, coll_bins_e, drawstyle='steps')
 	theta_jup = np.arctan2(pl_e['pos'][0][1], pl_e['pos'][0][0])
 	ax11.axvline(theta_jup, color='k')
 	ax11.scatter(theta_e, r_e, s=s*10)
@@ -507,7 +508,7 @@ def make_coll_polar_m():
 	ax11.set_ylim(rmin, rmax)
 	ax11.set_xlim(-np.pi, np.pi)
 	ax11.set_ylim(rmin, rmax)
-	ax10.set_xlabel('Rel. # of Collisions and Flux')
+	ax10.set_xlabel('Rel. # of Collisions')
 	ax11.set_xlabel('Azimuth')
 	ax10.set_ylabel('Cylindrical Distance [AU]')
 	ax11.set_title(r'M$_{g}$ = M$_{jup}$ (e2m2)')
@@ -534,7 +535,7 @@ def make_coll_polar_m():
 	ax21.set_yticks([])
 	ax20.invert_xaxis()
 
-	ax20.plot(coll_hist_m2, coll_bins_m2, linestyle='steps-mid')
+	ax20.plot(coll_hist_m2, coll_bins_m2, drawstyle='steps')
 	theta_jup = np.arctan2(pl_m2['pos'][0][1], pl_m2['pos'][0][0])
 	ax21.axvline(theta_jup, color='k')
 	ax21.scatter(theta_m2, r_m2, s=s*10)
@@ -561,7 +562,7 @@ def make_coll_polar_m():
 	ax21.set_ylim(rmin, rmax)
 	ax21.set_xlim(-np.pi, np.pi)
 	ax21.set_ylim(rmin, rmax)
-	ax20.set_xlabel('Rel. # of Collisions and Flux')
+	ax20.set_xlabel('Rel. # of Collisions')
 	ax21.set_xlabel('Azimuth')
 	ax20.set_ylabel('Cylindrical Distance [AU]')
 	ax21.set_title(r'M$_{g}$ = 2 M$_{jup}$ (e2m3)')
@@ -712,6 +713,7 @@ def make_xy():
 	x_peri_e2, y_peri_e2 = rad_peri*np.cos(theta_jup_e2), rad_peri*np.sin(theta_jup_e2)
 
 	fig, (ax1, ax2, ax3) = plt.subplots(figsize=(16,5), nrows=1, ncols=3, sharex=True, sharey=True)
+	ax1.set_aspect('equal')
 	ax1.scatter(x_e1_rot, y_e1_rot, s=s)
 	ax1.scatter(x_e1_rot[0], y_e1_rot[0], color='r')
 	ax1.plot([0, x_peri_e1], [0, y_peri_e1], linestyle='--')
@@ -720,34 +722,20 @@ def make_xy():
 	ax1.set_title(r'e$_{pl}$ = 1/2 e$_{jup}$ (e1m2)')
 	ax1.set_xlim(-5.5, 5.5)
 	ax1.set_ylim(-5.5, 5.5)
+	ax2.set_aspect('equal')
 	ax2.scatter(x_e_rot, y_e_rot, s=s)
 	ax2.scatter(x_e_rot[0], y_e_rot[0], color='r')
 	ax2.plot([0, x_peri_e], [0, y_peri_e], linestyle='--')
 	ax2.set_xlabel('X [AU]')
 	ax2.set_ylabel('Y [AU]')
 	ax2.set_title(r'e$_{pl}$ = e$_{jup}$ (e2m2)')
+	ax3.set_aspect('equal')
 	ax3.scatter(x_e2_rot, y_e2_rot, s=s)
 	ax3.scatter(x_e2_rot[0], y_e2_rot[0], color='r')
 	ax3.plot([0, x_peri_e2], [0, y_peri_e2], linestyle='--')
 	ax3.set_xlabel('X [AU]')
 	ax3.set_ylabel('Y [AU]')
 	ax3.set_title(r'e$_{pl}$ = 2 e$_{jup}$ (e3m2)')
-	plt.savefig(file_str, format=fmt, bbox_inches='tight')
-
-def make_rtheta():
-	file_str = 'figures/rtheta.' + fmt
-	if not clobber and os.path.exists(file_str):
-		return
-
-	fig, (ax1, ax2) = plt.subplots(figsize=(16,6), nrows=1, ncols=2)
-	ax1.scatter(theta_c, r_c, s=s)
-	ax1.set_ylim(2, 4)
-	ax1.set_xlabel('Azimuth')
-	ax1.set_ylabel('Cylindrical Distance [AU]')
-	ax2.scatter(theta_e, r_e, s=s)
-	ax2.set_ylim(2, 4)
-	ax2.set_xlabel('Azimuth')
-	ax2.set_ylabel('Cylindrical Distance [AU]')
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
 def make_ae():
@@ -816,17 +804,17 @@ def make_coll_hist_a():
 	coll_bins_a_e2, coll_pdf_a_e2 = kde(coll_e2['a1'])
 
 	fig, axes = plt.subplots(figsize=(8,12), nrows=3, ncols=1, sharex=True)
-	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1, linestyle='steps-mid')
+	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1, drawstyle='steps')
 	plot_res(axes[0])
-	axes[0].set_ylabel('dN/da')
+	axes[0].set_ylabel('Rel. # of Collisions')
 	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
-	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
+	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, drawstyle='steps')
 	plot_res(axes[1])
-	axes[1].set_ylabel('dN/da')
+	axes[1].set_ylabel('Rel. # of Collisions')
 	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$ (e2m2)')
-	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, linestyle='steps-mid')
+	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, drawstyle='steps')
 	plot_res(axes[2])
-	axes[2].set_ylabel('dN/da')
+	axes[2].set_ylabel('Rel. # of Collisions')
 	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$ (e3m2)')
 	axes[2].set_xlabel('Semimajor Axis [AU]')
 
@@ -864,24 +852,22 @@ def make_coll_hist_r():
 	e2_norm = len(c[res_mask])/len(coll_e2)
 
 	fig, axes = plt.subplots(figsize=(8,12), nrows=3, ncols=1, sharex=True)
-	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1, linestyle='steps-mid')
-	axes[0].plot(coll_bins_a_e1_ex, coll_pdf_a_e1_ex*e1_norm, linestyle='steps-mid')
+	axes[0].plot(coll_bins_a_e1, coll_pdf_a_e1, drawstyle='steps')
+	axes[0].plot(coll_bins_a_e1_ex, coll_pdf_a_e1_ex*e1_norm, drawstyle='steps', linestyle='--')
 	plot_res(axes[0])
-	axes[0].set_ylabel('dN/da')
+	axes[0].set_ylabel('Rel. # of Collisions')
 	axes[0].set_title(label=r'e$_{g}$ = 1/2 e$_{jup}$ (e1m2)')
-	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, linestyle='steps-mid')
-	axes[1].plot(coll_bins_a_e_ex, coll_pdf_a_e_ex*e_norm, linestyle='steps-mid')
+	axes[1].plot(coll_bins_a_e, coll_pdf_a_e, drawstyle='steps')
+	axes[1].plot(coll_bins_a_e_ex, coll_pdf_a_e_ex*e_norm, drawstyle='steps', linestyle='--')
 	plot_res(axes[1])
-	axes[1].set_ylabel('dN/da')
+	axes[1].set_ylabel('Rel. # of Collisions')
 	axes[1].set_title(label=r'e$_{g}$ = e$_{jup}$ (e2m2)')
-	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, linestyle='steps-mid')
-	axes[2].plot(coll_bins_a_e2_ex, coll_pdf_a_e2_ex*e2_norm, linestyle='steps-mid')
+	axes[2].plot(coll_bins_a_e2, coll_pdf_a_e2, drawstyle='steps')
+	axes[2].plot(coll_bins_a_e2_ex, coll_pdf_a_e2_ex*e2_norm, drawstyle='steps', linestyle='--')
 	plot_res(axes[2])
-	axes[2].set_ylabel('dN/da')
+	axes[2].set_ylabel('Rel. # of Collisions')
 	axes[2].set_title(label=r'e$_{g}$ = 2 e$_{jup}$ (e3m2)')
 	axes[2].set_xlabel('Cylindrical Distance [AU]')
-
-	# Also show plots with particles in resonance excluded
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -947,31 +933,6 @@ def make_polar_hk_plots():
 	ax3.set_title('Exterior to Resonance')
 	ax3.set_xlim(hmin + hshift, hmax + hshift)
 	ax3.set_ylim(kmin, kmax)
-
-	plt.savefig(file_str, format=fmt, bbox_inches='tight')
-
-def plot_alma_prof():
-	file_str = 'figures/alma_prof.' + fmt
-	if not clobber and os.path.exists(file_str):
-		return
-
-	fig, axes = plt.subplots(figsize=(8,12), nrows=5, sharex=True)
-
-	axes[0].set_title(r'$e_{lo}$')
-	axes[0].set_ylabel('Flux [Units?]')
-	axes[1].set_title(r'$m_{lo}$')
-	axes[1].set_ylabel('Flux [Units?]')
-
-	axes[2].set_title('n')
-	radius, flux, flux_conv = np.loadtxt(path + 'hkshiftfull/ecc_0p1.profile', unpack=True)
-	axes[2].plot(radius, flux_conv)
-	axes[2].set_ylabel('Flux [Units?]')
-	axes[3].set_title(r'$e_{hi}$')
-	axes[3].set_ylabel('Flux [Units?]')
-	axes[4].set_title(r'$m_{hi}$')
-	axes[4].set_xlabel('Cylindrical Distance [AU]')
-	axes[4].set_ylabel('Flux [Units?]')
-	axes[4].set_xlim(2, 4)
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -1244,6 +1205,75 @@ def make_wander_res_scale():
 	plt.tight_layout()
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
+def make_boley_rtheta():
+	file_str = 'figures/boley_rtheta.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	data = np.genfromtxt('snapshot-100')
+	xpos, ypos = data[:,1], data[:,2]
+	r, theta = np.sqrt(xpos**2 + ypos**2), np.arctan2(ypos, xpos)
+
+	fig, axes = plt.subplots(figsize=(12,6))
+	axes.scatter(theta, r, s=0.1)
+	axes.set_xlabel('Azimuth')
+	axes.set_ylabel('Cylindrical Distance [AU]')
+	axes.set_ylim(20, 100)
+	axes.set_xlim(-np.pi, np.pi)
+
+	# Planet 1
+	#axes.axhline(32.3)
+	#axes.axhline(39.1, linestyle='--', lw=1) # 4:3
+	#axes.axhline(42.3, linestyle='--', lw=1) # 3:2
+	#axes.axhline(51.3, linestyle='--', lw=1) # 2:1
+
+	# Planet 2
+	axes.axhline(68.8, color='black')
+	axes.axhline(56.8, color='black', linestyle='--', lw=0.5) # 4:3
+	axes.axhline(52.5, color='black', linestyle='--', lw=0.5) # 3:2
+	axes.axhline(43.3, color='black', linestyle='--', lw=0.5) # 2:1
+	axes.axhline(83.3, color='black', linestyle='--', lw=0.5) # 3:4
+	axes.axhline(90.1, color='black', linestyle='--', lw=0.5) # 2:3
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
+def make_alma_profile():
+	file_str = 'figures/alma_profiles.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	r1, p1 = [0], [0]
+	r2, p2 = np.loadtxt('alma/e1m2.txt')
+	r3, p3 = np.loadtxt('alma/e2m2.txt')
+	r4, p4 = np.loadtxt('alma/e3m2.txt')
+	r5, p5 = [0], [0]
+
+	r = [r1, r2, r3, r4, r5]
+	p = [p1, p2, p3, p4, p5]
+
+	fig = plt.figure(constrained_layout=True, figsize=(12,10))
+	spec = fig.add_gridspec(ncols=3, nrows=3)
+
+	spec_idx = [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]]
+	sim_title = ['e2m3', 'e1m2', 'e2m2', 'e2m3', 'e2m1']
+	for idx in range(len(spec_idx)):
+	    i, j = spec_idx[idx][0], spec_idx[idx][1]
+	    ax = fig.add_subplot(spec[i, j])
+	    ax.plot(r[idx], p[idx])
+	    # Mark locations of MMRs
+	    ax.axvline(dist_to_ang(res_dist[2]), linestyle='--')
+	    ax.axvline(dist_to_ang(res_dist[5]), linestyle='--')
+	    ax.set_title(sim_title[idx])
+	    ax.set_xlabel('R [arcsec]')
+	    if idx != 2 and idx != 3:
+	    	ax.set_ylabel('Jy/beam')
+	    ax.set_xlim(0.2, 0.4)
+	    ax.set_ylim(-0.001, 0.145)
+	    
+	plt.tight_layout()
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
 def gen_coll_PDF():
 	c = coll_e1
 	coll_bins_r_e1, coll_pdf_r_e1 = kde(c['dist1'])
@@ -1266,17 +1296,18 @@ def gen_coll_PDF():
 	np.savetxt('e2m1_coll.txt', [coll_bins_r_m1, coll_pdf_r_m1])
 	np.savetxt('e2m3_coll.txt', [coll_bins_r_m2, coll_pdf_r_m2])
 
-gen_coll_PDF()
+#gen_coll_PDF()
+make_boley_rtheta()
+#make_alma_profile()
 #make_coll_polar_e()
 #make_coll_polar_m()
 #bump_dip_diag2()
-make_xy()
-make_ae()
-make_long_ph()
-make_coll_hist_a()
-make_coll_hist_r()
+#make_xy()
+#make_ae()
+#make_long_ph()
+#make_coll_hist_a()
+#make_coll_hist_r()
 #make_polar_hk_plots()
-#plot_alma_prof()
 #make_coll_hist_e_and_m()
 #make_coll_hist_hot_cold_a()
 #make_coll_gf_vary()
