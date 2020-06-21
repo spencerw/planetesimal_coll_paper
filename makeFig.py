@@ -1234,12 +1234,14 @@ def make_boley_rtheta():
 	#axes.axhline(51.3, linestyle='--', lw=1) # 2:1
 
 	# Planet 2
-	axes.axhline(68.8, color='black')
-	axes.axhline(56.8, color='black', linestyle='--', lw=0.5) # 4:3
-	axes.axhline(52.5, color='black', linestyle='--', lw=0.5) # 3:2
-	axes.axhline(43.3, color='black', linestyle='--', lw=0.5) # 2:1
-	axes.axhline(83.3, color='black', linestyle='--', lw=0.5) # 3:4
-	axes.axhline(90.1, color='black', linestyle='--', lw=0.5) # 2:3
+	lw = 2
+	alpha = 0.5
+	axes.axhline(68.8, color='black', lw=lw)
+	axes.axhline(56.8, color='black', linestyle='--', lw=lw, alpha=alpha) # 4:3
+	axes.axhline(52.5, color='black', linestyle='--', lw=lw, alpha=alpha) # 3:2
+	axes.axhline(43.3, color='black', linestyle='--', lw=lw, alpha=alpha) # 2:1
+	axes.axhline(83.3, color='black', linestyle='--', lw=lw, alpha=alpha) # 3:4
+	axes.axhline(90.1, color='black', linestyle='--', lw=lw, alpha=alpha) # 2:3
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -1270,9 +1272,10 @@ def make_alma_profile():
 	    ax.axvline(dist_to_ang(res_dist[2]), linestyle='--')
 	    ax.axvline(dist_to_ang(res_dist[5]), linestyle='--')
 	    ax.set_title(sim_title[idx])
-	    ax.set_xlabel('R [arcsec]')
+	    if idx != 0 and idx != 2:
+	    	ax.set_xlabel('R [arcsec]')
 	    if idx != 2 and idx != 3:
-	    	ax.set_ylabel('Jy/beam')
+	    	ax.set_ylabel('Flux [Jy/beam]')
 	    ax.set_xlim(0.2, 0.4)
 	    ax.set_ylim(-0.001, 0.145)
 	    
@@ -1304,7 +1307,7 @@ def gen_coll_PDF():
 
 #gen_coll_PDF()
 #make_boley_rtheta()
-#make_alma_profile()
+make_alma_profile()
 #make_coll_polar_e()
 #make_coll_polar_m()
 #bump_dip_diag2()
@@ -1312,7 +1315,7 @@ def gen_coll_PDF():
 #make_ae()
 #make_long_ph()
 #make_coll_hist_a()
-make_coll_hist_r()
+#make_coll_hist_r()
 #make_polar_hk_plots()
 #make_coll_hist_e_and_m()
 #make_coll_hist_hot_cold_a()

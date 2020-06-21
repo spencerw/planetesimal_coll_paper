@@ -36,7 +36,7 @@ Recent observations of circumstellar disks by ALMA have revealed a rich variety 
 \citep{2015ApJ...808L...3A, 2016Sci...353.1519P, PhysRevLett.117.251101, 2016ApJ...820L..40A, 2016Natur.535..258C} in the emission provide 
 diagnostics for the physical processes that drive the evolution of the disks. In many gas-rich systems, these gap features are argued to indicate the 
 presence of a giant planet, either embedded in the disk \citep{2015MNRAS.453L..73D} or orbiting externally, although the details of gas-dust 
-interactions can have strong effects on the resulting morphologies (Dong).In gas-poor/debris systems, a giant perturber can also influence the 
+interactions can have strong effects on the resulting morphologies (Dong) (Need to ask aaron which paper he meant to reference here). In gas-poor/debris systems, a giant perturber can also influence the 
 structure of the dust continuum emission. For example, a misaligned giant planet can produce nonaxisymmetric features such as warps \citep{2001A&A...370..447A}, highly eccentric perturbers can produce structures through secular interactions 
 \citep{2014MNRAS.443.2541P, 2015MNRAS.448.3679P}, and mean motion resonances (MMRs) can open gaps
 \citep{2015ApJ...798...83N, 2016ApJ...818..159T, 2018ApJ...857....3T}.
@@ -167,9 +167,6 @@ For a first order resonance, the associated disturbing function terms are slight
 	\frac{\delta a}{a} = \pm \left(\frac{16}{3} \frac{\left| C_{r} \right|}{n} e \right)^{1/2} \left(  1 + \frac{1}{27 p^2 e^3} \frac{\left| C_{r} \right|}{n} 
 	\right)^{1/2} - \frac{2}{9 p e}  \frac{\left| C_{r} \right|}{n}.
 \end{equation}
-
-\noindent It should be noted that equation \ref{eq:res_fo} becomes invalid as $e$ approaches zero \citep{2020arXiv200609452M}. The secular forcing 
-in our simulations, however, keeps planetesimals outside of this more complex regime.
 
 Changes in eccentricity are correlated with changes in semimajor axis variations according to the Tisserand relation
 
@@ -467,37 +464,45 @@ the resonances are sufficiently separated to allow a gap near the center of the 
 
 \subsection{Observability of the Dust}
 
-While the collisional dust profiles show radial amplitude variations, we still need to assess whether those variations could be observable.  
-To proceed, we create a skymodel for simulated ALMA observations as follows. First, we use the radially-averaged collision frequency from simulation e2m2 (Fig.~\ref{fig:coll_hist_r}) as the template for an azimuthally symmetric disk.  
-We then scale that profile by a factor of ten, which places ``Jupiter'' at 52 au.  
-This scaling is permitted by the dynamics and makes the disk comparable in size to the many disks that have now been observed by ALMA (maybe reference DSHARP).  
-The observed size scale is then set by envisaging a face-on disk at a distance of 100 pc.  
+While the collisional dust profiles show radial amplitude variations, we still need to assess whether those variations could be observable. To proceed, 
+we create a sky model for simulated ALMA observations as follows. First, we use the radially-averaged collision profile from each simulation (see fig 
+\ref{fig:coll_polar_e} and \ref{fig:coll_polar_m}) as the template for an azimuthally symmetric disk. We then scale the size of each profile by a factor of 
+ten, which places the perturbing planet at 52 au. This scaling is permitted by the dynamics (both the resonance widths and the forced eccentricities 
+are scale-free) and makes the disk comparable in size to the many disks that have now been observed by ALMA \citep{2018ApJ...869L..42H}. The 
+observed size scale is then set by envisaging a face-on disk at a distance of 100 pc.  
 
-The skymodel intensity (flux per pixel) is produced by interpolating the radial collision frequency onto a 2D Cartesian grid with cell widths of approximately 2 mas. 
-In doing so, we choose to make the intensity proportional to the collision frequency (i.e., the dust) because it is the most straightforward case. 
-Many different parameterizations are possible, depending on optical depth, grain size, disk temperature, etc., but we will avoid such complications here. 
-We normalize the intensity by setting the total disk flux density to be 100 mJy at about 350 GHz.  
+The sky model intensity (flux per pixel) is produced by interpolating the radial collision frequency onto a 2D Cartesian grid with cell widths of 
+approximately 2 mas. In doing so, we choose to make the intensity proportional to the collision frequency (i.e., the dust) because it is the most 
+straightforward case. Many different parameterizations are possible, depending on optical depth, grain size, disk temperature, etc., but we will avoid 
+such complications here. We normalize the intensity by setting the total disk flux density to be 100 mJy at about 350 GHz.  
 
-The simulated observations are performed using the {simobserve} task in {\sc CASA} \citep{2007ASPC..376..127M}.  The disk is given an $\rm RA = 11^{\rm h} 01^{\rm m} 52^{\rm s}$ and a $\delta = -34^\circ 42\arcmin 17\arcsec$ (i.e., the J2000 coordinates for TW Hydrae) and is ``observed'' through transit on March 20, 2020. 
-We observe the disk using configurations 8, 9, and 10 at 350 GHz (cycle 6 antenna file), spending six hr on-source in each configuration\footnote{We have imagined that the TAC likes us.}.  
-The visibilities are corrupted with thermal noise, setting $\rm PWV=1.5$. 
-They are then combined, imaged, and cleaned using the task tclean. Imaging uses Briggs weighting with a robustness parameter of -1. 
+The simulated observations are performed using the {simobserve} task in {\sc CASA} \citep{2007ASPC..376..127M}.  The disk is given an 
+$\rm RA = 11^{\rm h} 01^{\rm m} 52^{\rm s}$ and a $\delta = -34^\circ 42\arcmin 17\arcsec$ (i.e., the J2000 coordinates for TW Hydrae) and is 
+``observed'' through transit on March 20, 2020. We observe the disk using configurations 8, 9, and 10 at 350 GHz (cycle 6 antenna file), spending six 
+hours on-source in each configuration\footnote{We have imagined that the TAC really likes us.}.  The visibilities are corrupted with thermal noise, 
+setting $\rm PWV=1.5$. They are then combined, imaged, and cleaned using the task {tclean}. Imaging uses Briggs weighting with a robustness 
+parameter of -1. 
 
-The results are shown in Figure \ref{fig:alma_sim_obs}.  The 3:1 and 2:1 resonances can be easily identified in the cleaned image and in the corresponding radial profile.  Moreover, the features are qualitatively similar to the bright rings and dark gaps seen in actual disk profiles (maybe HL Tau cite). [We should make the skymodel available to anyone who wants to use it]
+The results for the nominal simulation (e2m2) are shown in figure \ref{fig:alma_sim_obs}. The 3:1 and 2:1 resonances can be easily identified in the 
+cleaned image and in the corresponding radial profile.  Moreover, the features are qualitatively similar to the bright rings and dark gaps seen in actual 
+disk profiles \citep{2015ApJ...808L...3A}. [We should make the sky model available to anyone who wants to use it]
 
-Also mention figure \ref{fig:alma_profiles}.
+In figure \ref{fig:alma_profiles}, we show the azumithally-averaged radial profile constructed from the simulated cleaned image from all five 
+simulations. In all cases, a bump or a dip feature is clearly visible at the location of the 3:1 and 2:1 MMRs, indicated by the dashed vertical line. 
+As mentioned previously, the feature at the 2:1 MMR acts as the actual diagnostic indicator, while the 3:1 resonance is mainly useful for 
+determining where the 2:1 MMR is actually located. (Still waiting on Aaron to finish making images for the e2m1 and e2m3 case).
 
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{alma/skymodel_e2m2.png}
     \includegraphics[width=0.5\textwidth]{alma/xy_e2m2.png}
-    \caption{Simulated ALMA observations for the nominal (e2m2) case.  Top. The skymodel based on the radial collision distribution from the e2m2 simulation. The size of the disk has been scaled by a factor of 10 and placed at 100 pc. Middle. The cleaned image using combined observations in configurations 8, 9, and 10. The 3:1 and 2:1 resonance dust gaps are visible. \label{fig:alma_sim_obs}}
+    \caption{Simulated ALMA observations for the nominal (e2m2) case.  Top: The sky model based on the radial collision distribution. The size of the disk has been scaled by a factor of 10 and placed at  a distance of 100 pc. Bottom: The cleaned image using combined observations in configurations 8, 9, and 10. The circle in the bottom left indicates the simulated beam size. Gaps in the dust due to the 3:1 and 2:1 resonances are visible. \label{fig:alma_sim_obs}}
 \end{center}
 \end{figure}
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/alma_profiles.png}
-    \caption{Caption goes here.\label{fig:alma_profiles}}
+    \caption{The azimuthally-averaged radial profile based on the simulated cleaned images from all five simulations. The eccentricty of the perturbing planet increases from left to right, while the mass of the planet increases from bottom to top. The vertical dashed lines indicate the locations of the 3:1 and 2:1 resonances. As in figure \ref{fig:alma_sim_obs}, the size scale of the disk has been expanded by a factor of 10 and then placed at a distance of 100 pc.\label{fig:alma_profiles}}
 \end{figure*}
 
 \section{Constraining the Mass and Eccentricity of the Planet}\label{sec:constrain}
@@ -557,15 +562,19 @@ planet's mass and eccentricity and found that a distinct bump or dip signature i
 the dividing line in parameter space. This diagnostic is more useful for massive, eccentric planets, because the strength of the resonant 
 perturbations scale linearly with both of these quantities.
 
+In line with \citet{2017ApJ...850..103B}, the results of this work suggest that, in planet forming disks, the observed dust structure should not be 
+interpreted as simply the result of primordial dust that is perturbed by the planets and gas. Instead, some morphological features could be the product 
+of collisional dynamics between larger bodies. Within the confines of the simulations presented here, we have shown that this second-generation dust 
+can give rise to significant features in the dust emission profile. For this reason, we emphasize that planet-forming disks should be thought of as 
+existing along an evolutionary continuum, with the youngest disks being dominated by primordial dust and gas and the most evolved disks being 
+comprised of mainly collisionally generated dust.
+
 The results presented here appear to be broadly consistent with the planetesimal dynamics seen by \citet{2016ApJ...818..159T}. In their case, a dip 
 feature can be seen in the azimuthally averaged surface density profile, although they did not test a high enough eccentricity planet in any of their 
 simulations to produce a bump. Another thing to note is that the gap morphology seen by \citet{2016ApJ...818..159T} was markedly different for the 
 2:1 exterior MMR. Whether this would alter the radial collision profile for the exterior, rather than the interior 2:1 resonance, is not immediately clear.  
 Given that the solid surface density diminishes with distance ($\sim r^{-3/2}$ for the MMSN \citep{1981PThPS..70...35H}), exterior resonances may 
 not be quite as useful for this type of measurement, however.
-
-One more connection with Aaron's paper: we have shown that second-generation dust should be present wherever planet formation is happening. 
-Planet forming disks are partial debris systems, with some mix of primordial dust and some produced by recent collisions.
 
 Compared to using the corotationg gap opened by the planet as a diagnostic \citep{2013ApJ...777L..31D, 2016ApJ...820...29D}, measuring 
 variations in the dust emission near MMRs is much more subtle and requires much higher spatial resolution and sensitivity. As we have shown, the 
@@ -593,7 +602,7 @@ visible at the locations of low degree MMRs with the more massive planet, which 
 location of the more massive planet (indicated by the solid black line), features associated with the 4:3, 3:2 and 2:1 MMRs are visible. Moving 
 outward, features associated with the 3:4 and 2:3 MMRs are also visible (The 1:2 MMR lies exterior to the planetesimal population).
 
-Just as we saw in figure \ref{fig:coll_polar_e}, a gap is present at the same orbital phase as the planet at the 2:1 MMR, along with a second gap on
+Similar to figure \ref{fig:coll_polar_e}, a gap is present at the same orbital phase as the planet at the 2:1 MMR, along with a second gap on
 the opposite side of the disk. Gaps near the 4:3 and 3:2 MMRs are also present in phase with the planet, although the number and spacing between 
 additional gaps appears to be different for each resonance. In addition, the gap structure associated with the exterior MMRs appears markedly
 different than that of each corresponding interior MMR, which suggests that the structure is related to the symmetry of the path that a planetesimal
@@ -601,7 +610,7 @@ in a frame corotating with the planet takes.
 
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/boley_rtheta}
-    \caption{Caption goes here\label{fig:boley_rtheta}}
+    \caption{Positions of planetesimals at the end of the simulation presented in \citet{2017ApJ...850..103B} in polar coordinates. The solid line marks the location of a 50 $M_{\bigoplus}$ planet embedded in the disk. The dashed lines mark the locations of first order MMRs. A second planet is also present at 32.3 AU, although it is not massive enough to induce any significant structure in the disk near associated resonances.\label{fig:boley_rtheta}}
 \end{figure*}
 
 \end{document}
