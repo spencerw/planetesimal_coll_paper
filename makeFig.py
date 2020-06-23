@@ -1250,11 +1250,11 @@ def make_alma_profile():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	r1, p1 = [0], [0]
+	r1, p1 = np.loadtxt('alma/e2m1.txt')
 	r2, p2 = np.loadtxt('alma/e1m2.txt')
 	r3, p3 = np.loadtxt('alma/e2m2.txt')
 	r4, p4 = np.loadtxt('alma/e3m2.txt')
-	r5, p5 = [0], [0]
+	r5, p5 = np.loadtxt('alma/e2m3.txt')
 
 	r = [r1, r2, r3, r4, r5]
 	p = [p1, p2, p3, p4, p5]
@@ -1275,7 +1275,7 @@ def make_alma_profile():
 	    if idx != 0 and idx != 2:
 	    	ax.set_xlabel('R [arcsec]')
 	    if idx != 2 and idx != 3:
-	    	ax.set_ylabel('Flux [Jy/beam]')
+	    	ax.set_ylabel('Brightness [Jy/beam]')
 	    ax.set_xlim(0.2, 0.4)
 	    ax.set_ylim(-0.001, 0.145)
 	    
