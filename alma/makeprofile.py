@@ -9,9 +9,9 @@ import sys
 import numpy as np
 
 
-SKYFITS="skymodel-e1m2.fits" # skymodel for simulated observations
-SIMFITS="e1m2_robustm1.fits"  # simulated observations, cleaned output file
-affix="e1m2"
+SKYFITS="skymodel-e2m3.fits" # skymodel for simulated observations
+SIMFITS="e2m3_robustm1.fits"  # simulated observations, cleaned output file
+affix="e2m3"
 
 hdul = pyfits.open(SIMFITS)
 
