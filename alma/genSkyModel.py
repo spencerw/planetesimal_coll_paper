@@ -7,8 +7,8 @@ import random as R
 import sys
 import numpy as np
 
-fname="e3m2_coll.txt"
-fileout="skymodel-e3m2.fits"
+fname="../e2m1_coll.txt"
+fileout="skymodel-e2m1.fits"
 SHIFT=0
 
 #this stays the same
