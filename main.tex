@@ -499,6 +499,7 @@ We show the polar structure of the e2m1, e2m2 and e2m3 simulations in figure \re
 cases, the eccentricity of the perturbing planet is set to $e_{jup}$. Changes in the apocenter and pericenter distances of the edges of the 
 resonances are entirely due to changes in the resonance width. For the e2m1 and e2m2 simulations, the inner apocenter and outer pericenter 
 distances near the 2:1 MMR are quite similar and no strong features appear in the collision profile near this region. For the e2m3 case, the edges of 
+%TRQ: I'm not seeing that much of a gap compared to e2m2 and e2m1.
 the resonances are sufficiently separated to allow a gap near the center of the 2:1 resonance to appear in the collision profile.
 
 \subsection{Observability of the Dust}
@@ -519,7 +520,9 @@ The simulated observations are performed using the {simobserve} task in {\sc CAS
 $\rm RA = 11^{\rm h} 01^{\rm m} 52^{\rm s}$ and a $\delta = -34^\circ 42\arcmin 17\arcsec$ (i.e., the J2000 coordinates for TW Hydrae) and is 
 ``observed'' through transit on March 20, 2020. We observe the disk using configurations 8, 9, and 10 at 350 GHz (cycle 6 antenna file), spending six 
 hours on-source in each configuration\footnote{We have imagined that the TAC really likes us.}.  The visibilities are corrupted with thermal noise, 
-setting $\rm PWV=1.5$. They are then combined, imaged, and cleaned using the task {tclean}. Imaging uses Briggs weighting with a robustness 
+% TRQ: define PWV
+setting $\rm PWV=1.5$. They are then combined, imaged, and cleaned
+using the task {\tt tclean}. Imaging uses Briggs weighting with a robustness 
 parameter of -1. 
 
 The results for the nominal simulation (e2m2) are shown in figure \ref{fig:alma_sim_obs}. The 3:1 and 2:1 resonances can be easily identified in the 
@@ -539,6 +542,7 @@ determining where the 2:1 MMR is actually located.
 \end{center}
 \end{figure}
 
+%TRQ: fix label on e2m2 plot.
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/alma_profiles.png}
     \caption{The azimuthally-averaged radial profile based on the simulated cleaned images from all five simulations. The eccentricty of the perturbing planet increases from left to right, while the mass of the planet increases from bottom to top. The vertical dashed lines indicate the locations of the 3:1 and 2:1 resonances. As in figure \ref{fig:alma_sim_obs}, the size scale of the disk has been expanded by a factor of 10 and then placed at a distance of 100 pc.\label{fig:alma_profiles}}
@@ -546,6 +550,7 @@ determining where the 2:1 MMR is actually located.
 
 \section{Constraining the Mass and Eccentricity of the Planet}\label{sec:constrain}
 
+% TRQ: perhaps mention "2:1" somewhere in the caption.
 \begin{figure}
 \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/bump_dip_diag.png}
@@ -560,10 +565,15 @@ determining where the 2:1 MMR is actually located.
 The simple bump vs dip structure that we expect to reveal itself in the dust emission from colliding planetesimals in near-resonance with a giant 
 planet could potentially be used to place constraints on the mass and eccentricity of the planet. Near the 2:1 MMR, the central dip feature is only 
 produced when bodies at the edges of the resonance stay sufficiently separated in cylindrical distance over the course of an orbit. This is achieved 
-when either the resonance width is large and the forced eccentricity is small. The bump feature, on the other hand, is produced when there is a 
+when either the resonance width is large or the forced eccentricity is small. The bump feature, on the other hand, is produced when there is a 
 sufficiently large amount of overlap between the apocenters and pericenters of the inner and outer edges of the resonance, respectively. This is 
 achieved when the resonance is narrow and the forced eccentricity is large.
 
+% TRQ: it took me a while to understand the dashed lines.  Is the
+% following correct: the lower dashed line is where the apo/peri of
+% the inner/outer edges of the resonance begin to overlap; the upper
+% dashed line is when the overlap is equal to the width of the
+% resonance?  Perhaps spell this out?
 In figure \ref{fig:bump_dip_diag}, we show the constraints that the presence of a bump or a dip places on possible values of $(m_{g}, e_{g})$. A dip 
 is produced by a sufficiently low eccentricity, high mass planet, while a bump is produced by a high eccentricity, low mass planet. The parameter 
 choices for the five simulations presented in the previous section are shown by the black dots. Between the two dashed lines, the overlap between 
@@ -571,6 +581,7 @@ the aphelion and perihelion distances of the inner and outer edges of the resona
 overdense regions on each side of the resonance spend roughly equal amounts of time at all possible distances, and no strong feature appears in 
 the collision profile.
 
+% TRQ: perhaps a short definition of "strength" here?
 Because the strength of the 2:1 resonance scales with $e_{g}$ and  $m_{g}$, a sufficiently low mass and low eccentricity planet will not create 
 enough of a perturbation in the planetesimal disk to produce a detectable bump or dip feature. The colored contours in figure \ref{fig:bump_dip_diag} 
 indicate the relative strength of the resonance as these quantities are varied. Although the resonance strength is equally sensitive to changes in 
@@ -647,6 +658,8 @@ additional gaps appears to be different for each resonance. In addition, the gap
 different than that of each corresponding interior MMR, which suggests that the structure is related to the symmetry of the path that a planetesimal
 in a frame corotating with the planet takes.
 
+%TRQ: perhaps thinner dashed lines for the MMRs?  It isn't easy to see
+%the gaps in the interior resonances.
 \begin{figure*}
     \includegraphics[width=\textwidth]{figures/boley_rtheta}
     \caption{Positions of planetesimals at the end of the simulation presented in \citet{2017ApJ...850..103B} in polar coordinates. The solid line marks the location of a 50 $M_{\bigoplus}$ planet embedded in the disk. The dashed lines mark the locations of first order MMRs. A second planet is also present at 32.3 AU, although it is not massive enough to induce any significant structure in the disk near associated resonances.\label{fig:boley_rtheta}}
