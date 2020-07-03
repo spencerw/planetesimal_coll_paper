@@ -677,7 +677,6 @@ def bump_dip_diag2():
 	axes.set_yscale('log')
 	axes.set_xlabel('Eccentricity of Perturber')
 	axes.set_ylabel(r'Mass of Perturber [M$_{jup}$]')
-	axes.set_title('2:1 MMR')
 
 	props = dict(boxstyle='round', facecolor='white', alpha=1.0)
 	axes.text(0.1, 0.85, 'Central Dip', transform=axes.transAxes, fontsize=14,
@@ -1236,12 +1235,15 @@ def make_boley_rtheta():
 	# Planet 2
 	lw = 2
 	alpha = 0.5
-	axes.axhline(68.8, color='black', lw=lw)
-	axes.axhline(56.8, color='black', linestyle='--', lw=lw, alpha=alpha) # 4:3
-	axes.axhline(52.5, color='black', linestyle='--', lw=lw, alpha=alpha) # 3:2
-	axes.axhline(43.3, color='black', linestyle='--', lw=lw, alpha=alpha) # 2:1
-	axes.axhline(83.3, color='black', linestyle='--', lw=lw, alpha=alpha) # 3:4
-	axes.axhline(90.1, color='black', linestyle='--', lw=lw, alpha=alpha) # 2:3
+	axes.axhline(68.8, color='black', lw=lw, linestyle='--')
+	xmin, xmax = axes.get_xlim()
+	off = -1
+
+	axes.annotate('4:3', xy=(xmax*0.95, 56.8), xytext=(xmax*1.03, 56.8+off), arrowprops=dict(facecolor='black', shrink=0.001))
+	axes.annotate('3:2', xy=(xmax*0.95, 52.5), xytext=(xmax*1.03, 52.5+off), arrowprops=dict(facecolor='black', shrink=0.001))
+	axes.annotate('2:1', xy=(xmax*0.95, 43.3), xytext=(xmax*1.03, 43.3+off), arrowprops=dict(facecolor='black', shrink=0.001))
+	axes.annotate('3:4', xy=(xmax*0.95, 83.3), xytext=(xmax*1.03, 83.3+off), arrowprops=dict(facecolor='black', shrink=0.001))
+	axes.annotate('2:3', xy=(xmax*0.95, 90.1), xytext=(xmax*1.03, 90.1+off), arrowprops=dict(facecolor='black', shrink=0.001))
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
@@ -1306,8 +1308,8 @@ def gen_coll_PDF():
 	np.savetxt('e2m3_coll.txt', [coll_bins_r_m2, coll_pdf_r_m2])
 
 #gen_coll_PDF()
-#make_boley_rtheta()
-make_alma_profile()
+make_boley_rtheta()
+#make_alma_profile()
 #make_coll_polar_e()
 #make_coll_polar_m()
 #bump_dip_diag2()
