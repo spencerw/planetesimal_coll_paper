@@ -29,9 +29,9 @@ simV = u.AU/simT
 path = 'data/'
 
 # Resonances
-res_label = ['7:2', '10:3', '3:1', '8:3', '5:2', '2:1', '5:3']
-res_p = [2, 3, 1, 3, 2, 1, 3]
-res_q = [5, 7, 2, 4, 3, 1, 2]
+res_label = ['7:2', '3:1', '8:3', '5:2', '2:1', '5:3']
+res_p = [2, 1, 3, 2, 1, 3]
+res_q = [5, 2, 4, 3, 1, 2]
 
 mc = 1
 m_jup = 9.54e-4
@@ -231,14 +231,14 @@ def make_coll_polar_e():
 
 	# Low eccentricity case
 	ecc = ecc_jup/2
-	ridx = 2
+	ridx = 1
 	rw_31 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 5
+	ridx = 4
 	rw_21 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -285,14 +285,14 @@ def make_coll_polar_e():
 
 	# Moderate eccentricity case
 	ecc = ecc_jup
-	ridx = 2
+	ridx = 1
 	rw_31 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 5
+	ridx = 4
 	rw_21 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -339,14 +339,14 @@ def make_coll_polar_e():
 
 	# High eccentricity case
 	ecc = ecc_jup*2
-	ridx = 2
+	ridx = 1
 	rw_31 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 5
+	ridx = 4
 	rw_21 = res_width_jup(ridx, ecc_jup=ecc)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -407,14 +407,14 @@ def make_coll_polar_m():
 
 	# Low mass case
 	mass = 0.5*m_jup
-	ridx = 2
+	ridx = 1
 	rw_31 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 5
+	ridx = 4
 	rw_21 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -461,14 +461,14 @@ def make_coll_polar_m():
 
 	# Moderate mass case
 	mass = m_jup
-	ridx = 2
+	ridx = 1
 	rw_31 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 5
+	ridx = 4
 	rw_21 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -515,14 +515,14 @@ def make_coll_polar_m():
 
 	# High mass case
 	mass = m_jup*2
-	ridx = 2
+	ridx = 1
 	rw_31 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_31 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_31 = (res_dist[ridx]+rw_31)*(1+fecc_31)
 	outer_apo_31 = (res_dist[ridx]+rw_31)*(1-fecc_31)
 	inner_peri_31 = (res_dist[ridx]-rw_31)*(1+fecc_31)
 	inner_apo_31 = (res_dist[ridx]-rw_31)*(1-fecc_31)
-	ridx = 5
+	ridx = 4
 	rw_21 = res_width_jup(ridx, m_jup=mass)*2
 	fecc_21 = e_forced(res_dist[ridx], ecc_jup)
 	outer_peri_21 = (res_dist[ridx]+rw_21)*(1+fecc_21)
@@ -574,7 +574,7 @@ def bump_dip_diag():
 	if not clobber and os.path.exists(file_str):
 		return
 
-	res_idx = 2
+	res_idx = 1
 	ngrid = 50
 	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
 	m_jup_vals = np.logspace(-1, 1, ngrid)
@@ -592,7 +592,7 @@ def bump_dip_diag():
 	        if (apo_inner - peri_outer)/rw > 0:
 	            is_bump_21[idx][idx1] = 1.0
 	            
-	res_idx = 5
+	res_idx = 4
 	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
 	m_jup_vals = np.logspace(-1, 1, ngrid)
 
@@ -645,7 +645,7 @@ def bump_dip_diag2():
 	if not clobber and os.path.exists(file_str):
 		return
 	            
-	res_idx = 5
+	res_idx = 4
 	ngrid = 50
 	e_jup_vals = np.logspace(-3.5, np.log10(0.5), ngrid)
 	m_jup_vals = np.logspace(-1, 1, ngrid)
@@ -1171,7 +1171,7 @@ def make_wander_res_scale():
 
 	fig, ax = plt.subplots(figsize=(16,6), nrows=1, ncols=2)
 
-	res_idx = 2
+	res_idx = 1
 	for idx, jef in enumerate(jup_ecc_fac):
 		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
 
@@ -1189,7 +1189,7 @@ def make_wander_res_scale():
 		ax[0].set_ylabel('Size Scale [AU]')
 		ax[0].set_title('3:1 MMR')
 
-	res_idx = 5
+	res_idx = 4
 	for idx, jef in enumerate(jup_ecc_fac):
 		rw = res_width_jup(res_p[res_idx], res_q[res_idx], ecc_jup*jef)
 
@@ -1308,14 +1308,14 @@ def gen_coll_PDF():
 	np.savetxt('e2m3_coll.txt', [coll_bins_r_m2, coll_pdf_r_m2])
 
 #gen_coll_PDF()
-make_boley_rtheta()
+#make_boley_rtheta()
 #make_alma_profile()
 #make_coll_polar_e()
 #make_coll_polar_m()
 #bump_dip_diag2()
 #make_xy()
-#make_ae()
-#make_long_ph()
+make_ae()
+make_long_ph()
 #make_coll_hist_a()
 #make_coll_hist_r()
 #make_polar_hk_plots()
