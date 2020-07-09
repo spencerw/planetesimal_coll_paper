@@ -2,4 +2,4 @@
 LaTeX source and Python code used to generate figures in the paper
 
 Build LaTeX with 'make'
-Build figures with 'make figs' (Requires simulation data, which is not part of this repo)
+Build figures with 'make figs' (Requires simulation data, can be downloaded separately from the 'data' folder)

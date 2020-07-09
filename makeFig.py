@@ -114,36 +114,35 @@ def plot_res(axis, res=-1, vertical=True, show_widths=False, all=False):
 					axis.hlines(res_dist[val] - width, xmin, xmax, linestyle='-', lw=0.5)
 					axis.hlines(res_dist[val] + width, xmin, xmax, linestyle='-', lw=0.5)
 # Snapshots
-s_c_files = np.array([path + 'hkshiftfullJupCirc/hkshiftfullJupCirc.ic']+ \
-	                  ns.natsorted(gl.glob(path + 'hkshiftfullJupCirc/*.[0-9]*[0-9]')))
-s0_c = pb.load(s_c_files[0])
-s_e_files = np.array([path + 'hkshiftfull/hkshiftfull.ic']+ \
-	                  ns.natsorted(gl.glob(path + 'hkshiftfull/*.[0-9]*[0-9]')))
+s_e_files = np.array([path + 'e2m2/e2m2.ic.800000']+ \
+	                  ns.natsorted(gl.glob(path + 'e2m2/*.[0-9]*[0-9]')))
 s0_e = pb.load(s_e_files[0])
-s_c, s_e = pb.load(s_c_files[-1]), pb.load(s_e_files[-2])
+s_e = pb.load(s_e_files[-2])
 print(s_e_files[-2])
-pl_c, pl_e = ko.orb_params(s_c), ko.orb_params(s_e)
+pl_e = ko.orb_params(s_e)
 
-s_m1_files = np.array([path + 'm1/m1.ic']+ \
-	                  ns.natsorted(gl.glob(path + 'm1/m1_coll.[0-9]*[0-9]')))
+s_m1_files = np.array([path + 'e2m1/e2m1.ic.800000']+ \
+	                  ns.natsorted(gl.glob(path + 'e2m1/e2m1.[0-9]*[0-9]')))
 s0_m1 = pb.load(s_m1_files[0])
-s_m2_files = np.array([path + 'm2/m2.ic']+ \
-	                  ns.natsorted(gl.glob(path + 'm2/m2_coll.[0-9]*[0-9]')))
+s_m2_files = np.array([path + 'e2m3/e2m3.ic.800000']+ \
+	                  ns.natsorted(gl.glob(path + 'e2m3/e2m3.[0-9]*[0-9]')))
 s0_m2 = pb.load(s_m2_files[0])
 s_m1, s_m2 = pb.load(s_m1_files[-1]), pb.load(s_m2_files[-1])
 pl_m1, pl_m2 = ko.orb_params(s_m1), ko.orb_params(s_m2)
 
-s_e1_files = np.array([path + 'e1/e1.ic']+ \
-	                  ns.natsorted(gl.glob(path + 'e1/e1.[0-9]*[0-9]')))
+s_e1_files = np.array([path + 'e1m2/e1m2.ic.800000']+ \
+	                  ns.natsorted(gl.glob(path + 'e1m2/e1m2.[0-9]*[0-9]')))
 s0_e1 = pb.load(s_e1_files[0])
-s_e2_files = np.array([path + 'e2/e2.ic']+ \
-	                  ns.natsorted(gl.glob(path + 'e2/e2.[0-9]*[0-9]')))
+s_e2_files = np.array([path + 'e3m2/e3m2.ic.800000']+ \
+	                  ns.natsorted(gl.glob(path + 'e3m2/e3m2.[0-9]*[0-9]')))
 s0_e2 = pb.load(s_e2_files[0])
 s_e1, s_e2 = pb.load(s_e1_files[-1]), pb.load(s_e2_files[-1])
 pl_e1, pl_e2 = ko.orb_params(s_e1), ko.orb_params(s_e2)
 
 # Skip the first 2000 years of the collision output. This is about how long it
 # takes the resonances to fully show up in the a-e plane
+# Note: this only needs to be done for 'e2m2'. For the other simulations, we
+# waited until T=2000 yr to start recording collisions
 t_skip = 2000
 t_max = 5000
 
@@ -157,42 +156,34 @@ s = 0.0001
 
 # Collision log data
 
-# Circular Jupiter case
-mc = s0_c['mass'][0]
-mj = s0_c['mass'][1]
-coll_c_log = coll.CollisionLog(path + 'hkshiftfullJupCirc/collisions', mc, fix_v2y=True)
-coll_c = coll_c_log.coll
-coll_c = coll_c[np.logical_and(coll_c['time']/(2*np.pi) <= t_max, coll_c['time']/(2*np.pi) >= t_skip)]
-coll_c['dist1'] = np.sqrt(coll_c['x2x']**2 + coll_c['x2y']**2)
-
-# Eccentric Jupiter case
+# Nominal Jupiter case
 mc_e = s0_e['mass'][0]
-coll_e_log = coll.CollisionLog(path + 'hkshiftfull/collisions', mc, fix_v2y=True)
+coll_e_log = coll.CollisionLog(path + 'e2m2/collisions', mc, fix_v2y=True)
 coll_e = coll_e_log.coll
 coll_e = coll_e[np.logical_and(coll_e['time']/(2*np.pi) <= t_max, coll_e['time']/(2*np.pi) >= t_skip)]
 coll_e['dist1'] = np.sqrt(coll_e['x2x']**2 + coll_e['x2y']**2)
 
 # Low eccentricity Jupiter
 mc_e = s0_e['mass'][0]
-coll_e1_log = coll.CollisionLog(path + 'e1/collisions', mc, fix_v2y=True)
+coll_e1_log = coll.CollisionLog(path + 'e1m2/collisions', mc, fix_v2y=True)
 coll_e1 = coll_e1_log.coll
 coll_e1['dist1'] = np.sqrt(coll_e1['x2x']**2 + coll_e1['x2y']**2)
 
 # High eccentricity Jupiter
 mc_e = s0_e['mass'][0]
-coll_e2_log = coll.CollisionLog(path + 'e2/collisions', mc, fix_v2y=True)
+coll_e2_log = coll.CollisionLog(path + 'e3m2/collisions', mc, fix_v2y=True)
 coll_e2 = coll_e2_log.coll
 coll_e2['dist1'] = np.sqrt(coll_e2['x2x']**2 + coll_e2['x2y']**2)
 
 # Low mass Jupiter
 mc_e = s0_e['mass'][0]
-coll_m1_log = coll.CollisionLog(path + 'm1/collisions', mc, fix_v2y=True)
+coll_m1_log = coll.CollisionLog(path + 'e2m1/collisions', mc, fix_v2y=True)
 coll_m1 = coll_m1_log.coll
 coll_m1['dist1'] = np.sqrt(coll_m1['x2x']**2 + coll_m1['x2y']**2)
 
 # High mass Jupiter
 mc_e = s0_e['mass'][0]
-coll_m2_log = coll.CollisionLog(path + 'm2/collisions', mc, fix_v2y=True)
+coll_m2_log = coll.CollisionLog(path + 'e2m3/collisions', mc, fix_v2y=True)
 coll_m2 = coll_m2_log.coll
 coll_m2['dist1'] = np.sqrt(coll_m2['x2x']**2 + coll_m2['x2y']**2)
 
