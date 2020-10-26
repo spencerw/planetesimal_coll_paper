@@ -1,0 +1,250 @@
+1) It is not clear how collisions were treated. Wallace et al. point to other papers that describe the implementations of the collisional algorithms. Although I agree they should not attempt to describe all details of the code here, it would be of major help to add more text describing how they deal with collisions.
+1.1) What is the collisional scaling used?
+1.2) What material is assumed for the colliding planetesimals?
+1.3) How do you deal with size frequency distribution (collisional cascade) resultant from collisions?
+1.4) What is the dust size considered in this work?
+
+I would say all these matter a lot once 300 km planetesimals will likely not be instantaneously pulverized to dust-size when they collide. Thus it is of major importance for the understanding of this work, to know precisely how collisions were treated. If, for instance, authors did not consider any fragmentation, and only tracked collisions to determine where dust would form, I would say this should be put as a caveat.
+
+The reason why I'm asking this to be a caveat is because in this case the authors' results would not necessarily be representing the dust profile, but rather the planetesimal collisional profile, and so the upper limit of dust generation at a given location. This makes a difference regarding the applicability of this work, once the expected real signals from the bumps and dips would be much smaller, and so particularly undetectable. The conclusion's by Wallace et al., potentially based on a local upper limit of dust generation, already points towards an expected faint signal in real observation. Therefore, if the real expected signal end up being even fainter, would this work results be applicable at all, or would them be simply negative results? I am afraid that if the results would be simply negative, they may not be important. I mean, why should we care if we will not be able to easily see those bump/dip features? In this case we would not be able to say anything about the mass and eccentricity of the potential perturbing planet. Therefore, what is the meaning of constraining something that it is unmeasurable?
+
+I would try to help the authors and turn this into a positive light, even if the results turn to be negative. One could eventually say that, once observational capabilities improve, having a constrained measurement would help to quickly interpret images in the future. I don't know how likely is this, but with a proper caveat, it would be acceptable, eventually.
+
+2) I am very concerned by the fact the authors neglected migration on small particles due to aerodynamic drag. 300 km planetesimals will not break down to dust directly (of course some dust will be created during the 300 km planetesimal's collisions, but that would be a very small fraction of mass). The 300 km planetesimals (depending on material) will more likely break into a collection of smaller km-size objects. These smaller size objects will then overpopulate the regions where they were created, thus enhancing collision rates among them. Collisions that continue to happen among these smaller objets will eventually turn them in to a very large swarm of even smaller m- to km-size objects. Ultimately, this last generation of collisionally evolved planetesimals will become dust (then my question about how and if Wallace et al. considered collisional cascade in their simulations).
+
+The problem of neglecting aerodynamic drag becomes then a bigger problem because, as it is very well known, small m- to km-sized objects feel strong headwind and thus can drift very fast Sunwards (e.g. Weidenschilling & Davis 1985; Patterson 1987; Beauge & Ferraz-Mello 1993; Malhotra 1993; Gomes 1995a,b; Jiang & Yeh 2004; Batigyn & Laughlin 2015; Storch & Batygin 2019; Deienno et al. 2020). Therefore, dust created by these large moving swarms could leave a signature that is far different than that when assuming dust would be generated in the location of the 300 km planetesimal collisions (eventually changing, or even destroying, the bump/dip signatures; despite the fact that dust would couple to the gas almost instantaneously, once created). This is why I previously said authors may be tracking the planetesimal collisional profile and the upper limit of dust generation at those locations in their simulations, but not necessarily the dust profile.
+
+I would suggest that the authors investigate and say explicitly in the text what is the expected relation between collisional timescale and drift timescale for m- to km-sized (1 m - 1 km) particles.
+
+They should discuss:
+2.1) If drift timescale of 1 m- to 1 km-sized objects is larger than their collision timescale.
+In this case, collisions would happen before planetesimals would drift. Then the results should hold true.
+2.2) If drift timescale of 1 m- to 1 km-sized objects is smaller than their collision timescale.
+In this case, planetesimals would tend to drift faster than they can collisionally evolve. However, if their drift timescale is still larger than 5000 yr (integration time), then maybe this could be a minor issue. But a caveat would still be necessary as the large swarm of small planetesimals would likely continue collisionally evolving elsewhere (far from the mean motion resonances; MMRs, thus potentially changing the bump/dip signatures).
+2.3) If drift timescale is smaller than 5000 yr and also smaller than collisional timescale.
+In this case, this is a major issue! Planetesimals would quickly fall into the star, leaving minor dust signature, or a continue dust signal throughout their migration path, thus certainly no bumps nor dips would be observed.
+
+Regardless the situation, this should be clearly discussed in the text.
+
+    Measure drift timescale across resonance
+    Compare with collision timescale of 1m bodies
+        Depends only on surface density of bodies (assume all mass in 1m bodies for simplicity)
+        Drift and collision timescales are approx comparable
+        Low density planetesimals, less gas or cooler gas all alleviate this
+
+3) Wallace et al. mostly studied collisions that happen around MMRs. Thus, my point 2) above may become a problem for this as well. The pioneering work by Weidenschilling & Davis (1985) suggested small drifting particles could get captured by external MMRs with large planets. However, by that time the authors already pointed out that collisions would likely knock particles out of MMRs. More recently, Deienno et al. (2020) were finally able to confirm the predictions by Weidenschilling & Davis (1985) that collisions prevent small m- to km-sized particles to remain in MMRs (or near them) when gas is still around in the protoplanetary disk. Thus, I would say that, because Wallace et al. is mostly studying collisions within and near MMRs, in a protoplanetary disk (when gas should be around), adding aerodynamic drag on small size particles can be of a major influence, and eventually modifying all conclusions, specially because interior MMRs (those studied in this work) are largely inefficient in capturing any drifting small planetesimal (Weidenschilling & Davis 1985; Beauge & Ferraz-Mello 1993; Malhotra 1993; Gomes 1995a,b).
+
+Summarizing, if interior MMRs can't capture small drifting planetesimals (or even in the case where capture would eventually occur), aerodynamic drag plus collisional evolution would not leave any object in MMRs. Therefore, the bumps and dips observed in this work would eventually not exist.
+
+Not that I want to sound like a broken record, but in my opinion, without considering small planetesimals drifting due to gas drag, the figures presented in this work represent a planetesimal collisional profile, but not necessarily a dust profile. Again, large amounts of dust will not be directly generated by collisions among 300 km planetesimals, but rather by collisions among a larger swarm of m- to km-sized objects. The latter are strongly affected by the gas and don't strongly interact with interior MMRs, unless the planet in migrating Sunwards and capturing them (not the case of the present work).
+
+    So long as the concerns in 2) are satisfied, this is not an issue
+
+4) Wallace et al. performed each simulation for 5000 years. In the introduction, authors claim all works to date are severely limited in simulation time. Well, is 5000 years different than that? Deienno et al. (2020) performed N-body simulations of collisionaly evolving planetesimals (using statistical routines and tracer particles) with N of order O^10+ for 100,000 yr! I understand the codes used and the purpose of the two works were very different, so as the simulation setups. However, I don't understand why 5000 yr is not a severely limited time either. Protoplanetary disks can live much longer than that (Myr timescales). Why 400 orbits is enough? Wouldn't a longer simulation time change all results? I mean, the way it is, I understand that the disk signatures would be those reflecting a 5000 yr evolution, which is basically the observational instant considering how long a disk could live. However, if a 10,000 yr or 100,000 yr evolution would change the dust signatures (especially if considering aerodynamic drag), how applicable are the conclusions in this work? See that 10,000 yr or 100,000 yr are also short periods compared to the disk lifetime. Could you, please, add discussion regarding simulation time, as well as, clearly define what is a short and a long time (and why)? For me 5000 yr is, in principle, too short.
+
+    We were specifically referring to direct N-body simulations (not statistical routines or studies using tracer particles)
+    This is the first direct N-body work that resolves the libration timescale of the resonances
+    We expect that a much longer integration time will yield the same result, because 5,000 years is longer than all of the relevant timescales relating to dynamics
+
+I'm very concerned about all these 4 points and would like that the authors pay careful attention, as well as, devote a thorough discuss related in the revised text.
+
+The question of applicability:
+
+If I understood the applicability of this work would follow the steps:
+1) Once a bump or dip is observed in the dust emission signature of a disk, one would need to assume that this bump or dip reflects the position of the interior 2:1 MMR with a planet.
+2) Thus, one would need to look for another dip or bump near what would be the interior 3:1 MMR with that supposed planet.
+3) Only then one would be able to guess on the eccentricity and mass of the assumed perturber.
+
+I think this should be clearly said in the conclusions, as well as this idea should be introduced somewhere upfront in the manuscript (maybe in the abstract or introduction). I would not leave to the reader to reach this conclusion. Readers can easily interpret things wrong (especially nowadays where we have so much things to read and we usually read them fast). Did I have the right interpretation or are the author suggesting something different in regards to applicability?
+
+    Exactly. Todo: add a clear outline of this in the conclusions
+
+General points (not in order of importance, but as they appear in the text):
+
+I will use the following nomenclature:
+- page 2, left(right) column, third paragraph, line 36 as pg.2 l(r)col. P.3 l.36 (line number reflects the number on the left side of a given page and not the paragraph line.)
+
+
+
+1) pg.1 lcol P.1 l.47 - "or orbiting externally" - why not considering the planets orbiting internally too? External MMRs are important and can have a much larger effect in debris disk.
+
+    This is absolutely true. The initial conditions for this work were meant to be compared with simulation B of Richardson et al. 2000, which only focused on the internal MMRs. The phrase 'orbiting externally' was changed to 'orbiting adjacent to'.
+
+2) pg.1 lcol P.1 l.49-51 - "In gas-poor/debris systems, a giant planet perturber can also influence the structure of the dust continuum emission." - Why discussing debris disk if you will only account for the gaseous phase? This confuses the reader.
+
+    The planetesimal dynamics presented in the work are equally applicable to gas rich and gas poor systems. However, the orbital structure of the dust and the constraints it would place on the properties of the giant planet are much less clear. We have reframed this paper draft to make the measurement of the perturbing planet's properties less of a central point and therefore discussing debris disks in the introduction is relevant.
+
+3) pg.1 rcol P.2 l.44-47 - "Dobinson et al. (2013) showed that collisional dust that... to infer the presence of the planet." - In a debris disk or in a gas disk?
+
+    The Dobinson et al. 2013 work modeled the inner gas poor region of a transition disk. The term 'planetesimal disk' in our introdution was changed to 'inner part of a transition disk'.
+
+4) pg.2 lcol P.1 l.44-47 - "Unfortunately, collision detection in an N-body simulation is extremely computationally expensive. So far, studies of planetesimal dynamics near MMRs have involved either collisionless test particles (Boley 2017; Tabeshian &Wiegert 2016, 2018) or severely limited integration times (Richardson et al. 2000). To further elucidate this subject, we use the tree based N-body" - But see Deienno et al. (2020).
+
+    Deienno et al. 2020 makes use of tracer particles, which is not the case with the other studies we cite here. Had we used coarser resolution and taken advantage of tracer particles in this work, the structure seen at the edges of the resonances in figures 6 and 7, which is critical to generating the features seen in the collision profiles, would likely become washed out. The text in the above sentence in the introduction has been changed to clarify that we are only referring to cases where the planetesimals are directly resolved.
+
+5) A general comment - The introduction is confusing. It is clear from the abstract that the work will consider only the gas disk phase of a protoplanetary disk. However, because the introduction discuss a lot of debris disk, it is not clear whether debris disks will be considered. I would suggest focusing the discussion on protoplanetary disk. This way it would be clear authors will work during the gas phase.
+
+    TODO: I think the better thing to do is reframe the abstract. Highlight more about the dynamics, and leave the stuff about gas and the dust structure to the end.
+
+6) Another general comment, now regarding section 2. - A much more relevant dynamics not discussed at all is due to aerodynamic gas-drag on planetesimals (especially the smaller ones). Also, collision rates are not discussed at all !
+
+   TODO: Might be good to add a section discussing gas drag here. Also - I had an analytic derivation of collision rates in an earlier draft - I guess I'll add it back in.
+
+7) Reference - Murray & Dermott (2000) - I think Murray & Dermott (1999) is a better reference (at least more commonly used).
+\bibitem[\protect\citeauthoryear{Murray \& Dermott}{1999}]{1999ssd..book.....M} Murray C.~D., Dermott S.~F., 1999, ssd..book
+
+    Never noticed this before! All Murray & Dermott references have been changed to the 1999 version.
+
+8) pg.2 rcol P.1 l.8-9 - "... along with aerodynamic gas drag will..." - Even at this point is still not clear from the text if gas will be considered. Please, clarify the text.3
+
+    Add clarification: although we don't model gas drag here, the ICs need to start in eqilibrium. The viscous stirring time is much longer than any of the other relevant timescales resolved in the simulation, so it is sufficient for us to calculate what <e^2>^{1/2} would be if there were gas around.
+
+9) A general comment with respect to section 2.2 - It looks like there are typos in some of the equations. I would also suggest that, every time that equations from other works are quoted, please, say chapter, page, and eq #. This helps the reader to look after, if a bit more of background is needed. Finally, I don't understand the importance of this section. It ends as: "Due to the complicated dynamics that are at play in this region, we turn to a direct N-body treatment to better understand how the collision rate varies in the vicinity of a MMR.". When I reached this point I asked myself: Will this section be used for something or is it here simply to say that the dynamics are complicated enough to be treated analytically, thus needing numerical analysis? I would suggest to shorten this section. Another suggestion, consider moving it to an appendix (once equations are revised).
+
+    Be sure to add chapter, page number and eq number after all M+D equations. The main purpose of this section is to explain how we calculated resonances widths that were used in the later parts of the paper. Go back through and make sure each of the equations presented is referenced later in the paper. Remove ones that arent
+
+I am not saying equations are wrong, but please, revise all equations to make sure they are correct and consistent, and add explanation when clarification is needed.
+
+10) Equation (5) - should'n this equation have -q instead of -(2p+q) in the third term and -p instead of -q in the second term? See for example Murray & Dermott (1999, chap 8, eq. 8.8), or Beaugé & Ferraz-Mello (1993), or Malhotra (1993), or Gomes (1995)...
+From Murray & Dermott (1999, Chap 6 and 8), one of the general forms of the resonant angle can be phi = j1*lamb' + j2*lamb + j4*varpi, where j1 = p+q, j2 = -p and j4 = -q. So why using j2 = -q and j4 = -(2p+q) instead?
+The authors should explicitly say, and explain why these choices were made.
+
+    Looks like this was a typo that carried through a few equations. Fortunately, this same mistake was not made when doing any calculations for the paper (all equations used in our analysis are consistent with the referee's convention)
+
+11) Equation (6) - Assuming j4 = 2p+q
+
+    See 10
+
+12) pg.3 lcol P.1 l.11 - "... table 8.1)..." - third row, with j = p+q (in Murray's book).
+
+    To add
+
+13) Equation (9) - Shouldn't this be fd(alfa) = 1/2 [ -2j -alphaD ] b1/2^j (minus, not plus)
+
+    Minus sign missing in front of both terms
+
+14) pg.3 lcol P.2 l.21 - "... table 8.1)..." - first row in Murray's book
+
+    To add
+
+15) pg.3 lcol P.2 l.28 - "... equation 8.76)." - with j2 = p.
+
+    To add
+
+16) pg.3 lcol P.4 l.34-35 - "The net result of this is that MMRs will produce spikes in the semimajor axis-eccentricity distribution of a planetesimal disc." - This is true when migration due to aerodynamic drag is not considered, or for large planetesimals that don't feel strong headwind. Would this still be true for small planetesimals that are drifting inwards? That would largely depend on the relation strength of the resonance vs drifting timescale (resonance crossing time).
+
+    If t_drift >> t_librate, then still holds true. The big question is what is t_librate for sthe small bodies. This is set by their eccentricity.
+
+17) A general note regarding section 3.1 - The code should be described with more details. This is a tree code primarily developed to work on cosmology simulations, thus not commonly applied for astronomical models. What is need to translate a cosmology code to astronomy? What are the differences in potential? I have many questions and a general reader would have them too. In my opinion, simply saying the code works well in half million processors and that it calculates gravitational forces, then redirecting to Jetley et al. (2008) is too superficial. See I am not asking to give all details, as this is an already published code. But having a better description of the portions of the code that are relevant to this work would be important. Also, I think it is crucial that Wallace et al. describe with more details how the code deals with collisions, and all the assumptions made, as well as all the consequences of it. Again, I understand the authors have a full description of the collisional module in Wallace & Quinn (2019), but having a summary of the main relevant features here would not hurt. On the opposite, it would greatly help the reader and the understanding of the work. Besides, including more details would not be a big task, and should also not compromise the length of the work (especially if Sect 2.2 goes mostly to an appendix). Please, I beg for more detail in this section.
+
+    Not sure how to address this? Does the referee mean 'planet formation' when referring to astronomy? Could we just add some citations to other papers that use ChaNGa for planet stuff?
+
+18) pg.3 rcol P.2 l.29-32 - "In the other four cases, the mass (eccentricity) is increased or decreased by a factor of two, while the eccentricity (mass) is held at the nominal value." - This reads awkward. Why not simply say that in other cases mass and/or eccentricity is increased or decreased by a factor of 2?
+
+    We can certainly do this. I wrote this before adding table 1, which makes it clear.
+
+19) pg.3 rcol P.2 l.33 - "... 5.2 AU orbit..." - 1) Why not closer distances? 2) AU -> au (here and elsewhere).
+
+    Maybe we should do more to emphazise that this setup was motivated by a Jupiter - asteroid belt setup. Be sure to change AU to au (this is what the editor asked for in the last MNRAS paper)
+
+20) pg.3 rcol P.2 l.34 - "The planetesimal disc extends from 2.2 to 3.8 AU..." - Why not consider the outer disk too? External resonances can be very strong and capture is more likely there.
+
+    See 19)
+
+21) pg.3 rcol P.2 l.41 - This is a minor comment. I am just curious. Why not using alpha = -1 or -0.9 as it seems more common for protoplanetary disks? -1.5 is an approximation for the Minimum Mass Solar Nebula based on the current solar system planets. Observations of proptoplanetary disks sugggest alpha = -1 or -0.9.
+
+    See 19). Observations sugest alpha = -1 for gas component. Not clear if this is true for the solids (see Chiang + Laughlin 2013). Radial concentration of solids (dust profile steeper than gas) might even be necessary to explain short period terrestrial planets.
+
+22) pg.3 rcol P.2 l.44 - "Each simulation is evolved for 5,000 years" - Could you, please, add discussion regarding simulation time, as well as, define what is a short and long time. For me 5000 yr is, in principle, too short (see my concern #4).
+
+    See our response to concern #4
+
+23) pg.3 rcol P.3 l.44-46 - "The dynamical effects of secular forcing by the giant planet, along with the effects of viscous stirring and gas drag on the planetesimals, are built into the initial conditions." - From the text, It is not clear whether the authors are considering the gas disk phase or not?
+
+    The idea here is that the viscous stirring and gas drag time are longer than the simulation time, so we can get away with ignoring the gas drag on planetesimals. However, we need to make sure the planetesimals start in the right dynamically heated state because the planetesimal formation time is probably longer than the two aformentioned timescales.
+
+24) pg.3 rcol P.3 l.48 - "... and gas drag as a function of semimajor axis..." - Again, is this only used to setup the disk condition, or is this updated during the simulation, once debris are created? Are debris created?
+
+    See 23). Just used to set up the initial conditions
+
+25) pg.3 rcol P.3 l.49-50 - "Although ChaNGa does not account for the effects of gas drag on the planetesimals..." - Please, see my concerns and add discussion.
+
+    This has been addressed in other locations
+
+26) pg.4 lcol P.2 l.49 - "dynamical timescale of planetesimals..." - What do you mean by dynamical timescale of planetesimals? Collisional timescale, drift timescale, what?
+
+    1/sqrt(G*rho_pl), which sets the timescale for gravitational interactions between planetesimals that undergo close encounters
+
+27) pg.4 rcol P.1 l.41 - "... T_lib ~ 1,000 - 2,000 years..." - So the integration time is about a factor of 2-4 T_lib. Is this enough to take conclusions? Please, see my concern and add discussion.
+
+    The 'spikes' in the a-e plane do not evolve over the time that we record collisions, so yes.
+
+28) pg.4 rcol P.2 l.52-53 - "Resonances with the perturbing planet are visible as nonaxisymmetric gaps." - I am afraid that this is only because none of your particles are drifting, which would locally increase the collision rates once small planetesimals fragments that should be drifting away start to (maybe unrealistically) pile up within or near MMR, thus quickly collisionally evolving to dust. I wonder if this would ever happen if gas drag was to play? Please, see my concern and add discussion.
+
+    This is referring specifically to the positions of the planetesimals and not to any observable property. Even if the smaller fragments do drift significantly, the nonaxisymmetric gaps will still be present, although observing full sized planetesimals is next to impossible.
+
+29) pg.4 rcol P.2 l.56-59 - "... in Richardson et al. (2000) (see bottom panel of figure 3) and Tabeshian & Wiegert (2016) (figure 3)." - add figure 3 in those works. Fig 3 in this work does not have bottom panels.
+
+    Is the referee asking me to show fig 3 from these other papers in our paper? Change 'bottom panel of fig 3 in Richardson' to 'fig 3c and 3f in Richardson'
+
+30) Figure 2 - I wonder how (or if) particle drifting due to gas-drag would change this figure? Also, the 8:3 and 7:2 MMRs are irrelevant here! Why not showing 7:3 MMR that is discussed in the main text?
+
+    Is the referee thinking of smaller bodies, or full sized planetesimals here? I wouldnt think that full sized planetsimals are going to drift by any significant amount. Typo in the text here, '7:3' should say '8:3'.
+
+31) Caption of Figure 2 - "Between the resonances, the nonzero eccentricity is due to secular forcing by the planet." - Gas would likely damp them to zero!
+
+    Is this true? What is the timescale for secular forcing?
+
+32) pg.5 rcol P.1 l.15 - "PDF" - Please, define abbreviations before using it.
+
+    Probability density function
+
+33) pg.5 rcol P.2 l.24-27 - "The most prominent features appear as an enhancement to the collision rate near the 2:1 MMR and a decrease near the 3:1 MMR." - I don't see a decrease near 3:1 in figure 4. I see two peaks around 3:1 and one interior to the 2:1.
+
+    I see a decrease near the 3:1 AND two peaks around it! I just didnt mention the peaks because the dip was more noticable.
+
+34) Last paragraph of section 4.1 - "We attribute... radial dust distribution" - I don't understand this argument about gravitational focusing. In my interpretation, what could be happening is that planetesimals that get excited by the MMRs collide at their perihelion distances. This explains why the larger relative # of collisions are close to the MMRs and interior to it.
+
+    I should probably add that extra plot to explain this. Orbital phase at time of collision (perihelion) should show up when looking at semimajor axis.
+
+35) pg.6 lcol P.1 l.33 - "cylindrical distance" - please, define before start using it.
+
+    Define cylindrical distance
+
+36) pg.6 rcol P.2 l.47-54 - "This also suggests... radial collision profile." - I don't know if I agree with authors' conclusions that MMRs are not that important, and that most collisions occur with objects out of resonance. It looks for me that the features seem in Fig 6 (similar to Fig 4) are caused by objects in MMRs colliding at their pericentric and apocentric distances within the eccentric orbits. In my understanding, if authors' arguments are correct, MMRs should basically not matter, and Fig 5 would look similar if no planet was present. If that is the case, how can this work serve to constrain the mass and eccentricity of a perturbing planet?
+
+    Looks like the referee didnt understand what we were getting at here. The collisions are due to bodies right at the edge of resonance, where the circulation frequency blows up. Might help to add in that plot I made showing the difference in the collision profile with and without bodies with semimajor axes inside of resonance.
+
+37) pg.6 rcol P.2 l.38-56 - "As mentioned in section 2, ... appears to 'follow' the planet." - This paragraph is super confuse. I don't understand this. Why not simply say this is caused by the secular forcing in eccentricity? This would save 3 paragraphs in the paper and would be much more clear.
+
+    See 36). The effect is not simply due to the secular forcing, otherwise the gaps in figure 2 would be aligned with the pericenter of the planet.
+
+38) Figs 4 and 5 - Why is the relative # larger than 1? Relative to what?
+
+    Because its a probability density function. Add some discussion in the text of how we normalized them.
+
+39) General note about the figures - Not that I want to be repetitive, but I am afraid that if small planetesimals are allowed to drift the bumps and dips from these figures may change as the small planetesimals would likely collide everywhere in radial distances. This is because internal MMRs are not strong enough to perturb these small fast-drifting planetesimals. In my opinion, without considering small planetesimals drifting due to gas drag, Figs 6 and 7 (especially) represent a planetesimal collisional profile, but not necessarily a dust profile. Please, see my concerns and add discussion.
+
+    Already addressed above
+
+40) pg.10 lcol P.4 l.42-44 - "Many different parameterizations are possible, depending on optical depth, grain size, disc temperature, etc.,..." - But couldn't this change all of your conclusions? Please, see my concerns regarding planetesimal sizes and add discussion.
+
+    Ask aaron about this?
+
+41) Last paragraph of section 5 - "In order to... cases shown above" - This is a big IF, especially if what the authors are measuring here is the planetesimal collisional profile rather than the dust profile, or if the dust profile would be even shallower as a consequence of aerodynamic drag acting on small fragments of collisionally evolved planetesimals.
+
+    Already addressed above
+
+42) pg.12 rcol P.1 l.8-24 - "Near the interior 2:1... both of these quantities." - This is a clear way to set the explanation. Well done! I hope to see more of that in the revised version. I think a lot of the explanations in the main text should be substituted by something clear and concise as this! Make it simple!
+
+    :-)
+
+43) pg.12 rcol P.3 l.45-48 - "Given that the solid surface density diminishes with distance (r^-1.5 for the MMSN (Hayashi 1981)), exterior resonances may not be quite as useful for this type of measurement, however.)" - Not sure I agree. Exterior MMRs can more easily capture inward drifting objects (e.g. Weidenschilling & Davis 1985; Patterson 1987; Beauge & Ferraz-Mello 1993; Malhotra 1993; Gomes 1995; Jiang & Yeh 2004; Batigyn & Laughlin 2015; Storch & Batygin 2019), increasing their local collision rates (Deienno et al. 2020), thus potentially generating very strong dusty features.
+
+    If we're just talking about planetesimals, however, the inner resonances are more useful. Not sure how much we want to get into looking at drifting small bodies
+
+44) pg.12 rcol P.4 l.50-52 - "As we have shown, the bump vs dip feature near the 2:1 MMR is marginally detectable with ALMA for the nearest protoplanetary discs." - Please, see my concern and add discussion.
+
+    Good place to mention caveats brought up by the referee
+
+My apologies for being so long. I do think this work has potential, but it does need substantial clarifications.

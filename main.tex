@@ -1,6 +1,7 @@
 \documentclass[fleqn,usenatbib]{mnras}
 \usepackage{newtxtext,newtxmath}
 \usepackage[T1]{fontenc}
+\usepackage{ulem}
 
 \DeclareRobustCommand{\VAN}[3]{#2}
 \let\VANthebibliography\thebibliography
@@ -52,7 +53,7 @@ planet-disc interactions -- planets and satellites: formation -- submillimetre: 
 Recent observations of circumstellar discs by ALMA have revealed a rich variety of substructure. Features such as gaps and asymmetries 
 \citep{2015ApJ...808L...3A, 2016Sci...353.1519P, PhysRevLett.117.251101, 2016ApJ...820L..40A, 2016Natur.535..258C} in the emission provide 
 diagnostics for the physical processes that drive the evolution of the discs. In many gas-rich systems, these gap features are argued to indicate the 
-presence of a giant planet, either embedded in the disc \citep{2015MNRAS.453L..73D} or orbiting externally, although the details of gas-dust 
+presence of a giant planet, either embedded in the disc \citep{2015MNRAS.453L..73D} or orbiting \sout{externally} \textbf{adjacent to it}, although the details of gas-dust 
 interactions can have strong effects on the resulting morphologies
 \citep{2018ApJ...866..110D}. In gas-poor/debris systems, a giant
 planet perturber can also influence 
@@ -66,7 +67,7 @@ amount of primordial dust is likely still present during the early stages of deb
 this and could be used to trace the underlying dynamical activity of the planetesimals. This process was directly detected when the putative object 
 Fomalhaut b was confirmed to be an expanding debris cloud, most likely from a planetesimal collision \citep{2020PNAS..117.9712G}. 
 
-\citet{2013ApJ...777L..31D} showed that collisional dust that is generated near the gap opened by a giant planet in a planetesimal disc should 
+\citet{2013ApJ...777L..31D} showed that collisional dust that is generated near the gap opened by a giant planet in \textbf{the inner regions of} \sout{planetesimal} \textbf{transition} disc should 
 produce a distinct observable marker that could be used to infer the presence of the planet. In a followup study, it was found that morphological 
 differences in the dust emission could be used to determine whether the planet had a circular or eccentric orbit \citep{2016ApJ...820...29D}. Moreover, 
 substructure due to mean-motion resonances (MMRs) with a giant planet may hold additional clues that could be used to constrain the properties of 
@@ -79,7 +80,7 @@ should look like in these regions. For a collection of bodies massive enough to 
 dispersion tends to reduce the probability of collision, while enhancements in surface density tends to increase it. Due to conservation of the Jacobi 
 energy, MMRs simultaneously enhance the local eccentricity dispersion and also enhance the surface density adjacent to the resonance 
 \citep{2000Icar..143...45R, 2017ApJ...850..103B}. Unfortunately, collision detection in an N-body simulation is extremely computationally expensive. 
-So far, studies of planetesimal dynamics near MMRs have involved either collisionless test particles 
+So far, studies of planetesimal dynamics near MMRs \textbf{in which the planetesimals are directly resovled} have involved either collisionless test particles 
 \citep{2017ApJ...850..103B, 2016ApJ...818..159T, 2018ApJ...857....3T} or severely limited integration times \citep{2000Icar..143...45R}.
 
 To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa}\citep{2008IEEEpds...ChaNGa, 2015AphCom..2..1}  to follow the 
@@ -113,7 +114,7 @@ forced value, given by \citep{1999ApJ...527..918W} as
 \noindent Here, $\alpha = a_{g} / a$ where $a_{g}$ and $a$ are the semi-major axes of the giant planet and a planetesimal, 
 respectively. $e_{g}$ and $\varpi_{g}$ are the eccentricity and
 longitude of pericenter of the giant planet, and $b^{j}_{s} (\alpha)$ is a 
-Laplace coefficient given by \citep{2000ssd..book.....M} as
+Laplace coefficient given by \citep{1999ssd..book.....M} as
 
 \begin{equation}\label{eq:lap}
 	b_{s}^{j}(\alpha) = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{\cos \, j \theta \, d \theta}{\left( 1 - 2 \alpha \, \cos \theta + \alpha^2 \right)^{s}}.
@@ -154,10 +155,10 @@ behavior of a critical angle
 \noindent where $\lambda = \varpi + M$ is the mean longitude of a
 body, with $M$ being the mean anomaly. For bodies in resonance, the critical angle will librate around an 
 equlibrium value, while this angle will circulate outside of resonance. For small eccentricities, this behavior is analogous to the motion of a 
-pendulum. Furthermore, variations in the critical angle are coupled to changes in the mean motion and semimajor axis \citep{2000ssd..book.....M}. An important 
+pendulum. Furthermore, variations in the critical angle are coupled to changes in the mean motion and semimajor axis \citep{1999ssd..book.....M}. An important 
 point to note, which we will revisit later, is that the variation frequency of this angle approaches zero near the edge of a resonance. The 
 width of a resonance can be defined by determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of $\phi$. For 
-second order and higher MMRs, the maximum libration width is given by equation 8.58 in \citet{2000ssd..book.....M} as
+second order and higher MMRs, the maximum libration width is given by equation 8.58 in \citet{1999ssd..book.....M} as
 
 \begin{equation}\label{eq:res_so}
 	\frac{\delta a}{a} = \pm \left( \frac{16}{3} \frac{\left| C_{r} \right|}{n} e^{\left| 2 p + q \right|} \right)^{1/2},
@@ -172,7 +173,7 @@ resonance,
 	                      & + & \left. 4(p+q) \alpha D + \alpha^{2} D^{2} \right] b^{p+q}_{1/2},
 \end{eqnarray}
 
-\noindent (see \citet{2000ssd..book.....M} table 8.1) where $D b^{j}_{s}$ is the first derivative with respect to $\alpha$ of the Laplace coefficient defined in equation \ref{eq:lap}. This is given by \citet{1961mcm..book.....B} as
+\noindent (see \citet{1999ssd..book.....M} table 8.1) where $D b^{j}_{s}$ is the first derivative with respect to $\alpha$ of the Laplace coefficient defined in equation \ref{eq:lap}. This is given by \citet{1961mcm..book.....B} as
 
 \begin{equation}\label{eq:lap_d}
 	\frac{d b_{s}^{j}}{d \alpha} = s \left( b_{s+1}^{j-1} - 2 \alpha b_{s+1}^{j} + b_{s+1}^{j+1} \right).
@@ -184,14 +185,14 @@ For a first-order resonance, the associated disturbing function terms are slight
 	f_{d}(\alpha) = (p+q) b_{1/2}^{p+q} + \frac{\alpha}{2} D b_{1/2}^{p+q},
 \end{equation}
 
-\noindent (see \citet{2000ssd..book.....M} table 8.1) and there is an additional contribution to the motion of the critical angle by the pericenter precession rate such that
+\noindent (see \citet{1999ssd..book.....M} table 8.1) and there is an additional contribution to the motion of the critical angle by the pericenter precession rate such that
 
 \begin{equation}\label{eq:res_fo}
 	\frac{\delta a}{a} = \pm \left(\frac{16}{3} \frac{\left| C_{r} \right|}{n} e \right)^{1/2} \left(  1 + \frac{1}{27 p^2 e^3} \frac{\left| C_{r} \right|}{n} 
 	\right)^{1/2} - \frac{2}{9 p e}  \frac{\left| C_{r} \right|}{n}
 \end{equation}
 
-\noindent (see \citet{2000ssd..book.....M} equation 8.76).
+\noindent (see \citet{1999ssd..book.....M} equation 8.76).
 
 Changes in eccentricity are correlated with changes in semimajor axis according to the Tisserand relation
 
@@ -327,7 +328,7 @@ reducing the effectiveness of gravitational focusing, while minimizing the addit
 All five simulations are evolved for 5,000 years, which is roughly 400 complete orbits of the perturbing planet. Because the effects of the mean 
 motion resonances are not built into the initial conditions, the simulations must be run long enough for the distribution of orbital elements to reach 
 equilibrium near the resonances before the collision rate is measured. The libration timescale, which describes how long the critical angle (and also 
-the semimajor axis and eccentricity) of a planetesimal in resonance takes to undergo a full oscillation is given by (see equation 8.47 in \citet{2000ssd..book.....M})
+the semimajor axis and eccentricity) of a planetesimal in resonance takes to undergo a full oscillation is given by (see equation 8.47 in \citet{1999ssd..book.....M})
 \begin{equation}\label{eq:lib_time}
 	T_{lib} = \frac{2 \pi}{3 q^{2} C_{r} n e^{\left| 2p + q \right|}},
 \end{equation}
@@ -473,7 +474,7 @@ themselves in this configuration. This explains why the concentration of planete
 \end{figure*}
 
 \citet{2016ApJ...818..159T} provide a different explanation for this phenomenon, suggesting that the nonaxisymmetric structure is the product 
-of the path that a resonant test particle takes in a frame co-rotating with the planet (see figure 8.4 of \citet{2000ssd..book.....M}). This explanation, 
+of the path that a resonant test particle takes in a frame co-rotating with the planet (see figure 8.4 of \citet{1999ssd..book.....M}). This explanation, 
 however, does not hold for a large collection of planetesimals, especially when there is no forced eccentricity. In such a case, the orbits of 
 planetesimals near resonance would be randomly aligned, and the axisymmetric structure should become washed out. When the perturbing 
 planet is on a circular orbit, this structure is still present (see figure 3 of \citet{2016ApJ...818..159T} and Appendix \ref{sec:boley_plot}). The only 
