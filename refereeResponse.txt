@@ -97,7 +97,7 @@ I will use the following nomenclature:
 
 8) pg.2 rcol P.1 l.8-9 - "... along with aerodynamic gas drag will..." - Even at this point is still not clear from the text if gas will be considered. Please, clarify the text.3
 
-    Add clarification: although we don't model gas drag here, the ICs need to start in eqilibrium. The viscous stirring time is much longer than any of the other relevant timescales resolved in the simulation, so it is sufficient for us to calculate what <e^2>^{1/2} would be if there were gas around.
+    TODO: Add clarification: although we don't model gas drag here, the ICs need to start in eqilibrium. The viscous stirring time is much longer than any of the other relevant timescales resolved in the simulation, so it is sufficient for us to calculate what <e^2>^{1/2} would be if there were gas around.
 
 9) A general comment with respect to section 2.2 - It looks like there are typos in some of the equations. I would also suggest that, every time that equations from other works are quoted, please, say chapter, page, and eq #. This helps the reader to look after, if a bit more of background is needed. Finally, I don't understand the importance of this section. It ends as: "Due to the complicated dynamics that are at play in this region, we turn to a direct N-body treatment to better understand how the collision rate varies in the vicinity of a MMR.". When I reached this point I asked myself: Will this section be used for something or is it here simply to say that the dynamics are complicated enough to be treated analytically, thus needing numerical analysis? I would suggest to shorten this section. Another suggestion, consider moving it to an appendix (once equations are revised).
 
@@ -109,7 +109,7 @@ I am not saying equations are wrong, but please, revise all equations to make su
 From Murray & Dermott (1999, Chap 6 and 8), one of the general forms of the resonant angle can be phi = j1*lamb' + j2*lamb + j4*varpi, where j1 = p+q, j2 = -p and j4 = -q. So why using j2 = -q and j4 = -(2p+q) instead?
 The authors should explicitly say, and explain why these choices were made.
 
-    Looks like this was a typo that carried through a few equations. Fortunately, this same mistake was not made when doing any calculations for the paper (all equations used in our analysis are consistent with the referee's convention)
+    The argument should indeed by -q, rather than -(2p+q). This mistake was carried through when writing up the equations in the paper, although it appears we properly used j4 = -q when doing our analysis and constructing plots. (2p+q) has been replaced by q in equations 5 and 6 in the paper.
 
 11) Equation (6) - Assuming j4 = 2p+q
 
@@ -117,39 +117,39 @@ The authors should explicitly say, and explain why these choices were made.
 
 12) pg.3 lcol P.1 l.11 - "... table 8.1)..." - third row, with j = p+q (in Murray's book).
 
-    To add
+    Added
 
 13) Equation (9) - Shouldn't this be fd(alfa) = 1/2 [ -2j -alphaD ] b1/2^j (minus, not plus)
 
-    Minus sign missing in front of both terms
+    You are correct. There was a minus sign missing in front of both terms in the paper. This has now been fixed
 
 14) pg.3 lcol P.2 l.21 - "... table 8.1)..." - first row in Murray's book
 
-    To add
+    Added
 
 15) pg.3 lcol P.2 l.28 - "... equation 8.76)." - with j2 = p.
 
-    To add
+    Added
 
 16) pg.3 lcol P.4 l.34-35 - "The net result of this is that MMRs will produce spikes in the semimajor axis-eccentricity distribution of a planetesimal disc." - This is true when migration due to aerodynamic drag is not considered, or for large planetesimals that don't feel strong headwind. Would this still be true for small planetesimals that are drifting inwards? That would largely depend on the relation strength of the resonance vs drifting timescale (resonance crossing time).
 
-    If t_drift >> t_librate, then still holds true. The big question is what is t_librate for sthe small bodies. This is set by their eccentricity.
+    This section is meant to focus solely on the dynamical effects that the planet has on the full-sized planetesimal population. We will save the discussion of what happens to the debris from collisions for a 'caveats' section later in the paper.
 
 17) A general note regarding section 3.1 - The code should be described with more details. This is a tree code primarily developed to work on cosmology simulations, thus not commonly applied for astronomical models. What is need to translate a cosmology code to astronomy? What are the differences in potential? I have many questions and a general reader would have them too. In my opinion, simply saying the code works well in half million processors and that it calculates gravitational forces, then redirecting to Jetley et al. (2008) is too superficial. See I am not asking to give all details, as this is an already published code. But having a better description of the portions of the code that are relevant to this work would be important. Also, I think it is crucial that Wallace et al. describe with more details how the code deals with collisions, and all the assumptions made, as well as all the consequences of it. Again, I understand the authors have a full description of the collisional module in Wallace & Quinn (2019), but having a summary of the main relevant features here would not hurt. On the opposite, it would greatly help the reader and the understanding of the work. Besides, including more details would not be a big task, and should also not compromise the length of the work (especially if Sect 2.2 goes mostly to an appendix). Please, I beg for more detail in this section.
 
-    Not sure how to address this? Does the referee mean 'planet formation' when referring to astronomy? Could we just add some citations to other papers that use ChaNGa for planet stuff?
+    We provide some references to planet formation simulations done with PKDGRAV, which uses similar methods to ChaNGa. An additional paragraph has been added which summarizes some of the details provided about the ChaNGa collision model described in Wallace & Quinn 2019.
 
 18) pg.3 rcol P.2 l.29-32 - "In the other four cases, the mass (eccentricity) is increased or decreased by a factor of two, while the eccentricity (mass) is held at the nominal value." - This reads awkward. Why not simply say that in other cases mass and/or eccentricity is increased or decreased by a factor of 2?
 
-    We can certainly do this. I wrote this before adding table 1, which makes it clear.
+    This sentence has been simplified.
 
 19) pg.3 rcol P.2 l.33 - "... 5.2 AU orbit..." - 1) Why not closer distances? 2) AU -> au (here and elsewhere).
 
-    Maybe we should do more to emphazise that this setup was motivated by a Jupiter - asteroid belt setup. Be sure to change AU to au (this is what the editor asked for in the last MNRAS paper)
+    Another sentence was added to the first paragraph of section 3.2 which explains our choice of parameters more clearly. The 'nominal' simulation is meant to be compared directly with simulation B of Richardson et al. 2000, although we reduce the width of the planetesimal annulus to reduce the number of particles required (while still covering all of the promininent interior MMRs). AU has been changed to au everywhere in the paper.
 
 20) pg.3 rcol P.2 l.34 - "The planetesimal disc extends from 2.2 to 3.8 AU..." - Why not consider the outer disk too? External resonances can be very strong and capture is more likely there.
 
-    See 19)
+    This is a good point, although exterior MMRs with Jupiter in the solar system are not going to be as interesting due to the close proximity of Saturn (of course, in the general case of a single giant planet, this is not true). As discussed above in 19), our work was mainly motivated by the non-result seen by Richardson et al. 2000. Additionally, the number of timesteps required to measure the collision profile for the exterior MMRs increases with semimajor axis when using alpha steeper than -1. TODO: Add a discussion at the end of the paper explaining that exterior MMRs are interesting too.
 
 21) pg.3 rcol P.2 l.41 - This is a minor comment. I am just curious. Why not using alpha = -1 or -0.9 as it seems more common for protoplanetary disks? -1.5 is an approximation for the Minimum Mass Solar Nebula based on the current solar system planets. Observations of proptoplanetary disks sugggest alpha = -1 or -0.9.
 
