@@ -297,7 +297,7 @@ this, we further reduce the base timestep size by a factor of 4 and use $\Delta 
 planetesimals at the inner edge of the disc, where this artificial precession is most severe, from drifting by more than the intrinsic spread in $\varpi$ due to the
 free eccentricity over the course of our integrations.
 
-An additional timescale is set by the dynamical time of the planetesimals ($\sim 1/\sqrt{G \rho}$), which is about 45 minutes. To 
+An additional timescale is set by the dynamical time of the planetesimals ($\sim 1/\sqrt{G \rho}$), which is about 45 minutes. \textbf{This timescale must be resolved in order to properly follow close gravitational encounters between these bodies.}. To 
 resolve the base time step and the dynamical timescale of planetesimals simultaneously, we use a two-tiered time stepping scheme following
 \citep{2015ApJ...806...23L}. 
 To start, all bodies are placed on the base time step. A first pass of collision detection is then run in 
@@ -346,10 +346,10 @@ As discussed above in section \ref{sec:ics}, the initial conditions are construc
 
 We begin by examining simulations e1m2, e2m2 and e3m2. The positions of the planetesimals in the x-y plane after 5,000 years of integration are 
 shown in figure \ref{fig:xy}. In all cases, the coordinate system is rotated so that the giant planet lies at $\theta = 0$. The longitude of perihelion of 
-the planet is shown by the dashed line. Resonances with the perturbing planet are visible as nonaxisymmetric gaps. Upon close inspection of a 
+the planet is shown by the dashed line. Resonances with the perturbing planet are visible as nonaxisymmetric gaps \textbf{in this figure}. Upon close inspection of a 
 series of simulation snapshots, these gaps appear to follow the planet in its orbit, rather than aligning themselves with the longitude of perihelion. A 
-similar substructure, which is most noticeable near the 2:1 MMR, reveals itself in \citet{2000Icar..143...45R} (see bottom panel of figure 3) and 
-\citet{2016ApJ...818..159T} (figure 3). This structure is also present in the \citet{2017ApJ...850..103B} simulations, although it was not reported at the 
+similar substructure, which is most noticeable near the 2:1 MMR, reveals itself in \citet{2000Icar..143...45R} (see figure \textbf{3c and 3f}) and 
+\citet{2016ApJ...818..159T} (figure 3\textbf{a}). This structure is also present in the \citet{2017ApJ...850..103B} simulations, although it was not reported at the 
 time (see Appendix \ref{sec:boley_plot}). It is worth noting that \citet{2000Icar..143...45R} started with a completely cold planetesimal disc and a 
 Jupiter mass planet on a circular, coplanar
 orbit. \citet{2017ApJ...850..103B} used a similar setup.
@@ -373,13 +373,13 @@ as the more massive of the two. However, nearly all of the collisions happen bet
 distinction is set by the collision search algorithm and is rather arbitrary. In all of the plots where we show collision statistics, we have verified that 
 using the ``first'' or ``second'' collider does not qualitatively change any of the features. We find that some of the features present in figure 
 \ref{fig:coll_hist_a} in this and subsequent figures are highly sensitive to the number of bins and the location of the bin edges. For this reason, we 
-construct a PDF of the collisions using a Kernel Density Estimate (KDE). We use the {\sc neighbors.KernelDensity} function from the {\sc sklearn} 
+construct a \textbf{probability density function (PDF)} of the collisions using a Kernel Density Estimate (KDE). We use the {\sc neighbors.KernelDensity} function from the {\sc sklearn} 
 \citep{scikit-learn} package to construct our KDEs, using a gaussian kernel with a FWHM of 0.02 au.
 
 Near the stronger resonances, there are noticeable suppressions or enhancements to the local collision rate. This contrasts with the findings of 
 \citet{2000Icar..143...45R}, who simulated a similar setup and found no discernible features near the MMRs. We attribute the differences to a more 
-conservative timestepping criterion in our simulations. The most prominent features appear as an enhancement to the collision rate near the 2:1 
-MMR and a decrease near the 3:1 MMR. At higher forced eccentricities, features near the 5:2, 7:3 and 5:3 resonances are also visible, due to the 
+conservative timestepping criterion in our simulations. The most prominent features appear as \sout{an enhancement to} \textbf{a local maximum in} the collision rate near the 2:1 
+MMR and a \sout{decrease} \textbf{local minimum} near the 3:1 MMR. At higher forced eccentricities, features near the 5:2, \sout{7}\textbf{8}:3 and 5:3 resonances are also visible, due to the 
 steep sensitivity of higher order resonant perturbations to eccentricity \citep{1994PhyD...77..289M}.
 
 We attribute the production of a bump or a dip at certain semi-major axes to changes in the gravitational focusing factor during two-body encounters. 
@@ -431,7 +431,7 @@ orbital timescale, therefore we conclude that collisionally generated dust grain
 Operating under this assumption\footnote{As discussed in \cite{2017ApJ...850..103B}, the local generation of second-generation dust is only one 
 consideration.  The dust will also evolve spatially due to drag effects, but can also evolve in size or be re-accreted onto planetesimals. For simplicity, 
 we focus on local dust sourcing only while acknowledging that subsequent evolution could affect the morphology.}, a map of the relative concentration 
-of second-generation dust can be constructed from the cylindrical distance at which the collisions occur. This is shown in figure \ref{fig:coll_hist_r}. 
+of second-generation dust can be constructed from the cylindrical distance at which the collisions occur. \textbf{Here, cylindrical distance is measured as the distance between the central star and the collision in the ($r, \theta$) plane.} This is shown in figure \ref{fig:coll_hist_r}. 
 Similar to figure \ref{fig:coll_hist_a}, we use a KDE with a width of 0.02 au to assemble the collision locations into a radial distribution. Most 
 strikingly, the bump that was present near the 2:1 resonance is no longer visible in cylindrical distance space, although it suddenly appears again in 
 the e3m2 simulation. The dip that is visible near the 3:1 MMR also becomes a bump in the highest eccentricity case. To determine how the resonant 

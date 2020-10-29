@@ -165,51 +165,51 @@ The authors should explicitly say, and explain why these choices were made.
 
 24) pg.3 rcol P.3 l.48 - "... and gas drag as a function of semimajor axis..." - Again, is this only used to setup the disk condition, or is this updated during the simulation, once debris are created? Are debris created?
 
-    See 23). Just used to set up the initial conditions
+    See 23). This is just used to set up the initial conditions. Both the gravitational stirring and gas drag time for the planetesimals is much longer than the simulation time (because we do not track the creation of smaller debris) and so we can set the initial conditions and then forget about these effects.
 
 25) pg.3 rcol P.3 l.49-50 - "Although ChaNGa does not account for the effects of gas drag on the planetesimals..." - Please, see my concerns and add discussion.
 
-    This has been addressed in other locations
+    See 23) and 24)
 
 26) pg.4 lcol P.2 l.49 - "dynamical timescale of planetesimals..." - What do you mean by dynamical timescale of planetesimals? Collisional timescale, drift timescale, what?
 
-    1/sqrt(G*rho_pl), which sets the timescale for gravitational interactions between planetesimals that undergo close encounters
+    This is the timescale for gravitational interactions between planetesimals that undergo close encounters. A sentence has been added to this section to clarify.
 
 27) pg.4 rcol P.1 l.41 - "... T_lib ~ 1,000 - 2,000 years..." - So the integration time is about a factor of 2-4 T_lib. Is this enough to take conclusions? Please, see my concern and add discussion.
 
-    In our case, the large particle count allows us to look at the 'ensemble average' of the dynamical behavior near resonance. Even though individual planetesimals only go through a few librational periods, the phase trajectories that they follow are well populated and allow us to make conclusions about the dynamics without needing a longer baseline to take time averages. Had we been following only a few bodies, this would not have been the case.
+    In our case, the large particle count allows us to look at the 'ensemble average' of the dynamical behavior near resonance. Even though individual planetesimals only go through a few librational periods, the phase trajectories that they follow are well populated and allow us to make conclusions about the dynamics without needing a longer baseline to take time averages. Had we been following only a few bodies, this would not have been the case. Some additional text has been added to this paragraph to explain this more clearly.
 
 28) pg.4 rcol P.2 l.52-53 - "Resonances with the perturbing planet are visible as nonaxisymmetric gaps." - I am afraid that this is only because none of your particles are drifting, which would locally increase the collision rates once small planetesimals fragments that should be drifting away start to (maybe unrealistically) pile up within or near MMR, thus quickly collisionally evolving to dust. I wonder if this would ever happen if gas drag was to play? Please, see my concern and add discussion.
 
-    This is referring specifically to the positions of the planetesimals and not to any observable property. Even if the smaller fragments do drift significantly, the nonaxisymmetric gaps will still be present, although observing full sized planetesimals is next to impossible.
+    This is referring specifically to the positions of the planetesimals in this figure and not to any observable property. Even if the smaller fragments do drift significantly, the nonaxisymmetric gaps in the planetesimals will still be present, although observing full sized planetesimals is next to impossible. This sentence has been modified to clarify that we are specifically talking about the structure seen in figure 1. A discussion of the referee's concerns about the radial structure of the smaller debris fragments will be added towards the end of the paper.
 
 29) pg.4 rcol P.2 l.56-59 - "... in Richardson et al. (2000) (see bottom panel of figure 3) and Tabeshian & Wiegert (2016) (figure 3)." - add figure 3 in those works. Fig 3 in this work does not have bottom panels.
 
-    Is the referee asking me to show fig 3 from these other papers in our paper? Change 'bottom panel of fig 3 in Richardson' to 'fig 3c and 3f in Richardson'
+    The text now specifies the subfigures we are referring to (3c and 3f in Richarson, 3a in Tabeshian & Weigert)
 
 30) Figure 2 - I wonder how (or if) particle drifting due to gas-drag would change this figure? Also, the 8:3 and 7:2 MMRs are irrelevant here! Why not showing 7:3 MMR that is discussed in the main text?
 
-    Is the referee thinking of smaller bodies, or full sized planetesimals here? I wouldnt think that full sized planetsimals are going to drift by any significant amount. Typo in the text here, '7:3' should say '8:3'.
+    The libration timescale and the secular forcing timescale are much shorter than the stopping time due to gas for the planetesimals, so this figure should not look different had we modeled gas drag. A typo in the text has been, '7:3' was supposed to say '8:3'. TODO: Insert a calculation of the stopping time and secular forcing timescale somewhere.
 
 31) Caption of Figure 2 - "Between the resonances, the nonzero eccentricity is due to secular forcing by the planet." - Gas would likely damp them to zero!
 
-    Is this true? What is the timescale for secular forcing?
+    See 30)
 
 32) pg.5 rcol P.1 l.15 - "PDF" - Please, define abbreviations before using it.
 
-    Probability density function
+    PDF stands for probability density function. This is now explained in the text.
 
 33) pg.5 rcol P.2 l.24-27 - "The most prominent features appear as an enhancement to the collision rate near the 2:1 MMR and a decrease near the 3:1 MMR." - I don't see a decrease near 3:1 in figure 4. I see two peaks around 3:1 and one interior to the 2:1.
 
-    I see a decrease near the 3:1 AND two peaks around it! I just didnt mention the peaks because the dip was more noticable.
+    Perhaps we should have been more careful with language here. In figure 4, there is a local minimum near the 3:1 MMR. There are certainly some additional features surrounding it, although these are partly due to collisions with eccentric bodies in the adjacent (7:2 and 5:2) MMRs. The text has been changed to refer to the features at the 3:1 and 2:1 MMRs as local maxima and minima.
 
 34) Last paragraph of section 4.1 - "We attribute... radial dust distribution" - I don't understand this argument about gravitational focusing. In my interpretation, what could be happening is that planetesimals that get excited by the MMRs collide at their perihelion distances. This explains why the larger relative # of collisions are close to the MMRs and interior to it.
 
-    I should probably add that extra plot to explain this. Orbital phase at time of collision (perihelion) should show up when looking at semimajor axis.
+    An additional figure has been added to clarify the gravitational focusing explanation. TODO: Make figure. If the offset in the peak of the collision rate in figure 4 (near the 2:1 MMR, for example) were due to bodies colliding at perihelion, the peak should shift inward as the eccentricity of the planet is increased. Between the e1m2 and e3m2 simulations, the mean eccentricity at the 2:1 MMR increases from ~0.03 to ~0.06. The perihelion distance of a body at the 2:1 MMR would decrease by about 0.1 AU, which would most certainly be apparent in figure 4.
 
 35) pg.6 lcol P.1 l.33 - "cylindrical distance" - please, define before start using it.
 
-    Define cylindrical distance
+    A sentence has been added to the text to clarify what cylindrical distance means.
 
 36) pg.6 rcol P.2 l.47-54 - "This also suggests... radial collision profile." - I don't know if I agree with authors' conclusions that MMRs are not that important, and that most collisions occur with objects out of resonance. It looks for me that the features seem in Fig 6 (similar to Fig 4) are caused by objects in MMRs colliding at their pericentric and apocentric distances within the eccentric orbits. In my understanding, if authors' arguments are correct, MMRs should basically not matter, and Fig 5 would look similar if no planet was present. If that is the case, how can this work serve to constrain the mass and eccentricity of a perturbing planet?
 
