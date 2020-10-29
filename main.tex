@@ -271,7 +271,7 @@ and the 3:1 at 2.5 au. The planetesimal disc follows a minimum-mass solar nebula
 of the perturbing planet.
 
 The dynamical effects of secular forcing by the giant planet, along with  the effects of viscous stirring and gas drag on the planetesimals, are 
-built into the initial conditions. This is done by first calculating the equilibrium eccentricity $e_{eq}$ due to viscous stirring and gas drag as a 
+built into the initial conditions. \textbf{Although we do not model the effects of gas drag on the planetesimals, we construct the initial conditions such that these two effects are in balance. The viscous stirring timescale of the planetesimal disc is much longer than our chosen integration time, and so the dynamical excitation of the disc (excluding resonances) stays constant, even without modeling damping from gas.}. This is done by first calculating the equilibrium eccentricity $e_{eq}$ due to viscous stirring and gas drag as a 
 function of semimajor axis according to equation 12 of \citet{2002ApJ...581..666K}. Although {\sc ChaNGa} does not account for the effects of 
 gas drag on the planetesimals, the viscous stirring timescale is long compared to our integration time and should not cause the velocity 
 distribution to significantly evolve. The eccentricities of the bodies are drawn randomly from a Rayleigh distribution with a mode of $e_{eq}$, 
@@ -334,11 +334,13 @@ motion resonances are not built into the initial conditions, the simulations mus
 equilibrium near the resonances before the collision rate is measured. The libration timescale, which describes how long the critical angle (and also 
 the semimajor axis and eccentricity) of a planetesimal in resonance takes to undergo a full oscillation is given by (see equation 8.47 in \citet{1999ssd..book.....M})
 \begin{equation}\label{eq:lib_time}
-	T_{lib} = \frac{2 \pi}{3 q^{2} C_{r} n e^{\left| 2p + q \right|}},
+	T_{lib} = \frac{2 \pi}{3 q^{2} C_{r} n e^{\left| -q \right|}},
 \end{equation}
 
 \noindent for small-amplitude librations. For all five sets of initial conditions used, $T_{lib} \sim$ 1,000 - 2,000 years for the 3:1 and 2:1 resonances. 
-For this reason, we allow each simulation to run for 2,000 years before we begin recording any collision statistics.
+For this reason, we allow each simulation to run for 2,000 years before we begin recording any collision statistics. \textbf{Although the integration time we use
+is only a tiny fraction of the Myr timescales that a typical protoplanetary disk lives for (citation?), 5,000 years is sufficient to allow all of the relevant dynamics here.
+As discussed above in section \ref{sec:ics}, the initial conditions are constructed so that relevant effects with longer timescales (such as gravitational stirring, gas drag on planetesimals and secular forcing) are already in equilibrium.}
 
 \subsection{Varying the Eccentricity} \label{sec:vary_ecc}
 

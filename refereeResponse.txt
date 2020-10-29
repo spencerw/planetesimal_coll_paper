@@ -109,7 +109,7 @@ I am not saying equations are wrong, but please, revise all equations to make su
 From Murray & Dermott (1999, Chap 6 and 8), one of the general forms of the resonant angle can be phi = j1*lamb' + j2*lamb + j4*varpi, where j1 = p+q, j2 = -p and j4 = -q. So why using j2 = -q and j4 = -(2p+q) instead?
 The authors should explicitly say, and explain why these choices were made.
 
-    The argument should indeed by -q, rather than -(2p+q). This mistake was carried through when writing up the equations in the paper, although it appears we properly used j4 = -q when doing our analysis and constructing plots. (2p+q) has been replaced by q in equations 5 and 6 in the paper.
+    The argument should indeed by -q, rather than -(2p+q). This mistake was carried through when writing up the equations in the paper, although it appears we properly used j4 = -q when doing our analysis and constructing plots. (2p+q) has been replaced by q in equations 5 and 6 in the paper (also need to fix 14).
 
 11) Equation (6) - Assuming j4 = 2p+q
 
@@ -149,19 +149,19 @@ The authors should explicitly say, and explain why these choices were made.
 
 20) pg.3 rcol P.2 l.34 - "The planetesimal disc extends from 2.2 to 3.8 AU..." - Why not consider the outer disk too? External resonances can be very strong and capture is more likely there.
 
-    This is a good point, although exterior MMRs with Jupiter in the solar system are not going to be as interesting due to the close proximity of Saturn (of course, in the general case of a single giant planet, this is not true). As discussed above in 19), our work was mainly motivated by the non-result seen by Richardson et al. 2000. Additionally, the number of timesteps required to measure the collision profile for the exterior MMRs increases with semimajor axis when using alpha steeper than -1. TODO: Add a discussion at the end of the paper explaining that exterior MMRs are interesting too.
+    This is a good point. Our work was mainly motivated by the non-result seen by Richardson et al. 2000, which is why we focus on interior MMRs here. Additionally, the number of timesteps required to measure the collision profile for the exterior MMRs increases with semimajor axis when using alpha steeper than -1. TODO: Add a discussion at the end of the paper explaining that exterior MMRs are interesting too.
 
 21) pg.3 rcol P.2 l.41 - This is a minor comment. I am just curious. Why not using alpha = -1 or -0.9 as it seems more common for protoplanetary disks? -1.5 is an approximation for the Minimum Mass Solar Nebula based on the current solar system planets. Observations of proptoplanetary disks sugggest alpha = -1 or -0.9.
 
-    See 19). Observations sugest alpha = -1 for gas component. Not clear if this is true for the solids (see Chiang + Laughlin 2013). Radial concentration of solids (dust profile steeper than gas) might even be necessary to explain short period terrestrial planets.
+    See 19) and 20). While there is certainly evidence that the gaseous component of the outer regions of protoplanetary disks follow alpha = -1, there is little evidence to suggest that this is the case for solids in the inner planet-forming region. Although alpha = -1.5 is not motivated by any extrasolar observations, it is compatible with the majority of protoplanetary disk models.
 
 22) pg.3 rcol P.2 l.44 - "Each simulation is evolved for 5,000 years" - Could you, please, add discussion regarding simulation time, as well as, define what is a short and long time. For me 5000 yr is, in principle, too short (see my concern #4).
 
-    See our response to concern #4
+    See our response to concern #4. Some text has been added to the paper to elaborate on this as well.
 
 23) pg.3 rcol P.3 l.44-46 - "The dynamical effects of secular forcing by the giant planet, along with the effects of viscous stirring and gas drag on the planetesimals, are built into the initial conditions." - From the text, It is not clear whether the authors are considering the gas disk phase or not?
 
-    The idea here is that the viscous stirring and gas drag time are longer than the simulation time, so we can get away with ignoring the gas drag on planetesimals. However, we need to make sure the planetesimals start in the right dynamically heated state because the planetesimal formation time is probably longer than the two aformentioned timescales.
+    We are considering the gas disk phase here, while making the assumption that the effects of for gas drag on the planetesimals is very weak. In the initial conditions, we tune dynamical excitation of the planetesimals so that the effects of viscous stirring and gas drag (had we imparted a drag force on the particles in the simulation) are in balance. The gravitational stirring time is much longer than 5,000 years, so our planetesimal disk will not suffer from too much dynamical heating because we did not model the gas. More text has been added to this section to explain this more clearly.
 
 24) pg.3 rcol P.3 l.48 - "... and gas drag as a function of semimajor axis..." - Again, is this only used to setup the disk condition, or is this updated during the simulation, once debris are created? Are debris created?
 
@@ -177,7 +177,7 @@ The authors should explicitly say, and explain why these choices were made.
 
 27) pg.4 rcol P.1 l.41 - "... T_lib ~ 1,000 - 2,000 years..." - So the integration time is about a factor of 2-4 T_lib. Is this enough to take conclusions? Please, see my concern and add discussion.
 
-    The 'spikes' in the a-e plane do not evolve over the time that we record collisions, so yes.
+    In our case, the large particle count allows us to look at the 'ensemble average' of the dynamical behavior near resonance. Even though individual planetesimals only go through a few librational periods, the phase trajectories that they follow are well populated and allow us to make conclusions about the dynamics without needing a longer baseline to take time averages. Had we been following only a few bodies, this would not have been the case.
 
 28) pg.4 rcol P.2 l.52-53 - "Resonances with the perturbing planet are visible as nonaxisymmetric gaps." - I am afraid that this is only because none of your particles are drifting, which would locally increase the collision rates once small planetesimals fragments that should be drifting away start to (maybe unrealistically) pile up within or near MMR, thus quickly collisionally evolving to dust. I wonder if this would ever happen if gas drag was to play? Please, see my concern and add discussion.
 
