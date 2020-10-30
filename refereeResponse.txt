@@ -205,7 +205,7 @@ The authors should explicitly say, and explain why these choices were made.
 
 34) Last paragraph of section 4.1 - "We attribute... radial dust distribution" - I don't understand this argument about gravitational focusing. In my interpretation, what could be happening is that planetesimals that get excited by the MMRs collide at their perihelion distances. This explains why the larger relative # of collisions are close to the MMRs and interior to it.
 
-    An additional figure has been added to clarify the gravitational focusing explanation. TODO: Make figure. If the offset in the peak of the collision rate in figure 4 (near the 2:1 MMR, for example) were due to bodies colliding at perihelion, the peak should shift inward as the eccentricity of the planet is increased. Between the e1m2 and e3m2 simulations, the mean eccentricity at the 2:1 MMR increases from ~0.03 to ~0.06. The perihelion distance of a body at the 2:1 MMR would decrease by about 0.1 AU, which would most certainly be apparent in figure 4.
+    An additional figure has been added to clarify the gravitational focusing explanation. TODO: Update text to go along with figure. If the offset in the peak of the collision rate in figure 4 (near the 2:1 MMR, for example) were due to bodies colliding at perihelion, the peak should shift inward as the eccentricity of the planet is increased. Between the e1m2 and e3m2 simulations, the mean eccentricity at the 2:1 MMR increases from ~0.03 to ~0.06. The perihelion distance of a body at the 2:1 MMR would decrease by about 0.1 AU, which would most certainly be apparent in figure 4.
 
 35) pg.6 lcol P.1 l.33 - "cylindrical distance" - please, define before start using it.
 
@@ -213,15 +213,15 @@ The authors should explicitly say, and explain why these choices were made.
 
 36) pg.6 rcol P.2 l.47-54 - "This also suggests... radial collision profile." - I don't know if I agree with authors' conclusions that MMRs are not that important, and that most collisions occur with objects out of resonance. It looks for me that the features seem in Fig 6 (similar to Fig 4) are caused by objects in MMRs colliding at their pericentric and apocentric distances within the eccentric orbits. In my understanding, if authors' arguments are correct, MMRs should basically not matter, and Fig 5 would look similar if no planet was present. If that is the case, how can this work serve to constrain the mass and eccentricity of a perturbing planet?
 
-    Looks like the referee didnt understand what we were getting at here. The collisions are due to bodies right at the edge of resonance, where the circulation frequency blows up. Might help to add in that plot I made showing the difference in the collision profile with and without bodies with semimajor axes inside of resonance.
+    As shown in figure 5, the bump and dip features at the center of the MMRs are still present, even if we ignore particles whose semimajor axis falls within the libration width of the resonances. This does not mean, however, that the resonances are not important. As we approach the edges of the resonance from the outside, the critical angle approaches a stationary value. Where the critical angle is stationary, the pericenter orientations of the planetesimals experience a torque which causes their \varpi to follow the giant planet in its orbit. This is what we propose is responsible for the coherent structure seen in the right-hand panels of figures 6 and 7, along with the structure seen in the collision profiles. TODO: Expand our explanation in the paper to clarify this.
 
 37) pg.6 rcol P.2 l.38-56 - "As mentioned in section 2, ... appears to 'follow' the planet." - This paragraph is super confuse. I don't understand this. Why not simply say this is caused by the secular forcing in eccentricity? This would save 3 paragraphs in the paper and would be much more clear.
 
-    See 36). The effect is not simply due to the secular forcing, otherwise the gaps in figure 2 would be aligned with the pericenter of the planet.
+    See 36). If you look at figures 1, 6 and 7, the nonaxisymmetric gap structure in the disk near the resonances is always aligned with the planet's orbital phase. It is also apparent from figure 1 that the gaps are not aligned with the planet's longitude of pericenter, which should be the case if the structure were due to secular forcing in eccentricity. Furthermore, bodies in resonance experience strong precession, which randomizes the orientations of their orbits. The gap structure cannot be due to the interface between the secularly forced non-resonant part of the disk, and the randomly oriented pericenters of bodies in resonance. The latter explanation was described in Tabeshian & Weigery 2016, which we do not find consistent.
 
 38) Figs 4 and 5 - Why is the relative # larger than 1? Relative to what?
 
-    Because its a probability density function. Add some discussion in the text of how we normalized them.
+    Figures 4 and 5 are showing the probability density of the collision rates. The curves on these plots are normalized such that the area under the curve = 1. For the orange curve in figure 5, the normalization factor is scaled by the ratio between the total number of collisions in each sample. Some text has been added alongside the discussion of figures 4 and 5 to explain this.
 
 39) General note about the figures - Not that I want to be repetitive, but I am afraid that if small planetesimals are allowed to drift the bumps and dips from these figures may change as the small planetesimals would likely collide everywhere in radial distances. This is because internal MMRs are not strong enough to perturb these small fast-drifting planetesimals. In my opinion, without considering small planetesimals drifting due to gas drag, Figs 6 and 7 (especially) represent a planetesimal collisional profile, but not necessarily a dust profile. Please, see my concerns and add discussion.
 
@@ -241,7 +241,7 @@ The authors should explicitly say, and explain why these choices were made.
 
 43) pg.12 rcol P.3 l.45-48 - "Given that the solid surface density diminishes with distance (r^-1.5 for the MMSN (Hayashi 1981)), exterior resonances may not be quite as useful for this type of measurement, however.)" - Not sure I agree. Exterior MMRs can more easily capture inward drifting objects (e.g. Weidenschilling & Davis 1985; Patterson 1987; Beauge & Ferraz-Mello 1993; Malhotra 1993; Gomes 1995; Jiang & Yeh 2004; Batigyn & Laughlin 2015; Storch & Batygin 2019), increasing their local collision rates (Deienno et al. 2020), thus potentially generating very strong dusty features.
 
-    If we're just talking about planetesimals, however, the inner resonances are more useful. Not sure how much we want to get into looking at drifting small bodies
+    Absolutely true if we are going to consider radial drift. Given that an expanded discussion of radial drift is now an important part of this paper, we should be more careful not to dismiss the importance of exterior MMRs. TODO: How to change the text to address this?
 
 44) pg.12 rcol P.4 l.50-52 - "As we have shown, the bump vs dip feature near the 2:1 MMR is marginally detectable with ALMA for the nearest protoplanetary discs." - Please, see my concern and add discussion.
 

@@ -997,6 +997,93 @@ def make_alma_profile():
 
 	plt.savefig(file_str, format=fmt, bbox_inches='tight')
 
+def make_gf_plot():
+	file_str = 'figures/gf_plot.' + fmt
+	if not clobber and os.path.exists(file_str):
+		return
+
+	# pl_e1 and pl_e2
+
+	m_pl = pl_e['mass'][1]
+	R_pl = pl_e['eps'][1]*2
+	v_mut_esc = np.sqrt(2*m_pl/R_pl)
+
+	ecc_vals = np.logspace(-2.9, -1.3)
+
+	fig, axes = plt.subplots(figsize=(16,5), ncols=2, sharex=True, sharey=True)
+
+	pl = pl_e1
+	ax = axes[0]
+	vrel_vals_31 = ecc_vals*np.sqrt(1/res_dist[1])
+	cross_31 = (1+v_mut_esc**2/vrel_vals_31**2)*vrel_vals_31
+	ax.plot(ecc_vals, cross_31/np.min(cross_31))
+
+	mask = np.logical_and(pl['a'] > 2.2, pl['a'] < 2.3)
+	e_0_31 = np.std(pl['e'][mask])
+	mask = np.logical_and(pl['a'] > 2.48, pl['a'] < 2.52)
+	de31 = np.std(pl['e'][mask])
+
+	ax.plot([e_0_31, de31], [np.interp(e_0_31, ecc_vals, cross_31/np.min(cross_31)), \
+	              np.interp(de31, ecc_vals, cross_31/np.min(cross_31))], ls='--', marker='o', color='#1f77b4')
+
+	pl = pl_e
+	mask = np.logical_and(pl['a'] > 2.2, pl['a'] < 2.3)
+	e_0_31 = np.std(pl['e'][mask])
+	mask = np.logical_and(pl['a'] > 2.48, pl['a'] < 2.52)
+	de31 = np.std(pl['e'][mask])
+
+	ax.plot([e_0_31, de31], [np.interp(e_0_31, ecc_vals, cross_31/np.min(cross_31)), \
+	              np.interp(de31, ecc_vals, cross_31/np.min(cross_31))], ls='-.', marker='o', color='#1f77b4')
+
+	pl = pl_e2
+	mask = np.logical_and(pl['a'] > 2.2, pl['a'] < 2.3)
+	e_0_31 = np.std(pl['e'][mask])
+	mask = np.logical_and(pl['a'] > 2.48, pl['a'] < 2.52)
+	de31 = np.std(pl['e'][mask])
+
+	ax.plot([e_0_31, de31], [np.interp(e_0_31, ecc_vals, cross_31/np.min(cross_31)), \
+	              np.interp(de31, ecc_vals, cross_31/np.min(cross_31))], ls=':', marker='o', color='#1f77b4')
+
+
+	ax.set_xscale('log')
+	ax.set_title('3:1 MMR')
+	ax.set_xlabel(r'$\left< e^{2} \right>^{1/2}$')
+	ax.set_ylabel(r'$\left< \sigma v \right>$/$\left< \sigma v \right>_{0}$')
+
+	ax = axes[1]
+	vrel_vals_21 = ecc_vals*np.sqrt(1/res_dist[4])
+	cross_21 = (1+v_mut_esc**2/vrel_vals_21**2)*vrel_vals_21
+	ax.plot(ecc_vals, cross_21/np.min(cross_21))
+
+	pl = pl_e1
+	mask = np.logical_and(pl['a'] > 2.9, pl['a'] < 3.0)
+	e_0_21 = np.std(pl['e'][mask])
+	mask = np.logical_and(pl['a'] > 3, pl['a'] < 3.4)
+	de21 = np.std(pl['e'][mask])
+	ax.plot([e_0_21, de21], [np.interp(e_0_21, ecc_vals, cross_21/np.min(cross_21)), \
+	              np.interp(de21, ecc_vals, cross_21/np.min(cross_21))], ls='--', marker='o', color='#1f77b4', label='e1m2')
+	pl = pl_e
+	mask = np.logical_and(pl['a'] > 2.9, pl['a'] < 3.0)
+	e_0_21 = np.std(pl['e'][mask])
+	mask = np.logical_and(pl['a'] > 3, pl['a'] < 3.4)
+	de21 = np.std(pl['e'][mask])
+	ax.plot([e_0_21, de21], [np.interp(e_0_21, ecc_vals, cross_21/np.min(cross_21)), \
+	              np.interp(de21, ecc_vals, cross_21/np.min(cross_21))], ls='-.', marker='o', color='#1f77b4', label='e2m2')
+	pl = pl_e2
+	mask = np.logical_and(pl['a'] > 2.9, pl['a'] < 3.0)
+	e_0_21 = np.std(pl['e'][mask])
+	mask = np.logical_and(pl['a'] > 3, pl['a'] < 3.4)
+	de21 = np.std(pl['e'][mask])
+	ax.plot([e_0_21, de21], [np.interp(e_0_21, ecc_vals, cross_21/np.min(cross_21)), \
+	              np.interp(de21, ecc_vals, cross_21/np.min(cross_21))], ls=':', marker='o', color='#1f77b4', label='e3m2')
+
+	ax.set_title('2:1 MMR')
+	ax.legend()
+	ax.set_xlabel(r'$\left< e^{2} \right>^{1/2}$')
+	ax.set_ylabel(r'$\left< \sigma v \right>$/$\left< \sigma v \right>_{0}$')
+
+	plt.savefig(file_str, format=fmt, bbox_inches='tight')
+
 def gen_coll_PDF():
 	c = coll_e1
 	coll_bins_r_e1, coll_pdf_r_e1 = kde(c['dist1'])
@@ -1019,15 +1106,16 @@ def gen_coll_PDF():
 	np.savetxt('e2m1_coll.txt', [coll_bins_r_m1, coll_pdf_r_m1])
 	np.savetxt('e2m3_coll.txt', [coll_bins_r_m2, coll_pdf_r_m2])
 
-gen_coll_PDF()
-make_boley_rtheta()
-make_alma_profile()
-make_coll_polar_e()
-make_coll_polar_m()
-bump_dip_diag()
-make_xy()
-make_ae()
-make_long_ph()
-make_coll_hist_a()
-make_coll_hist_r()
+#gen_coll_PDF()
+#make_boley_rtheta()
+#make_alma_profile()
+#make_coll_polar_e()
+#make_coll_polar_m()
+#bump_dip_diag()
+#make_xy()
+#make_ae()
+#make_long_ph()
+#make_coll_hist_a()
+#make_coll_hist_r()
 #make_polar_hk_plots()
+make_gf_plot()

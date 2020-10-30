@@ -374,7 +374,7 @@ distinction is set by the collision search algorithm and is rather arbitrary. In
 using the ``first'' or ``second'' collider does not qualitatively change any of the features. We find that some of the features present in figure 
 \ref{fig:coll_hist_a} in this and subsequent figures are highly sensitive to the number of bins and the location of the bin edges. For this reason, we 
 construct a \textbf{probability density function (PDF)} of the collisions using a Kernel Density Estimate (KDE). We use the {\sc neighbors.KernelDensity} function from the {\sc sklearn} 
-\citep{scikit-learn} package to construct our KDEs, using a gaussian kernel with a FWHM of 0.02 au.
+\citep{scikit-learn} package to construct our KDEs, using a gaussian kernel with a FWHM of 0.02 au. \textbf{The curves shown in figure \ref{fig:coll_hist_a} are normalized such that the area underneath is normalized to 1.}
 
 Near the stronger resonances, there are noticeable suppressions or enhancements to the local collision rate. This contrasts with the findings of 
 \citet{2000Icar..143...45R}, who simulated a similar setup and found no discernible features near the MMRs. We attribute the differences to a more 
@@ -382,7 +382,8 @@ conservative timestepping criterion in our simulations. The most prominent featu
 MMR and a \sout{decrease} \textbf{local minimum} near the 3:1 MMR. At higher forced eccentricities, features near the 5:2, \sout{7}\textbf{8}:3 and 5:3 resonances are also visible, due to the 
 steep sensitivity of higher order resonant perturbations to eccentricity \citep{1994PhyD...77..289M}.
 
-We attribute the production of a bump or a dip at certain semi-major axes to changes in the gravitational focusing factor during two-body encounters. 
+We attribute the production of a bump or a dip at certain semi-major axes to changes in the gravitational focusing factor during two-body encounters.
+\textbf{Rewrite this paragraph to reference figure \ref{fig:gf}.}
 Closer to the star, the planetesimal disc starts off dynamically colder. Here, additional heating from the resonance acts to suppress the gravitational 
 focusing cross section, which reduces the collision rate from its
 non-perturbed value. Further out in the disc, where the unperturbed
@@ -404,6 +405,13 @@ possible. Furthermore, as we will demonstrate next, collisions due to bodies in 
     \caption{A PDF of the collision rate in each disc as a function of semimajor axis, generated using a KDE with a Gaussian kernel with a FWHM of 0.02 au. In semimajor axis space, prominent features appear near the 3:1 and 2:1 MMRs. Near the 3:1, the collision rate decreases from its unperturbed value, while an enhancement appears near the 2:1.\label{fig:coll_hist_a}}
 \end{center}
 \end{figure}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=\textwidth]{figures/gf_plot.png}
+    \caption{\textbf{The collision rate of bodies in the vicinity of the 3:1 (left) and 2:1 (right) MMRs, relative to the minimum value, as a function of the local eccentricity dispersion. The pairs of points connected by lines show the values of the perturbed and unperturbed collision rates in the e1m2, e2m2 and e3m2 simulations.}\label{fig:gf}}
+\end{center}
+\end{figure*}
 
 \begin{figure}
 \begin{center}
@@ -436,7 +444,7 @@ Similar to figure \ref{fig:coll_hist_a}, we use a KDE with a width of 0.02 au to
 strikingly, the bump that was present near the 2:1 resonance is no longer visible in cylindrical distance space, although it suddenly appears again in 
 the e3m2 simulation. The dip that is visible near the 3:1 MMR also becomes a bump in the highest eccentricity case. To determine how the resonant 
 bodies actually contribute to the radial collision profile, we excluded collisions that fall between $2.495 < a < 2.505$ au (near the 3:1 resonance) and 
-between $3.2 < a < 3.35$ au (near the 2:1 resonance), which is shown by the dashed curve. Qualitatively, none of the bump or dip features present 
+between $3.2 < a < 3.35$ au (near the 2:1 resonance), which is shown by the dashed curve. \textbf{As in figure \ref{fig:coll_hist_a}, the solid curves are normalized such that the area underneath is equal to 1. For the dashed curves, the normalization factor is scaled down according to the total number of collisions in the entire sample and the number of collisions in the subsample which excludes the collisions in resonance.} Qualitatively, none of the bump or dip features present 
 are removed by making this exclusion. This suggests that the features near resonance seen in semimajor axis space become smeared out in 
 cylindrical distance space due to the large spread in eccentricity and orbital orientation.
 
