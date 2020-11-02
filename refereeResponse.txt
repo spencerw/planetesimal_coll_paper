@@ -57,7 +57,7 @@ If I understood the applicability of this work would follow the steps:
 
 I think this should be clearly said in the conclusions, as well as this idea should be introduced somewhere upfront in the manuscript (maybe in the abstract or introduction). I would not leave to the reader to reach this conclusion. Readers can easily interpret things wrong (especially nowadays where we have so much things to read and we usually read them fast). Did I have the right interpretation or are the author suggesting something different in regards to applicability?
 
-    Exactly. Todo: add a clear outline of this in the conclusions
+    This is the correct interpretation. The outline at the end of the introduction now explains this. Todo: add a clear outline of this in the conclusions
 
 General points (not in order of importance, but as they appear in the text):
 
