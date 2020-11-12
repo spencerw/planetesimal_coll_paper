@@ -130,7 +130,21 @@ magnitude of the free eccentricity describes how dynamically hot the planetesima
 planetesimals. When the dynamical excitation of the disc is driven by gravitational stirring, the magnitude of the free eccentricity can 
 be described by a Rayleigh distribution \citep{1992Icar...96..107I}.
 
-\textbf{Add calculation of secular forcing timescale here}
+\textbf{The timescale for secular forcing is given by the period at which the free eccentricity cycles in the complex plane. The imaginary and real components of the eccentricity of the jth particle are given by \citet{1999ssd..book.....M} (see ch 7, pg 282, equation 7.51)}
+
+\begin{eqnarray}\label{eq:kandh}
+	h_{j} = e_{j1} sin (g_{1} t + \beta_{1}) + e_{j2} sin (g_{2} t + \beta_{2}) \\ \nonumber
+	k_{j} = e_{j1} cos (g_{1} t + \beta_{1}) + e_{j2} cos (g_{2} t + \beta_{2}),
+\end{eqnarray}
+
+\noindent \textbf{where  ($e_{j1}$, $e_{j2}$) and ($g_{1}$ , $g_{2}$) are the corresponding eigenvector components and eigenvalues of the matrix given by \citet{1999ssd..book.....M} (see ch 7, pg 276, equation 7.9 and 7.10, with $\alpha_{12} = \alpha$ and $\bar{\alpha_{12}} = 1$)}
+
+\begin{eqnarray}\label{eq:pert_matrix}
+	A_{jj} = n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(1)} (\alpha) \\ \nonumber
+	A_{jk} = -n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(2)} (\alpha)
+\end{eqnarray}.
+
+\noindent \textbf{Here, $n$ is the mean motion of a body and $m$ is its mass. The frequency of the secular forcing is simply the difference of the two eigenvalue frequencies $g_{1} - g_{2}$. For the case of a Jupiter mass planet at 5.2 au perturbing a test particle, the timescale for secular forcing is approximately 12,000 years at 3 au.}
 
 \subsection{Gas Drag on Planetesimals}
 
@@ -167,7 +181,7 @@ equlibrium value, while this angle will circulate outside of resonance. For smal
 pendulum. Furthermore, variations in the critical angle are coupled to changes in the mean motion and semimajor axis \citep{1999ssd..book.....M}. An important 
 point to note, which we will revisit later, is that the variation frequency of this angle approaches zero near the edge of a resonance. The 
 width of a resonance can be defined by determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of $\phi$. For 
-second order and higher MMRs, the maximum libration width is given by \sout{equation 8.58} in \citet{1999ssd..book.....M} \text{bf}(ch. 8, pg 338, eq. 8.58) as
+second order and higher MMRs, the maximum libration width is given by \sout{equation 8.58} in \citet{1999ssd..book.....M} \textbf{(ch. 8, pg 338, eq. 8.58} as
 
 \begin{equation}\label{eq:res_so}
 	\frac{\delta a}{a} = \pm \left( \frac{16}{3} \frac{\left| C_{r} \right|}{n} e^{\left| q \right|} \right)^{1/2},
