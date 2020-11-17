@@ -56,7 +56,7 @@ planet-disc interactions -- planets and satellites: formation -- submillimetre: 
 Recent observations of circumstellar discs by ALMA have revealed a rich variety of substructure. Features such as gaps and asymmetries 
 \citep{2015ApJ...808L...3A, 2016Sci...353.1519P, PhysRevLett.117.251101, 2016ApJ...820L..40A, 2016Natur.535..258C} in the emission provide 
 diagnostics for the physical processes that drive the evolution of the discs. In many gas-rich systems, these gap features are argued to indicate the 
-presence of a giant planet, either embedded in the disc \citep{2015MNRAS.453L..73D} or orbiting \sout{externally} \textbf{adjacent to it}, although the details of gas-dust 
+presence of a giant planet, either embedded in the disc \citep{2015MNRAS.453L..73D} or orbiting \textbf{adjacent to it}, although the details of gas-dust 
 interactions can have strong effects on the resulting morphologies
 \citep{2018ApJ...866..110D}. In gas-poor/debris systems, a giant
 planet perturber can also influence 
@@ -70,7 +70,7 @@ amount of primordial dust is likely still present during the early stages of deb
 this and could be used to trace the underlying dynamical activity of the planetesimals. This process was directly detected when the putative object 
 Fomalhaut b was confirmed to be an expanding debris cloud, most likely from a planetesimal collision \citep{2020PNAS..117.9712G}. 
 
-\citet{2013ApJ...777L..31D} showed that collisional dust that is generated near the gap opened by a giant planet in \textbf{the inner regions of} a \sout{planetesimal} \textbf{transition} disc should 
+\citet{2013ApJ...777L..31D} showed that collisional dust that is generated near the gap opened by a giant planet in \textbf{the inner regions of} a \textbf{transition} disc should 
 produce a distinct observable marker that could be used to infer the presence of the planet. In a followup study, it was found that morphological 
 differences in the dust emission could be used to determine whether the planet had a circular or eccentric orbit \citep{2016ApJ...820...29D}. Moreover, 
 substructure due to mean-motion resonances (MMRs) with a giant planet may hold additional clues that could be used to constrain the properties of 
@@ -90,14 +90,14 @@ To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa
 collisional evolution of a planetesimal disc under the gravitational influence of a Jupiter-sized body. Because particle positions are sorted into a tree 
 structure, neighbor finding and collision detection can be done quickly and efficiently. This considerably relaxes the constraints on resolution and 
 integration time. With this toolset, we explore the collision rate structure of a planetesimal disc in the vicinity of mean-motion resonances with the planet. In 
-particular, we would like to determine (1) \textbf{What dynamics govern the collision rate profile near MMRs, (2)} whether MMRs leave a detectable signature in the collisionally-generated dust, and \sout{(2)} \textbf{(3)} whether these 
+particular, we would like to determine (1) \textbf{What dynamics govern the collision rate profile near MMRs, (2)} whether MMRs leave a detectable signature in the collisionally-generated dust, and \textbf{(3)} whether these 
 signatures can be used to determine or constrain the orbital properties of the perturbing planet.
 
 This work is organized in the following way: In section \ref{sec:dynamics}, we provide an overview of the relevant dynamics that drive the evolution 
 of a planetesimal disc under the gravitational influence of an external perturber. In section \ref{sec:sims} we provide an overview of the N-body code 
 used and describe the initial conditions chosen for five simulations in which a perturbing giant planet is given various masses 
-and eccentricities. Section \ref{sec:results} presents the results of these simulations \textbf{and we take an in-depth look at the collision rate profiles of the planetesimals near the MMRs.} \sout{, and w} \textbf{In section \ref{sec:constrain}, w}e use the resolved collisions to generate synthetic dust 
-emission profiles that would be detected with observing facilities like ALMA \textbf{, under the simplifying assumption that the resulting dust profile traces the collisions of the planetesimals}. \sout{Next, we show in section \ref{sec:constrain}} \textbf{Under this assumption, we show} that a characteristic bump 
+and eccentricities. Section \ref{sec:results} presents the results of these simulations \textbf{and we take an in-depth look at the collision rate profiles of the planetesimals near the MMRs. In section \ref{sec:constrain}, w}e use the resolved collisions to generate synthetic dust 
+emission profiles that would be detected with observing facilities like ALMA \textbf{, under the simplifying assumption that the resulting dust profile traces the collisions of the planetesimals. Under this assumption, we show} that a characteristic bump 
 or dip feature appears in the dust emission near the interior 2:1 MMR, the presence of which depends on the mass and eccentricity of the perturbing 
 planet. If the 2:1 MMR can be identified (presumably by identifying another prominent MMR, such as the 3:1, and measuring the spacing between the two), we discuss the potential of using this feature to place constraints on the mass and eccentricity of the planet\textbf{. In addition, we discuss the caveats of connecting the dust and planetesimal collision profiles in such a simple way.} \textbf{Finally, we} conclude in section 
 \ref{sec:conclusions}.
@@ -179,7 +179,7 @@ equlibrium value, while this angle will circulate outside of resonance. For smal
 pendulum. Furthermore, variations in the critical angle are coupled to changes in the mean motion and semimajor axis \citep{1999ssd..book.....M}. An important 
 point to note, which we will revisit later, is that the variation frequency of this angle approaches zero near the edge of a resonance. The 
 width of a resonance can be defined by determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of $\phi$. For 
-second order and higher MMRs, the maximum libration width is given by \sout{equation 8.58} in \citet{1999ssd..book.....M} \textbf{(ch. 8, pg 338, eq. 8.58} as
+second order and higher MMRs, the maximum libration width is given by \citet{1999ssd..book.....M} \textbf{(ch. 8, pg 338, eq. 8.58} as
 
 \begin{equation}\label{eq:res_so}
 	\frac{\delta a}{a} = \pm \left( \frac{16}{3} \frac{\left| C_{r} \right|}{n} e^{\left| q \right|} \right)^{1/2},
@@ -262,8 +262,7 @@ This code, which is written in the {\sc CHARM++} parallel programming language, 
 and has been shown to perform well on up to half a million processors \citep{2015AphCom..2..1}. \textbf{Using similar methods to {\sc PKDGRAV}, which has been used for numerous studies of planet formation (add some references here)}, {\sc ChaNGa} calculates 
 gravitational forces using a modified Barnes-Hut \citep{1986Natur.324..446B} tree with hexadecapole expansions of the moments \textbf{and then integrates the equations of motion using a kick-drift-kick leapfrog scheme}. 
 All of the simulations we perform use a node opening criterion of $\theta_{BH}$ = 0.7. More information about the code can be found 
-in \citet{2008IEEEpds...ChaNGa}. \sout{We have also recently modified {\sc ChaNGa} to handle solid-body collisions. A full description of 
-the collision module implementation can be found in }\citet{2019MNRAS.489.2159W}.
+in \citet{2008IEEEpds...ChaNGa}.
 
 \textbf{We have recently modified {\sc ChaNGa} to handle solid-body collisions between particles, by assigning them a fixed radius, rather than treating them as tracers of a fluid with a characteristic softening length. We provide a brief summary of the collision model here, although a full description is provided in \citet{2019MNRAS.489.2159W}. This work is largely based off of the solid-body collision implementation in {\sc PKDGRAV}, which is described in \citet{1994MNRAS.269..493R} and \citet{2000Icar..143...45R}. Imminent collisions are found during the drift phase of each time step by extrapolating the positions of bodies forward using the velocity calculated during the first kick. For each body, the nearest 64 neighbors are tested for an imminent collision. If an imminent collision is detected, the two particles of mass $m_{1}$ and $m_{2}$ are merged together together to form one single larger body with the same density and a mass of $m_{1} + m_{2}$. The resulting body is then imparted with the center of mass position and velocity of its two children. Because the resolution of a collision can result in another imminent collision, these events must be resolved one at a time, with the soonest collision being resolved first. For this reason, another collision search is run each time a collision is resolved, which continues until there are no more imminent collisions during the current time step.}
 
@@ -297,8 +296,7 @@ e2m3 & 2.0 $M_{jup}$                     & 1.0 $e_{jup}$                        
 In total, five simulations are run, which are listed in table
 \ref{tab:sims}. The second
 is a ``nominal'' case, in which the perturbing planet's mass and 
-eccentricity are set to that of Jupiter's. In the other four cases, the mass \textbf{or eccentricity is altered} \sout{(eccentricity) is increased or decreased} by a factor of two \sout{, while the 
-eccentricity (mass) is held at} \textbf{from} the nominal value. In all cases, the perturbing giant is placed on a 5.2 au orbit around a 1 $M_{\odot}$ star. The 
+eccentricity are set to that of Jupiter's. In the other four cases, the mass \textbf{or eccentricity is altered} by a factor of two \textbf{from} the nominal value. In all cases, the perturbing giant is placed on a 5.2 au orbit around a 1 $M_{\odot}$ star. The 
 planetesimal disc extends from 2.2 to 3.8 au, which covers the two most prominent mean-motion resonances with the giant planet, the 2:1 at 3.27 au 
 and the 3:1 at 2.5 au. The planetesimal disc follows a minimum-mass solar nebula surface density profile \citep{1981PThPS..70...35H}
 
@@ -307,7 +305,7 @@ and the 3:1 at 2.5 au. The planetesimal disc follows a minimum-mass solar nebula
 \end{equation}
 
 \noindent with $\alpha$ = 3/2 and $\Sigma_{0}$ = 10 g cm$^{-2}$. Planetesimals are given a bulk density of 2 g cm$^{-3}$ and a diameter of 
-300 km. \sout{This corresponds to a disc containing roughly 500,000 bodies.} \textbf{This choice of parameters for the planetesimal disk is meant to follow the setup used in simulation B by \citet{2000Icar..143...45R}. One difference from the aformentioned study is that we use a narrower annulus, which reduces the number of particles required from $10^6$ down to roughly 500,000. This allows us to use a finer base timestep size, which, as we will discuss in section \ref{sec:results}, appears to be the reason why no features were seen in the collision profile near the resonances by \citet{2000Icar..143...45R}}. Each simulation is evolved for 5,000 years, which is about 400 orbits 
+300 km. \textbf{This choice of parameters for the planetesimal disk is meant to follow the setup used in simulation B by \citet{2000Icar..143...45R}. One difference from the aformentioned study is that we use a narrower annulus, which reduces the number of particles required from $10^6$ down to roughly 500,000. This allows us to use a finer base timestep size, which, as we will discuss in section \ref{sec:results}, appears to be the reason why no features were seen in the collision profile near the resonances by \citet{2000Icar..143...45R}}. Each simulation is evolved for 5,000 years, which is about 400 orbits 
 of the perturbing planet.
 
 The dynamical effects of secular forcing by the giant planet, along with  the effects of viscous stirring and gas drag on the planetesimals, are 
@@ -418,8 +416,8 @@ construct a \textbf{probability density function (PDF)} of the collisions using 
 
 Near the stronger resonances, there are noticeable suppressions or enhancements to the local collision rate. This contrasts with the findings of 
 \citet{2000Icar..143...45R}, who simulated a similar setup and found no discernible features near the MMRs. We attribute the differences to a more 
-conservative timestepping criterion in our simulations. The most prominent features appear as \sout{an enhancement to} \textbf{a local maximum in} the collision rate near the 2:1 
-MMR and a \sout{decrease} \textbf{local minimum} near the 3:1 MMR. At higher forced eccentricities, features near the 5:2, \sout{7}\textbf{8}:3 and 5:3 resonances are also visible, due to the 
+conservative timestepping criterion in our simulations. The most prominent features appear as \textbf{a local maximum in} the collision rate near the 2:1 
+MMR and a \textbf{local minimum} near the 3:1 MMR. At higher forced eccentricities, features near the 5:2, \textbf{8}:3 and 5:3 resonances are also visible, due to the 
 steep sensitivity of higher order resonant perturbations to eccentricity \citep{1994PhyD...77..289M}.
 
 We attribute the production of a bump or a dip at certain semi-major axes to changes in the gravitational focusing factor during two-body encounters.
