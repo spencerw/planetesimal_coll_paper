@@ -148,7 +148,7 @@ be described by a Rayleigh distribution \citep{1992Icar...96..107I}.
 
 \noindent \textbf{Here, $n$ is the mean motion of a body and $m$ is its mass. The frequency of the secular forcing is simply the difference of the two eigenvalue frequencies $g_{1} - g_{2}$. For the case of a Jupiter mass planet at 5.2 au perturbing a test particle, the timescale for secular forcing is approximately 12,000 years at 3 au.}
 
-\subsection{Mean-Motion Resonances}
+\subsection{Mean-Motion Resonances}\label{sec:mmr}
 
 In regions where there are commensurabilities between frequencies, Laplace-Langrange secular theory breaks down and bodies are subject to strong 
 perturbations. For the purposes of this study, we will ignore secular resonances, which generally occur on rather large timescales and will focus on 
@@ -367,18 +367,9 @@ reducing the effectiveness of gravitational focusing, while minimizing the addit
 
 \section{Results} \label{sec:results}
 
-\textbf{Consider moving libration timescale to section \ref{sec:dynamics}.} All five simulations are evolved for 5,000 years, which is roughly 400 complete orbits of the perturbing planet. Because the effects of the mean 
+All five simulations are evolved for 5,000 years, which is roughly 400 complete orbits of the perturbing planet. Because the effects of the mean 
 motion resonances are not built into the initial conditions, the simulations must be run long enough for the distribution of orbital elements to reach 
-equilibrium near the resonances before the collision rate is measured. \textbf{TODO: Remove this, discussion of libration timescale has been moved to section \ref{sec:dynamics}}. The libration timescale, which describes how long the critical angle (and also 
-the semimajor axis and eccentricity) of a planetesimal in resonance takes to undergo a full oscillation is given by (see equation 8.47 in \citet{1999ssd..book.....M})
-\begin{equation}\label{eq:lib_time_old}
-	T_{lib} = \frac{2 \pi}{3 q^{2} C_{r} n e^{\left| -q \right|}},
-\end{equation}
-
-\noindent for small-amplitude librations. For all five sets of initial conditions used, $T_{lib} \sim$ 1,000 - 2,000 years for the 3:1 and 2:1 resonances. 
-For this reason, we allow each simulation to run for 2,000 years before we begin recording any collision statistics. \textbf{Although the integration time we use
-is only a tiny fraction of the Myr timescales that a typical protoplanetary disk lives for (citation?), 5,000 years is sufficient to allow all of the relevant dynamics here.
-As discussed above in section \ref{sec:ics}, the initial conditions are constructed so that relevant effects with longer timescales (such as gravitational stirring, gas drag on planetesimals and secular forcing) are already in equilibrium.}
+equilibrium near the resonances before the collision rate is measured. \textbf{To do so, we allow each simulation to run for 2,000 years before we begin recording any collision statistics. This is comparable to the libration period (calculated in section \ref{sec:mmr} for the 3:1 and 2:1 resonances. Although one might worry that a single libration period may not be enough for the orbital structure due to the resonances to develop, we find that the shape of the semimajor axis-eccentricity distribution of the planetesimals reaches a steady state by this time. This is largely due to the fact that there are enough bodies in or near the resonances to allow an ensemble average of phase space, rather a time average. Additionally, we find that the time evolution of the collision rate near the resonances maintains a steady state in all five simulations after $\sim$ 2000 years.}
 
 \subsection{Varying the Eccentricity} \label{sec:vary_ecc}
 
