@@ -231,7 +231,7 @@ Changes in eccentricity are correlated with changes in semimajor axis according 
 
 The net result of this is that MMRs will produce spikes in the semimajor axis-eccentricity distribution of a planetesimal disc. In order to 
 preserve the Jacobi energy, equation \ref{eq:tiss} predicts that these spikes will tend to curve away from the perturbing body. This lowers the 
-surface density of the disc near the locations of resonances, while producing a pileup of bodies on eccentric orbits adjacent to the MMR. The 
+surface density of the disc near the locations of resonances, while producing a pileup of bodies on eccentric orbits adjacent to the MMR. \textbf{TODO: split this into a separate section, discussion the safronov collision rate} The 
 enhanced surface density will increase the collision rate. At the same time, the large eccentricites will either lower the collision rate due to the decreased 
 effectiveness of gravitational focusing, or raise it due to the more vigorous encounter rate, depending on the magnitude of the encounter velocity relative to 
 the escape velocity of the planetesimals. In addition, the MMRs cause the orbits of planetesimals to precess on relatively short 
@@ -411,22 +411,16 @@ conservative timestepping criterion in our simulations. The most prominent featu
 MMR and a \textbf{local minimum} near the 3:1 MMR. At higher forced eccentricities, features near the 5:2, \textbf{8}:3 and 5:3 resonances are also visible, due to the 
 steep sensitivity of higher order resonant perturbations to eccentricity \citep{1994PhyD...77..289M}.
 
-We attribute the production of a bump or a dip at certain semi-major axes to changes in the gravitational focusing factor during two-body encounters.
-\textbf{Rewrite this paragraph to reference figure \ref{fig:gf}.}
-Closer to the star, the planetesimal disc starts off dynamically colder. Here, additional heating from the resonance acts to suppress the gravitational 
-focusing cross section, which reduces the collision rate from its
-non-perturbed value. Further out in the disc, where the unperturbed
-encounter velocity is higher, the gravitational focusing cross section
-is already minimized. Any additional heating instead acts to simply
-increase the encounter rate between bodies, which enhances the
-collision rate. This explains the relative drop in the collision rate
+\textbf{Although the features in figure \ref{fig:coll_hist_a} near the 3:1 and 2:1 MMRs appear qualitatively different, they can be explained by one single dynamical process. As discussed in section (FILL IN LATER), the collision rate between planetesimals depends on both the encounter rate and the strength of gravitational focusing. The encounter rate grows as the relative velocity $v$ between the planetesimals increases, while gravitational focusing is most effective for bodies with small relative velocities. There is therefore an intermediate value of $v$ for which the average collision rate $\left< \sigma v \right>$ is at a minimum, which we will refer to as  $\left< \sigma v \right>_{0}$. The dynamical excitation induced by a mean motion resonance can either increase or decrease the local average collision rate, depending on the size and mass of the planetesimals, along with their unperturbed relative velocites.}
+
+\textbf{In figure \ref{fig:gf}, we show the effect that the 2:1 MMR and 3:1 MMR have on the local average collision rate. Each pair of points connected by a line represents the average collision rate before (from the initial condition file) and after (around T = 2,000 yr) the effects of the mean-motion resonances develop. In this figure, the relative velocity between bodies is calculated by measuring the eccentricity and inclination dispersion near each resonance and using $v = \sqrt{\left< e^{2} \right> + \left< i^{2} \right>} v_{k}$ \citep{1993ARA&A..31..129L}, where $v_{k}$ is the Keplerian velocity. Here, we assume that the eccentricity and inclination dispersions are coupled and use the eccentricity as the independent variable. Because both the strength of secular forcing and the effects of the resonant perturbations are different near the 3:1 and 2:1 MMRs, the planetesimal population at each of these locations in the disk experiences a qualitatively different change in the collision rate. Near the 3:1 MMR, the unperturbed collision rate is well below the minimum value $\left< \sigma v \right>_{0}$ and the dynamical heating introduced by the resonance acts to suppress the collision rate further. Further out in the disk, near the 2:1 MMR, the collision rate starts out much closer to the minimum value and the additional perturbations drive the collision rate upwards.}
+
+\textbf{ This explains the relative drop in the collision rate
 near the 3:1 MMR and the relative increase near the 2:1 and 5:3
-resonances. Although this could potentially serve as a useful
-diagnostic of the planetesimal size in a disc (because the mutual
-escape velocity sets how dynamically hot the bodies can get before
-gravitational focusing is suppressed), a direct measurement of the
+resonances \textbf{seen in figure \ref{fig:coll_hist_a}}. Although this could potentially serve as a useful
+diagnostic of the planetesimal size in a disc (because the\textbf{size and mass of the planetesimals set the eccentricity dispersion at which $\left< \sigma v \right>$ is minimized}), a direct measurement of the
 semimajor axes of the colliding planetesimals is not
-possible. Furthermore, as we will demonstrate next, collisions due to bodies in resonance do not have a significant effect on the final shape of the radial dust distribution.
+possible. Furthermore, as we will demonstrate next, collisions due to bodies in resonance do not have a significant effect on the final shape of the radial dust distribution.}
 
 \begin{figure}
 \begin{center}
