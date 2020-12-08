@@ -1,8 +1,22 @@
+We appreciate the referee's thoughtfulness and perspective and would firstly like to thank them for care and thoroughness that was put into their reviewing of this paper. We will address comments from the referee one by one, with the original comment listed first, followed by our response (indented).
+
 1) It is not clear how collisions were treated. Wallace et al. point to other papers that describe the implementations of the collisional algorithms. Although I agree they should not attempt to describe all details of the code here, it would be of major help to add more text describing how they deal with collisions.
+
 1.1) What is the collisional scaling used?
+
+	All collisions result in perferct mergers. This is now stated in section 3.1. Because we only model where the collisions happen, rather than what the debris looks like, we keep the collision model simple.
+
 1.2) What material is assumed for the colliding planetesimals?
+
+	A 2 g cm^-3 bulk density corresponds to an even mixture of ice and rock. Because all collisions are assumed to result in perfect mergers, this only affects the mass and radius of the bodies.
+
 1.3) How do you deal with size frequency distribution (collisional cascade) resultant from collisions?
+
+	We do not model the evolution of the resulting debris from collisions. More on this below.
+
 1.4) What is the dust size considered in this work?
+
+	We assume that the resulting dust grains are 1mm in size. This is mentioned in section 4.2.
 
 I would say all these matter a lot once 300 km planetesimals will likely not be instantaneously pulverized to dust-size when they collide. Thus it is of major importance for the understanding of this work, to know precisely how collisions were treated. If, for instance, authors did not consider any fragmentation, and only tracked collisions to determine where dust would form, I would say this should be put as a caveat.
 
@@ -10,9 +24,17 @@ The reason why I'm asking this to be a caveat is because in this case the author
 
 I would try to help the authors and turn this into a positive light, even if the results turn to be negative. One could eventually say that, once observational capabilities improve, having a constrained measurement would help to quickly interpret images in the future. I don't know how likely is this, but with a proper caveat, it would be acceptable, eventually.
 
+	This is an excellent point brought up by the referee and is something that deserves a more careful discussion of in the paper. In regards to the applicability of this work: one must first understand where and how the planetsimals collide if there is any hope of nailing down what the resulting dust distribution will look like. Going from the collision profile to a dust emission profile deserves an entire paper by itself and we are certainly not doing that analysis justice here.
+
+	In light of this, we think that the best thing to do is to reframe this paper a bit, so that the collisions->dust step is saved until the end, given a little less weight in the abstract, introduction and conclusion, and the concerns brought up by the referee are sufficiently emphasized in the text. Most importantly, the reader should be cautioned that the dust profiles we present are upper limits.
+
+	Both the abstract and the summary at the end of the introduction have been reworked to place more emphasis on the planetesimal dynamics and collisions, with the dust profiles and giant planet property constraints as more of an afterthought. Sections 2, 3 and 4 of the paper now focus solely on the 300 km planetesimals, save for a few places where we justify our neglect of gas drag during the simulations. All discussion of dust production and its observability is now saved for the latter parts of the paper.
+
 2) I am very concerned by the fact the authors neglected migration on small particles due to aerodynamic drag. 300 km planetesimals will not break down to dust directly (of course some dust will be created during the 300 km planetesimal's collisions, but that would be a very small fraction of mass). The 300 km planetesimals (depending on material) will more likely break into a collection of smaller km-size objects. These smaller size objects will then overpopulate the regions where they were created, thus enhancing collision rates among them. Collisions that continue to happen among these smaller objets will eventually turn them in to a very large swarm of even smaller m- to km-size objects. Ultimately, this last generation of collisionally evolved planetesimals will become dust (then my question about how and if Wallace et al. considered collisional cascade in their simulations).
 
 The problem of neglecting aerodynamic drag becomes then a bigger problem because, as it is very well known, small m- to km-sized objects feel strong headwind and thus can drift very fast Sunwards (e.g. Weidenschilling & Davis 1985; Patterson 1987; Beauge & Ferraz-Mello 1993; Malhotra 1993; Gomes 1995a,b; Jiang & Yeh 2004; Batigyn & Laughlin 2015; Storch & Batygin 2019; Deienno et al. 2020). Therefore, dust created by these large moving swarms could leave a signature that is far different than that when assuming dust would be generated in the location of the 300 km planetesimal collisions (eventually changing, or even destroying, the bump/dip signatures; despite the fact that dust would couple to the gas almost instantaneously, once created). This is why I previously said authors may be tracking the planetesimal collisional profile and the upper limit of dust generation at those locations in their simulations, but not necessarily the dust profile.
+
+	In the original paper, we checked to ensure that the 300 km planetsimals and the < mm-sized dust grains would stay in place, but the referee's concern about the effects of radial drift of intermediate-sized bodies is an important point that was overlooked. We handle this by: 1. cautioning the reader that the dust emission profiles presented should be interpreted as upper limits 2. discussing the concerns brought up by the referee 3. Providing a (somewhat crude) calculation of the drift and collision timescale of 1m bodies, where drift should be maximal. Point 3 is discussed more below.
 
 I would suggest that the authors investigate and say explicitly in the text what is the expected relation between collisional timescale and drift timescale for m- to km-sized (1 m - 1 km) particles.
 
@@ -26,11 +48,14 @@ In this case, this is a major issue! Planetesimals would quickly fall into the s
 
 Regardless the situation, this should be clearly discussed in the text.
 
-    Measure drift timescale across resonance
-    Compare with collision timescale of 1m bodies
-        Depends only on surface density of bodies (assume all mass in 1m bodies for simplicity)
-        Drift and collision timescales are approx comparable
-        Low density planetesimals, less gas or cooler gas all alleviate this
+	In section 5, we now provide a calculation of both the drift timescale and collision timescale for 1m bodies near the 2:1 MMR. Because we do not model the debris from planetesimal collisions, the collision timescale for the 1m bodies is found by extrapolating the collision rate of the planetesimals to smaller bodies. This is done in the following way:
+
+		1. Measure the collision rate (per particle) of the planetesimals from the e2m2 simulation inside the 2:1 MMR
+		2. Assume that the 1m bodies will have dynamical state (eccentricity and inclination dispersion) as the planetesimals
+		3. Assume that all of the mass in solids near the 2:1 MMR is now made up of 1m bodies
+		4. Scale the measured planetesimal collision rate by the change in number density and collision cross section (if one were to convert the planetesimal population to smaller bodies) to get the collision timescale for 1m bodies.
+
+	In doing so, we find that the collision timescale for 1m bodies is about 100x smaller than the drift timescale for those bodies across the resonance. This suggests that radial drift will not have a large influence on the resulting dust dustribution. However, the 1m collision timescale should be interpreted as an lower limit, due to assumptions 2. and 3. We conclude that it is therefore plausible that radial drift does not play an important role, although a proper treatment of the collisional cascade and drift process is necessary to actually confirm this.
 
 3) Wallace et al. mostly studied collisions that happen around MMRs. Thus, my point 2) above may become a problem for this as well. The pioneering work by Weidenschilling & Davis (1985) suggested small drifting particles could get captured by external MMRs with large planets. However, by that time the authors already pointed out that collisions would likely knock particles out of MMRs. More recently, Deienno et al. (2020) were finally able to confirm the predictions by Weidenschilling & Davis (1985) that collisions prevent small m- to km-sized particles to remain in MMRs (or near them) when gas is still around in the protoplanetary disk. Thus, I would say that, because Wallace et al. is mostly studying collisions within and near MMRs, in a protoplanetary disk (when gas should be around), adding aerodynamic drag on small size particles can be of a major influence, and eventually modifying all conclusions, specially because interior MMRs (those studied in this work) are largely inefficient in capturing any drifting small planetesimal (Weidenschilling & Davis 1985; Beauge & Ferraz-Mello 1993; Malhotra 1993; Gomes 1995a,b).
 
@@ -38,7 +63,7 @@ Summarizing, if interior MMRs can't capture small drifting planetesimals (or eve
 
 Not that I want to sound like a broken record, but in my opinion, without considering small planetesimals drifting due to gas drag, the figures presented in this work represent a planetesimal collisional profile, but not necessarily a dust profile. Again, large amounts of dust will not be directly generated by collisions among 300 km planetesimals, but rather by collisions among a larger swarm of m- to km-sized objects. The latter are strongly affected by the gas and don't strongly interact with interior MMRs, unless the planet in migrating Sunwards and capturing them (not the case of the present work).
 
-    So long as the concerns in 2) are satisfied, this is not an issue
+    See our response to 2)
 
 4) Wallace et al. performed each simulation for 5000 years. In the introduction, authors claim all works to date are severely limited in simulation time. Well, is 5000 years different than that? Deienno et al. (2020) performed N-body simulations of collisionaly evolving planetesimals (using statistical routines and tracer particles) with N of order O^10+ for 100,000 yr! I understand the codes used and the purpose of the two works were very different, so as the simulation setups. However, I don't understand why 5000 yr is not a severely limited time either. Protoplanetary disks can live much longer than that (Myr timescales). Why 400 orbits is enough? Wouldn't a longer simulation time change all results? I mean, the way it is, I understand that the disk signatures would be those reflecting a 5000 yr evolution, which is basically the observational instant considering how long a disk could live. However, if a 10,000 yr or 100,000 yr evolution would change the dust signatures (especially if considering aerodynamic drag), how applicable are the conclusions in this work? See that 10,000 yr or 100,000 yr are also short periods compared to the disk lifetime. Could you, please, add discussion regarding simulation time, as well as, clearly define what is a short and a long time (and why)? For me 5000 yr is, in principle, too short.
 
