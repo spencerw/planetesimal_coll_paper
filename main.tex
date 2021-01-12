@@ -31,20 +31,17 @@ $^{2}$Department of Physics and Astronomy, University of British Columbia, Vanco
 \maketitle
 
 \begin{abstract}
-In circumstellar discs, collisional grinding of planetesimals produces second-generation dust which can be observed through thermal 
-emission. While it remains unclear when second-generation dust first becomes a major component of the total dust content, the presence of 
-such dust and potentially the substructure within it can be used to explore a disc's physical conditions. A perturbing planet has been shown to 
-produce nonaxisymmetric structures, as well as gaps in discs, regardless of the origin of the dust. However, small grains will have very 
-different dynamics compared with planetesimals when in the presence of gas, and as such, the collisional evolution of planetesimals could 
-create dusty disc structures that would not exist otherwise. Previous studies have shown that morphological differences in the collisional dust 
-corotating with a giant planet can be used to determine whether the planet's eccentricity is large or small. \textbf{In this work, we use N-body simulations
-that directly resolve collisions between planetesimals to investigate the collision rate profile near mean-motion resonances with the planet. We 
-find that a distinct bump or dip feature is produced in the collision profile, the presence of which depends on the libration width of the resonance and the 
-separation between the peri and apocenter distances of the edges of the resonance. In the collision profile, the presence of one of these two features
-limits possible values for the mass and eccentricity of the planet. Under the simplifying assumption that the radial profile of the dust emission in the disc
+\textbf[In circumstellar discs, collisional grinding of planetesimals produces second-generation dust. While it remains unclear this becomes a major component of the total dust content, 
+the presence of such dust and potentially the substructure within it can be used to explore a disc's physical conditions. A perturbing planet produces nonaxisymmetric structures, as
+well as gaps in discs, regardless of the origin of the dust. The dynamics of planetesimals, however, will be very different than that of small dust grains due to gas interactions. The
+collisional evolution of planetesimals could therefore create dusty disc structures that would not exist otherwise. Previous studies have shown that morphological differences in the
+collisional dust corotating with a giant planet can be used to determine whether the planet's eccentricity is large or small.In this work, we use N-body simulations that directly resolve
+collisions between planetesimals to investigate the collision rate profile near mean-motion resonances. We  find that a distinct bump or dip feature is produced in the collision profile,
+the presence of which depends on the libration width of the resonance and the separation between the peri and apocenter distances of the edges of the resonance. The presence of
+one of these two features limits possible values for the mass and eccentricity of the planet. Under the simplifying assumption that the radial profile of the dust emission in the disc
 traces the collision profile, we show that a bump or dip feature in the dust emission near the interior 2:1 mean-motion resonance could be used to place constraints
 on the orbital properties of the perturbing planet. So long as radial drift does not play a significant role in the collisional cascade that grinds planetesimals down to
-dust, this feature in the dust emission should be marginally observable in nearby protoplanetary disks with ALMA.}
+dust, or if other processes limit the dust to be approximately local, this feature in the dust emission should be marginally observable in nearby protoplanetary disks with ALMA.}
 \end{abstract}
 
 \begin{keywords}
@@ -90,7 +87,7 @@ To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa
 collisional evolution of a planetesimal disc under the gravitational influence of a Jupiter-sized body. Because particle positions are sorted into a tree 
 structure, neighbor finding and collision detection can be done quickly and efficiently. This considerably relaxes the constraints on resolution and 
 integration time. With this toolset, we explore the collision rate structure of a planetesimal disc in the vicinity of mean-motion resonances with the planet. In 
-particular, we would like to determine (1) \textbf{What dynamics govern the collision rate profile near MMRs, (2)} whether MMRs leave a detectable signature in the collisionally-generated dust, and \textbf{(3)} whether these 
+particular, we would like to determine (1) \textbf{what dynamics govern the collision rate profile near MMRs, (2)} whether MMRs leave a detectable signature in the collisionally-generated dust, and \textbf{(3)} whether these 
 signatures can be used to determine or constrain the orbital properties of the perturbing planet.
 
 This work is organized in the following way: In section \ref{sec:dynamics}, we provide an overview of the relevant dynamics that drive the evolution 
@@ -141,10 +138,12 @@ be described by a Rayleigh distribution \citep{1992Icar...96..107I}.
 
 \noindent \textbf{where  ($e_{1}$, $e_{2}$) and ($g_{1}$ , $g_{2}$) are the corresponding eigenvector components and eigenvalues of the matrix given by \citet{1999ssd..book.....M} (see ch 7, pg 276, equation 7.9 and 7.10, with $\alpha_{12} = \alpha$ and $\bar{\alpha_{12}} = 1$)}
 
+% TODO: need to introduce matricies here, also mention that we are describing interaction between a planetesimal and jupiter here
+
 \begin{eqnarray}\label{eq:pert_matrix}
 	A_{jj} = n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(1)} (\alpha) \\ \nonumber
-	A_{jk} = -n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(2)} (\alpha)
-\end{eqnarray}.
+	A_{jk} = -n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(2)} (\alpha).
+\end{eqnarray}
 
 \noindent \textbf{Here, $n$ is the mean motion of a body and $m$ is its mass. The frequency of the secular forcing is simply the difference of the two eigenvalue frequencies $g_{1} - g_{2}$. For the case of a Jupiter mass planet at 5.2 au perturbing a test particle at 3 au, the timescale for secular forcing is approximately 12,000 years.}
 
@@ -277,7 +276,7 @@ gravitational forces using a modified Barnes-Hut \citep{1986Natur.324..446B} tre
 All of the simulations we perform use a node opening criterion of $\theta_{BH}$ = 0.7. More information about the code can be found 
 in \citet{2008IEEEpds...ChaNGa}.
 
-\textbf{We have recently modified {\sc ChaNGa} to handle solid-body collisions between particles, by assigning them a fixed radius, rather than treating them as tracers of a fluid with a characteristic softening length. We provide a brief summary of the collision model here, although a full description is provided in \citet{2019MNRAS.489.2159W}. This work is largely based off of the solid-body collision implementation in {\sc PKDGRAV}, which is described in \citet{1994MNRAS.269..493R} and \citet{2000Icar..143...45R}. Imminent collisions are found during the drift phase of each time step by extrapolating the positions of bodies forward using the velocity calculated during the first kick. For each body, the nearest 64 neighbors are tested for an imminent collision. If an imminent collision is detected, the two particles of mass $m_{1}$ and $m_{2}$ are merged together together to form one single larger body with the same density and a mass of $m_{1} + m_{2}$. The resulting body is then imparted with the center of mass position and velocity of its two children. Because the resolution of a collision can result in another imminent collision, these events must be resolved one at a time, with the soonest collision being resolved first. For this reason, another collision search is run each time a collision is resolved, which continues until there are no more imminent collisions during the current time step. During the course of the simulation, no debris is created by collisions. To model the collisionally generated dust distribution, we use the statistics of the resolved planetesimal collisions to build dust profile. This process is discussed in detail in section \ref{sec:dust}.}
+\textbf{We have recently modified {\sc ChaNGa} to handle solid-body collisions between particles, by assigning them a fixed radius, rather than treating them as tracers of a fluid with a characteristic softening length. We provide a brief summary of the collision model here, although a full description is provided in \citet{2019MNRAS.489.2159W}. This work is largely based on the solid-body collision implementation in {\sc PKDGRAV}, which is described in \citet{1994MNRAS.269..493R} and \citet{2000Icar..143...45R}. Imminent collisions are found during the drift phase of each time step by extrapolating the positions of bodies forward using the velocity calculated during the first kick. For each body, the nearest 64 neighbors are tested for an imminent collision. If an imminent collision is detected, the two particles of mass $m_{1}$ and $m_{2}$ are merged together together to form one single larger body with the same density and a mass of $m_{1} + m_{2}$. The resulting body is then imparted with the center of mass position and velocity of its two children. Because the resolution of a collision can result in another imminent collision, these events must be resolved one at a time, with the soonest collision being resolved first. For this reason, another collision search is run each time a collision is resolved, which continues until there are no more imminent collisions during the current time step. During the course of the simulation, no debris is created by collisions. To model the collisionally generated dust distribution, we use the statistics of the resolved planetesimal collisions to build dust profile. This process is discussed in detail in section \ref{sec:dust}.}
 
 \begin{table}
 \begin{center}
@@ -317,11 +316,11 @@ and the 3:1 at 2.5 au. The planetesimal disc follows a minimum-mass solar nebula
 	\Sigma = \Sigma_{0} r^{-\alpha},
 \end{equation}
 
-\noindent with $\alpha$ = 3/2 and $\Sigma_{0}$ = 10 g cm$^{-2}$. Planetesimals are given a bulk density of 2 g cm$^{-3}$ \textbf{, which corresponds to a mixture of ice and rock,)} and a diameter of 
+\noindent with $\alpha$ = 3/2 and $\Sigma_{0}$ = 10 g cm$^{-2}$. Planetesimals are given a bulk density of 2 g cm$^{-3}$ \textbf{, which corresponds to a mixture of ice and rock)} and a diameter of 
 300 km. \textbf{This choice of parameters for the planetesimal disk is meant to mimic the setup used in simulation B by \citet{2000Icar..143...45R}. One difference from the aformentioned study is that we use a narrower annulus, which reduces the number of particles required from $10^6$ down to roughly 500,000. This allows us to use a finer base timestep size, which, as we will discuss in section \ref{sec:results}, appears to be the reason why no features were seen in the collision profile near the resonances by \citet{2000Icar..143...45R}}.
 
 The dynamical effects of secular forcing by the giant planet, along with  the effects of viscous stirring and gas drag on the planetesimals, are 
-built into the initial conditions. \textbf{Although we do not model the effects of gas drag on the planetesimals during the simulation, we construct the initial conditions such that these two effects are in balance. The viscous stirring timescale of the planetesimal disc is much longer than our chosen integration time, and so the dynamical excitation of the disc (excluding resonances) stays constant, even without modeling damping from gas.}. This is done by first calculating the equilibrium eccentricity $e_{eq}$ due to viscous stirring and gas drag as a 
+built into the initial conditions. \textbf{Although we do not model the effects of gas drag on the planetesimals during the simulation, we construct the initial conditions such that these two effects are in balance. The viscous stirring timescale of the planetesimal disc is much longer than our chosen integration time, and so the dynamical excitation of the disc (excluding resonances) stays constant, even without modeling damping from gas.} This is done by first calculating the equilibrium eccentricity $e_{eq}$ due to viscous stirring and gas drag as a 
 function of semimajor axis according to equation 12 of \citet{2002ApJ...581..666K}. \textbf{Both the viscous stirring timescale and the gas drag timescale are} long compared to our integration time and should not cause the velocity 
 distribution to significantly evolve. The eccentricities of the bodies are drawn randomly from a Rayleigh distribution with a mode of $e_{eq}$, 
 while the inclinations are drawn from a similar distribution with a mode of $e_{eq}$/2 \citep{1993MNRAS.263..875I}. The arguments of perihelion 
@@ -380,7 +379,7 @@ reducing the effectiveness of gravitational focusing, while minimizing the addit
 
 All five simulations are evolved for 5,000 years, which is roughly 400 complete orbits of the perturbing planet. Because the effects of the mean 
 motion resonances are not built into the initial conditions, the simulations must be run long enough for the distribution of orbital elements to reach 
-equilibrium near the resonances before the collision rate is measured. \textbf{To do so, we allow each simulation to run for 2,000 years before we begin recording any collision statistics. This is comparable to the libration period, which was calculated in section \ref{sec:mmr} for the 3:1 and 2:1 resonance). Although one might worry that a single libration period may not be long enough for the orbital structure due to the resonances to develop, we find that the shape of the semimajor axis-eccentricity distribution of the planetesimals reaches a steady state by this time. This is largely due to the fact that there are enough bodies in or near the resonances to allow an ensemble average of phase space, rather a time average. As an additional confirmation, we find that the time evolution of the collision rate near the resonances maintains a steady state in all five simulations after $\sim$ 2000 years.}
+equilibrium near the resonances before the collision rate is measured. \textbf{To do so, we allow each simulation to run for 2,000 years before we begin recording any collision statistics. This is comparable to the libration period, which was calculated in section \ref{sec:mmr} for the 3:1 and 2:1 resonance. Although one might worry that a single libration period may not be long enough for the orbital structure due to the resonances to develop, we find that the shape of the semimajor axis-eccentricity distribution of the planetesimals reaches a steady state by this time. This is largely due to the fact that there are enough bodies in or near the resonances to allow an ensemble average of phase space, rather a time average. As an additional confirmation, we find that the time evolution of the collision rate near the resonances maintains a steady state in all five simulations after $\sim$ 2000 years.}
 
 \subsection{Varying the Eccentricity} \label{sec:vary_ecc}
 
@@ -414,7 +413,7 @@ distinction is set by the collision search algorithm and is rather arbitrary. In
 using the ``first'' or ``second'' collider does not qualitatively change any of the features. We find that some of the features present in figure 
 \ref{fig:coll_hist_a} in this and subsequent figures are highly sensitive to the number of bins and the location of the bin edges. For this reason, we 
 construct a \textbf{probability density function (PDF)} of the collisions using a Kernel Density Estimate (KDE). We use the {\sc neighbors.KernelDensity} function from the {\sc sklearn} 
-\citep{scikit-learn} package to construct our KDEs, using a gaussian kernel with a FWHM of 0.02 au. \textbf{The curves shown in figure \ref{fig:coll_hist_a} are normalized such that the area underneath is normalized to 1.}
+\citep{scikit-learn} package to construct our KDEs, using a gaussian kernel with a FWHM of 0.02 au. \textbf{The curves shown in figure \ref{fig:coll_hist_a} are normalized such that the area underneath is equal to 1.}
 
 Near the stronger resonances, there are noticeable suppressions or enhancements to the local collision rate. This contrasts with the findings of 
 \citet{2000Icar..143...45R}, who simulated a similar setup and found no discernible features near the MMRs. We attribute the differences to a more 
@@ -424,12 +423,12 @@ steep sensitivity of higher order resonant perturbations to eccentricity \citep{
 
 \textbf{Although the features in figure \ref{fig:coll_hist_a} near the 3:1 and 2:1 MMRs appear qualitatively different, they can be explained by one single dynamical process. As discussed in section \ref{sec:colleq}, the collision rate between planetesimals depends on both the encounter rate and the strength of gravitational focusing. The encounter rate grows as the relative velocity $v$ between the planetesimals increases, while gravitational focusing is most effective for bodies with small relative velocities. There is therefore an intermediate value of $v$ for which the average collision rate $\left< \sigma v \right>$ is at a minimum, which we will refer to as  $\left< \sigma v \right>_{0}$. The dynamical excitation induced by a mean motion resonance can either increase or decrease the local average collision rate, depending on the unperturbed value of  $\left< \sigma v \right>$ relative to  $\left< \sigma v \right>_{0}$.}
 
-\textbf{In figure \ref{fig:gf}, we show the effect that the 2:1 MMR and 3:1 MMR have on the local average collision rate. Each pair of points connected by a line represents the average collision rate before and after the effects of the mean-motion resonances develop. For this figure, the relative velocity between bodies is calculated by measuring the eccentricity and inclination dispersion near each resonance and using equation \ref{eq:eccincvel}. Here, we assume that the eccentricity and inclination dispersions are coupled \citep{1993MNRAS.263..875I} and use the eccentricity dispersion as the independent variable. Because both the strength of secular forcing and the effects of the resonant perturbations are different near the 3:1 and 2:1 MMRs, the planetesimal population at each of these locations in the disk experiences a qualitatively different change in the collision rate. Near the 3:1 MMR, the unperturbed collision rate is well below the minimum value $\left< \sigma v \right>_{0}$ and the dynamical heating introduced by the resonance acts to suppress the collision rate further. Near the 2:1 MMR, the collision rate starts out much closer to the minimum value and the additional perturbations act to drive it higher.}
+\textbf{In figure \ref{fig:gf}, we show the effect that the 2:1 MMR and 3:1 MMR have on the local average collision rate. Each pair of points connected by a line represents the average collision rate before and after the effects of the mean-motion resonances develop. For this figure, the relative velocity between bodies is calculated by measuring the eccentricity and inclination dispersion near each resonance and using equation \ref{eq:eccincvel}. Here, we assume that the eccentricity and inclination dispersions are coupled \citep{1993MNRAS.263..875I} and use the eccentricity dispersion as the independent variable. Because both the strength of secular forcing and the effects of the resonant perturbations are different near the 3:1 and 2:1 MMRs, the planetesimal population at each of these locations in the disk experiences a qualitatively different change in the collision rate. Near the 3:1 MMR, the unperturbed collision rate is well above the minimum value $\left< \sigma v \right>_{0}$ and the dynamical heating introduced by the resonance acts to suppress it further. Near the 2:1 MMR, the collision rate starts out much closer to the minimum value and the additional perturbations are strong enough to drive it higher.}
 
 \textbf{ This explains the relative drop in the collision rate
 near the 3:1 MMR and the relative increase near the 2:1 and 5:3
 resonances \textbf{seen in figure \ref{fig:coll_hist_a}}. Although this could potentially serve as a useful
-diagnostic of the planetesimal size in a disc (the\textbf{size and mass of the planetesimals set the eccentricity dispersion at which $\left< \sigma v \right>$ is minimized}), a direct measurement of the
+diagnostic of the planetesimal size in a disc (\textbf{because the size and mass of the planetesimals sets the eccentricity dispersion at which $\left< \sigma v \right>$ is minimized}), a direct measurement of the
 semimajor axes of the colliding planetesimals is not
 possible. Furthermore, as we will demonstrate next, collisions due to bodies in resonance do not have a significant effect on the final shape of the radial dust distribution that we predict.}
 
@@ -453,6 +452,8 @@ possible. Furthermore, as we will demonstrate next, collisions due to bodies in 
     \caption{Here, collisions are instead ordered by cylindrical distance from the star. Features near the 3:1 and 2:1 MMRs are still present, but appear qualitatively different than in semimajor axis space. At low eccentricities, a dip appears around the center of the resonance. At the highest eccentricity, a bump is formed instead. The dashed lines shown the collision profile with collisions between bodies in resonance removed. The bump and dip features remain qualitatively the same, which suggests that they are produced by bodies \textbf{outside of the libration width of the resonance.}\label{fig:coll_hist_r}}
 \end{center}
 \end{figure}
+
+% TODO: Stopped here
 
 \section{Where Does the Dust End Up?}\label{sec:dust}
 
