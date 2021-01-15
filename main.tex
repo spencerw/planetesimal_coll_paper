@@ -31,7 +31,7 @@ $^{2}$Department of Physics and Astronomy, University of British Columbia, Vanco
 \maketitle
 
 \begin{abstract}
-\textbf[In circumstellar discs, collisional grinding of planetesimals produces second-generation dust. While it remains unclear this becomes a major component of the total dust content, 
+\textbf{In circumstellar discs, collisional grinding of planetesimals produces second-generation dust. While it remains unclear this becomes a major component of the total dust content, 
 the presence of such dust and potentially the substructure within it can be used to explore a disc's physical conditions. A perturbing planet produces nonaxisymmetric structures, as
 well as gaps in discs, regardless of the origin of the dust. The dynamics of planetesimals, however, will be very different than that of small dust grains due to gas interactions. The
 collisional evolution of planetesimals could therefore create dusty disc structures that would not exist otherwise. Previous studies have shown that morphological differences in the
@@ -253,16 +253,16 @@ For a first-order resonance, the associated disturbing function terms are slight
 
 \subsection{Gas Drag on Planetesimals}\label{sec:pl_drag}
 
-\textbf{Over the course of many orbits, the residual gas from the primordial nebula can damp the eccentricities and inclinations of bodies. For a planetesimal-sized body, the geometric cross section is much larger than the mean free path of the gas particles and the timescale for gas drag to modify its orbit is given by \citep{1976PThPh..56.1756A}}
+\textbf{Over the course of many orbits, the residual gas from the primordial nebula can damp the eccentricities and inclinations of bodies. For a planetesimal-sized body, the geometric cross section is much larger than the mean free path of the gas particles and the timescale for gas drag to significantly alter its relative velocity is given by \citep{1976PThPh..56.1756A}}
 
-\begin{equation}\label{eq:t_edamp}
-    t_{e, damp} = \frac{2 m}{C_{D} \pi s^{2} \rho_{g} v_{g}},
+\begin{equation}\label{eq:ts_stokes}
+    t_{s} = \frac{2 m}{C_{D} \pi s^{2} \rho_{g} v_{g}},
 \end{equation}
 
 \noindent \textbf{where $m$ and $s$ are the mass and radius of the planetesimal. $C_{D}$ is a drag coefficient which is of order unity, $
 \rho_{g}$ is the local density of the gas and $v_{g}$ is the headwind velocity of the gas experienced by the planetesimal. At 3 au, the gaseous component of the solar nebula has a density of $4 
 \times 10^{-10}$ g cm$^{-3}$ and the typical headwind experienced by a body on a Keplerian orbit is $\sim 5,000$ cm s$^{-1}$ \citep{1981PThPS..70...35H}. For a 100 km body with a 
-density of 2 g cm$^{-3}$ \textbf{(assuming a mixture of ice and rock)} and an eccentricity of 0.1, the stopping timescale is on the order of $10^{6}$ years. This is much longer than the timescales related to secular forcing and libration near mean-motion resonances, as discussed above, but shorter than the typical protoplanetary disk lifetime and potentially the planetesimal formation timescale. For this reason, we do not model the effects of gas drag, although we consider its effects when constructing initial conditions for our simulations, which is discussed in the next section.}
+density of 2 g cm$^{-3}$ \textbf{(assuming a mixture of ice and rock)} the stopping timescale is on the order of $10^{6}$ years. This is much longer than the timescales related to secular forcing and libration near mean-motion resonances, as discussed above, but shorter than the typical protoplanetary disk lifetime and potentially the planetesimal formation timescale. For this reason, we do not model the effects of gas drag, although we consider its effects when constructing initial conditions for our simulations, which is discussed in the next section.}
 
 \section{Simulations} \label{sec:sims}
 
@@ -442,7 +442,7 @@ possible. Furthermore, as we will demonstrate next, collisions due to bodies in 
 \begin{figure*}
 \begin{center}
     \includegraphics[width=\textwidth]{figures/gf_plot.png}
-    \caption{\textbf{The collision rate of bodies in the vicinity of the 3:1 (left) and 2:1 (right) MMRs, relative to the minimum value, as a function of the local eccentricity dispersion. The pairs of points connected by lines show the values of the perturbed and unperturbed collision rates in the e1m2, e2m2 and e3m2 simulations.}\label{fig:gf}}
+    \caption{\textbf{The collision rate (given by equation \ref{eq:saf}) of bodies in the vicinity of the 3:1 (left) and 2:1 (right) MMRs, relative to the minimum value, as a function of the local eccentricity dispersion. The pairs of points connected by lines show the values of the perturbed (left-hand points in each subplot) and unperturbed (right-hand points) collision rates in the e1m2, e2m2 and e3m2 simulations.}\label{fig:gf}}
 \end{center}
 \end{figure*}
 
@@ -453,26 +453,22 @@ possible. Furthermore, as we will demonstrate next, collisions due to bodies in 
 \end{center}
 \end{figure}
 
-% TODO: Stopped here
-
 \section{Where Does the Dust End Up?}\label{sec:dust}
 
-To construct a radial dust profile from the collision statistics, we begin by making \textbf{two assumptions: 1. any dust generated by collisions is strongly coupled to the gas and 2. any subsequent spatial evolution of the collisional debris is insignificant.} \textbf{So long as both of these assumptions are true, we can use the locations of planetesimal collisions in the plane of the disk to generate a dust profile for each simulation.}
+To construct a radial dust profile from the collision statistics, we begin by making \textbf{two assumptions: (1) any dust generated by collisions is strongly coupled to the gas and (2) any subsequent spatial evolution of the collisional debris is insignificant.} \textbf{So long as both of these assumptions are true, we can use the locations of planetesimal collisions in the plane of the disk to generate a dust profile for each simulation.}
 
-\textbf{We first provide a justification for assumption (1), which is as follows:} For a dust grain larger than the mean free path of the gas particles, the timescale to damp its eccentricity is given by \citep{1976PThPh..56.1756A}
+\textbf{We first provide a justification for assumption (1), which is as follows: At 3 AU in the protosolar nebula, the mean free path of a gas particle is $\sim$ 50 cm (assuming a composition of pure hydrogen with a local volume density of $\rho_{g} = 4 \times 10^{-10}$ g cm$^{-3}$). This places any dust grains in the Epstein drag regime, with a stopping timescale given by}
 
-\begin{equation}\label{eq:t_edamp}
-    t_{e, damp} = \frac{8 s \rho}{3 e C_{D} \rho_{g} v_{th}},
+\begin{equation}\label{eq:ts_epstein}
+    t_{s} = \frac{\rho s}{\rho_{g} v_{th}},
 \end{equation}
 
-\noindent where $m$, $e$ and $s$ are the mass, eccentricity and radius of the dust grain. $C_{D}$ is a drag coefficient which is of order unity, $
-\rho_{g}$ is the local density of the gas and $v_{th}$ is its thermal speed.\textbf{Using the same values for the properties of the solar nebula as we did in section \ref{sec:pl_drag} and assuming} a 1 mm dust grain with a 
-density of 1 g cm$^{-3}$ and an eccentricity of 0.05, the damping timescale is $4 \times 10^{-3}$ years. This is orders of magnitude smaller than the 
+\noindent where $\rho$ is the bulk density of the dust grain, $s$ is its size, and $v_{th}$ is the local thermal velocity of the gas. At 3 AU in the protosolar nebula, $v_{th} \sim 10^{5}$ cm s$^{-1}$. Assuming a 1 mm dust grain with a $\rho$ = 2 g cm$^{-3}$, the stopping time is $\sim 10^{-4}$ yr.  This is orders of magnitude smaller than the 
 orbital timescale, therefore we conclude that collisionally generated dust grains will immediately couple to the gas.
 
-\textbf{Assumption (2) is less straightforward to justify and may not be reasonable in all cases. Although the spatial redistribution of the full-sized planetesimals and mm-sized dust grains is insignificant, the radial drift forces experienced by intermediate-sized bodies is much greater. Collisions between planetesimals do not immediately convert the mass to dust grains. Rather, the debris will undergo a collisional cascade process, which gradually grinds the resulting bodies down to smaller sizes. A proper treatment of the collisional cascade process, unfortunately, is quite complicated and is well beyond the scope of this work. However, one can safely ignore this process if the peak radial drift timescale is longer than the timescale for collisions between these bodies.}
+\textbf{Assumption (2) is less straightforward to justify and may not be reasonable in all cases. Although the spatial redistribution of the full-sized planetesimals and mm-sized dust grains is insignificant, the radial drift forces experienced by intermediate-sized bodies is much greater. Collisions between planetesimals do not immediately convert the mass to dust grains. Rather, the debris will undergo a collisional cascade process, which gradually grinds the resulting bodies down to smaller sizes. A proper treatment of the collisional cascade process, is quite complicated and is well beyond the scope of this work. However, one can safely ignore this process if the peak radial drift timescale is longer than the timescale for collisions between these bodies.}
 
-\textbf{In the inner part of the solar nebula, radial drift is maximized for meter-sized bodies. Following a similar calculation in \ref{sec:pl_drag} with a 1 m body, we find that an object of this size will drift across the 2:1 MMR on a timescale of $\sim$ 300 years. Although we do not model collisions between bodies of this size, a lower limit on the collision timescale for 1 m bodies can be obtained by extrapolating the planetesimal collision rate measured in our simulations down to smaller-sized objects. For the e2m2 simulation, we find that 125 collisions occur withing the libration width of the 2:1 MMR from T=2,000 yr to  T=5,000 yr. There are a total of 15,000 planetesimals within this region, which means that a single planetesimal undergoes a collision every $\sim$ 370,000 years on average. If the entire planetesimal population in this region were converted to 1 meter bodies with the same bulk density, the collision timescale would decrease to $\sim$ 1 year. The number density of bodies increases by a factor of $10^{15}$, while the geometric collision cross section decreases by a factor of $10^{10}$. From this crude calculation, we conclude that the collision timescale for bodies that experience maximal radial drift is smaller than their drift timescale. Therefore, our descision to ignore the spatial redistribution of the collisional debris is not entirely unfounded, although we would like to emphazise that the collision timescale estimated above is strictly a lower limit.}
+\textbf{Radial drift is maximized for bodies of the size at which St = $t_{s} \Omega$ = 1. In the Stokes drag regime at 3 AU, this occurs for bodies of 1 meter in size. Following a similar calculation in \ref{sec:pl_drag} with a 1 m body, we find that an object of this size will drift across the 2:1 MMR on a timescale of $\sim$ 300 years. Although we do not model collisions between bodies of this size, a lower limit on the collision timescale for these objects can be obtained by extrapolating the planetesimal collision rate measured in our simulations down. For the e2m2 simulation, we find that 125 collisions occur within the libration width of the 2:1 MMR from T=2,000 yr to  T=5,000 yr. There are a total of 15,000 planetesimals within this region, which means that a single planetesimal undergoes a collision every $\sim$ 370,000 years on average. If the entire planetesimal population in this region were converted to 1 meter bodies with the same bulk density, the number density of bodies increases by a factor of $10^{15}$, while the geometric collision cross section decreases by a factor of $10^{10}$. The collision timescale would therefore decrease to $\sim$ 1 year. As shown above, radial drift in the Stokes drag regime is maximized for bodies of 1 meter in size, which is only a factor of two larger than the mean free path of the gas particles. It is therefore not entirely clear if the Stokes drag law is appropriate here. Because of this, we also repeat the above calculation for bodies that experience Epstein drag. With this assumption, we find that radial drift is maximized for a cm-sized body. If one were to instead convert all of the collisional debris to objects of this size, the collision timescale decreases by another factor of 100. We conclude that the true collision timescale for bodies with maximal radial drift lies somewhere between $10^{-2}$ and 1 year.  From this crude calculation, it appears plausible that the collision timescale for the fastest inward drifting bodies is smaller than their drift timescale across the 2:1 MMR. We argue that it is reasonable and, indeed, best practice to start with such simple assumptions understand the physics before additional complexity is later added.}
 
 Operating under \textbf{these assumptions} \footnote{As discussed in \cite{2017ApJ...850..103B}, the local generation of second-generation dust is only one 
 consideration. The dust will also evolve spatially due to drag effects, but can also evolve in size or be re-accreted onto planetesimals. For simplicity, 
