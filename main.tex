@@ -129,23 +129,8 @@ magnitude of the free eccentricity describes how dynamically hot the planetesima
 planetesimals. When the dynamical excitation of the disc is driven by gravitational stirring, the magnitude of the free eccentricity can 
 be described by a Rayleigh distribution \citep{1992Icar...96..107I}.
 
-\textbf{The timescale for secular forcing is given by the period at which the free eccentricity cycles in the complex plane. The time-dependent imaginary and real components of the eccentricity of a planetesimal are given by \citet{1999ssd..book.....M} (see ch 7, pg 282, equation 7.51)}
-
-\begin{eqnarray}\label{eq:kandh}
-	h = e_{1} sin (g_{1} t + \beta_{1}) + e_{2} sin (g_{2} t + \beta_{2}) \\ \nonumber
-	k = e_{1} cos (g_{1} t + \beta_{1}) + e_{2} cos (g_{2} t + \beta_{2}),
-\end{eqnarray}
-
-\noindent \textbf{where  ($e_{1}$, $e_{2}$) and ($g_{1}$ , $g_{2}$) are the corresponding eigenvector components and eigenvalues of the matrix given by \citet{1999ssd..book.....M} (see ch 7, pg 276, equation 7.9 and 7.10, with $\alpha_{12} = \alpha$ and $\bar{\alpha_{12}} = 1$)}
-
-% TODO: need to introduce matricies here, also mention that we are describing interaction between a planetesimal and jupiter here
-
-\begin{eqnarray}\label{eq:pert_matrix}
-	A_{jj} = n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(1)} (\alpha) \\ \nonumber
-	A_{jk} = -n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(2)} (\alpha).
-\end{eqnarray}
-
-\noindent \textbf{Here, $n$ is the mean motion of a body and $m$ is its mass. The frequency of the secular forcing is simply the difference of the two eigenvalue frequencies $g_{1} - g_{2}$. For the case of a Jupiter mass planet at 5.2 au perturbing a test particle at 3 au, the timescale for secular forcing is approximately 12,000 years.}
+\textbf{For the case of a Jupiter mass planet at 5.2 au perturbing a test particle at 3 au, the timescale for secular forcing is approximately 12,000 years. The details of this calculation
+can be found in appendix \ref{sec:sec_forcing_timescale}.}
 
 \subsection{Mean-Motion Resonances}\label{sec:mmr}
 
@@ -177,50 +162,9 @@ body, with $M$ being the mean anomaly. For bodies in resonance, the critical ang
 equlibrium value, while this angle will circulate outside of resonance. For small eccentricities, this behavior is analogous to the motion of a 
 pendulum. Furthermore, variations in the critical angle are coupled to changes in the mean motion and semimajor axis \citep{1999ssd..book.....M}. An important 
 point to note, which we will revisit later, is that the variation frequency of this angle approaches zero near the edge of a resonance. The 
-width of a resonance can be defined by determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of $\phi$. For 
-second order and higher MMRs, the maximum libration width is given by \citet{1999ssd..book.....M} \textbf{(ch. 8, pg 338, eq. 8.58} as
-
-\begin{equation}\label{eq:res_so}
-	\frac{\delta a}{a} = \pm \left( \frac{16}{3} \frac{\left| C_{r} \right|}{n} e^{\left| q \right|} \right)^{1/2},
-\end{equation}
-
-\noindent where $n$, $a$ and $e$ are the mean motion, semimajor axis and eccentricity of the unperturbed body. $C_{r}$ is a constant defined by 
-$m'/m_{c} n \alpha f_{d}(\alpha)$, where $\alpha$ = $a/a'$ and $f_{d}$ is the resonant part of the disturbing function. For an interior second-order 
-resonance,
-
-\begin{eqnarray}\label{eq:fd_so}
-	f_{d} (\alpha) &=& \frac{1}{8} \left[ -5(p+q) + 4(p+q)^{2} - 2 \alpha D \right. \\ \nonumber
-	                      & + & \left. 4(p+q) \alpha D + \alpha^{2} D^{2} \right] b^{p+q}_{1/2},
-\end{eqnarray}
-
-\noindent (see \citet{1999ssd..book.....M} table 8.1\textbf{, third row, with $j = p + q$}) where $D b^{j}_{s}$ is the first derivative with respect to $\alpha$ of the Laplace coefficient defined in equation \ref{eq:lap}. This is given by \citet{1961mcm..book.....B} as
-
-\begin{equation}\label{eq:lap_d}
-	\frac{d b_{s}^{j}}{d \alpha} = s \left( b_{s+1}^{j-1} - 2 \alpha b_{s+1}^{j} + b_{s+1}^{j+1} \right).
-\end{equation}
-
-For a first-order resonance, the associated disturbing function terms are slightly simpler such that
-
-\begin{equation}\label{eq:fd_fo}
-	f_{d}(\alpha) = -(p+q) b_{1/2}^{p+q} - \frac{\alpha}{2} D b_{1/2}^{p+q},
-\end{equation}
-
-\noindent (see \citet{1999ssd..book.....M} table 8.1\textbf{, first row}) and there is an additional contribution to the motion of the critical angle by the pericenter precession rate such that
-
-\begin{equation}\label{eq:res_fo}
-	\frac{\delta a}{a} = \pm \left(\frac{16}{3} \frac{\left| C_{r} \right|}{n} e \right)^{1/2} \left(  1 + \frac{1}{27 p^2 e^3} \frac{\left| C_{r} \right|}{n} 
-	\right)^{1/2} - \frac{2}{9 p e}  \frac{\left| C_{r} \right|}{n}
-\end{equation}
-
-\noindent (see \citet{1999ssd..book.....M} \textbf{ch 8, pg 340,} equation 8.76 \textbf{with $j_{2} = p$}).
-
-\textbf{In mean-motion resonance, the orbital elements of a perturbed body, along with the critical angle described by equation \ref{eq:phi_crit}, will exhibit oscillations. In the circular, restricted three-body case, these small amplitude oscillations exhibit a characteristic frequency, given by (see \citet{1999ssd..book.....M} ch 8, pg 332, eq 8.47, with $j_{2} =-p$ and $j_{4} = -q$)}
-
-\begin{equation}\label{eq:lib_time}
-	\omega_{0} = 3 p^{2} C_{r} n e^{\left| -q \right|}.
-\end{equation}
-
-\noindent \textbf{For the most prominent interior mean-motion resonances, including the 2:1 and 3:1, the timescale associated with these oscillations driven by a Jupiter mass planet is  $\sim$ 1,000 - 2,000 years.}
+width of a resonance can be defined by determining the largest variation in semimajor axis that permits librational, rather than circulatory motion of $\phi$. 
+\textbf{Calculations for the widths of first and second order interior MMRs are shown in appendix \ref{sec:libration}, along with a timescale for the libration. For the most prominent interior 
+mean-motion resonances, including the 2:1 and 3:1, the timescale associated with these oscillations driven by a Jupiter mass planet is  $\sim$ 1,000 - 2,000 years.}
 
 % Not directly relevant for any calculations in the paper, lets leave this out
 %Changes in eccentricity are correlated with changes in semimajor axis according to the Tisserand relation
@@ -570,7 +514,8 @@ angular size scale is then set by envisaging a face-on disc at a distance of 100
 The sky model intensity (flux per pixel) is produced by interpolating the radial collision frequency onto a 2D Cartesian grid with cell widths of 
 approximately 2 mas. In doing so, we choose to make the intensity proportional to the collision frequency (i.e., the dust) because it is the most 
 straightforward case. Many different parameterizations are possible, depending on optical depth, grain size, disc temperature, etc., but we will avoid 
-such complications here. We normalize the intensity by setting the total disc flux density to be 100 mJy at about 350 GHz.  
+such complications here\textbf{, as they would affect the overall brightness profile, but not the presence of any gaps or rings.} We normalize the intensity by
+setting the total disc flux density to be 100 mJy at about 350 GHz.  
 
 The simulated observations are performed using the {\sc simobserve} task in {\sc CASA} \citep{2007ASPC..376..127M}.  The disc is given an 
 $\rm RA = 11^{\rm h} 01^{\rm m} 52^{\rm s}$ and a $\delta = -34^\circ 42\arcmin 17\arcsec$ (i.e., the J2000 coordinates for TW Hydrae) and is 
@@ -644,7 +589,7 @@ disc is near-Keplerian, the distance ratios between two features can be used to 
 features seen are indeed resonances. Although the 3:1 MMR does not appear to follow the simple bump vs dip dichotomy described above, its 
 presence should be marginally detectable in all of the cases shown above.
 
-\textbf{We would again like to emphasize that the dust emission profiles in figure \ref{fig:alma_profiles} are constructed upon the assumption that the radial dust structure closely traces the collision profile of the planetesimals. This is only the case if the collisional cascade from which the dust grains form happens before radial drift has a chance to move debris away from the resonances. Although we showed with a back-of-the-envelope calculation (see section \ref{sec:dust}) that this is plausible for a typical protoplanetary disk with properties similar to the protosolar nebula, a more thorough treatment of collisional grinding is necessary to be able to interpret the dust emission profiles presented here as anything more than upper limits.}
+\textbf{We would again like to emphasize that the dust emission profiles in figure \ref{fig:alma_profiles} are constructed upon the assumption that the radial dust structure closely traces the collision profile of the planetesimals. For this assumption to be valid, the resulting dust must also remain locally confined, which is can be achieved achieved if the grains are reaccreted onto planetesimals \citep{2015SciA....1E0109J}. It is also necessary that the collisional cascade from which the dust grains form plays before radial drift has a chance to move debris away from the resonances. Although we showed with a back-of-the-envelope calculation (see section \ref{sec:dust}) that this is plausible for a typical protoplanetary disk with properties similar to the protosolar nebula, a more thorough treatment of collisional grinding and the subsequent evolution of the debris is necessary to be able to interpret the dust emission profiles presented here as anything more than upper limits.}
 
 \section{Summary and Conclusions}\label{sec:conclusions}
 
@@ -699,6 +644,68 @@ The data presented in this article are available on our GitHub repository, at \u
 \bibliography{references}
 
 \appendix
+\section{Timescale for Secular Forcing}\label{sec:sec_forcing_timescale}
+
+\textbf{The timescale for secular forcing is given by the period at which the free eccentricity cycles in the complex plane. The time-dependent imaginary and real components of the eccentricity of a planetesimal are given by \citet{1999ssd..book.....M} (see ch 7, pg 282, equation 7.51)}
+
+\begin{eqnarray}\label{eq:kandh}
+	h = e_{1} sin (g_{1} t + \beta_{1}) + e_{2} sin (g_{2} t + \beta_{2}) \\ \nonumber
+	k = e_{1} cos (g_{1} t + \beta_{1}) + e_{2} cos (g_{2} t + \beta_{2}),
+\end{eqnarray}
+
+\noindent \textbf{where  ($e_{1}$, $e_{2}$) and ($g_{1}$ , $g_{2}$) are the corresponding eigenvector components and eigenvalues of a matrix, which describes the secular interaction between two bodies, given by \citet{1999ssd..book.....M} (see ch 7, pg 276, equation 7.9 and 7.10, with $\alpha_{12} = \alpha$ and $\bar{\alpha_{12}} = 1$)}
+
+\begin{eqnarray}\label{eq:pert_matrix}
+	A_{jj} = n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(1)} (\alpha) \\ \nonumber
+	A_{jk} = -n_{j} \frac{1}{4} \frac{m_{k}}{m_{c} + m_{j}} \alpha b_{3/2}^{(2)} (\alpha).
+\end{eqnarray}
+
+\noindent \textbf{Here, $n$ is the mean motion of a body and $m$ is its mass. In the case of a massless test particle being perturbed by a giant planet, $m_{0} = m_{g}$ and $m_{2} = 0$. The frequency of the secular forcing is simply the difference of the two eigenvalue frequencies $g_{1} - g_{2}$.}
+
+\section{Libration in Mean Motion Resonance}\label{sec:libration}
+
+For second order and higher MMRs, the maximum libration width is given by \citet{1999ssd..book.....M} \textbf{(ch. 8, pg 338, eq. 8.58} as
+
+\begin{equation}\label{eq:res_so}
+	\frac{\delta a}{a} = \pm \left( \frac{16}{3} \frac{\left| C_{r} \right|}{n} e^{\left| q \right|} \right)^{1/2},
+\end{equation}
+
+\noindent where $n$, $a$ and $e$ are the mean motion, semimajor axis and eccentricity of the unperturbed body. $C_{r}$ is a constant defined by 
+$m'/m_{c} n \alpha f_{d}(\alpha)$, where $\alpha$ = $a/a'$ and $f_{d}$ is the resonant part of the disturbing function. For an interior second-order 
+resonance,
+
+\begin{eqnarray}\label{eq:fd_so}
+	f_{d} (\alpha) &=& \frac{1}{8} \left[ -5(p+q) + 4(p+q)^{2} - 2 \alpha D \right. \\ \nonumber
+	                      & + & \left. 4(p+q) \alpha D + \alpha^{2} D^{2} \right] b^{p+q}_{1/2},
+\end{eqnarray}
+
+\noindent (see \citet{1999ssd..book.....M} table 8.1\textbf{, third row, with $j = p + q$}) where $D b^{j}_{s}$ is the first derivative with respect to $\alpha$ of the Laplace coefficient defined in equation \ref{eq:lap}. This is given by \citet{1961mcm..book.....B} as
+
+\begin{equation}\label{eq:lap_d}
+	\frac{d b_{s}^{j}}{d \alpha} = s \left( b_{s+1}^{j-1} - 2 \alpha b_{s+1}^{j} + b_{s+1}^{j+1} \right).
+\end{equation}
+
+For a first-order resonance, the associated disturbing function terms are slightly simpler such that
+
+\begin{equation}\label{eq:fd_fo}
+	f_{d}(\alpha) = -(p+q) b_{1/2}^{p+q} - \frac{\alpha}{2} D b_{1/2}^{p+q},
+\end{equation}
+
+\noindent (see \citet{1999ssd..book.....M} table 8.1\textbf{, first row}) and there is an additional contribution to the motion of the critical angle by the pericenter precession rate such that
+
+\begin{equation}\label{eq:res_fo}
+	\frac{\delta a}{a} = \pm \left(\frac{16}{3} \frac{\left| C_{r} \right|}{n} e \right)^{1/2} \left(  1 + \frac{1}{27 p^2 e^3} \frac{\left| C_{r} \right|}{n} 
+	\right)^{1/2} - \frac{2}{9 p e}  \frac{\left| C_{r} \right|}{n}
+\end{equation}
+
+\noindent (see \citet{1999ssd..book.....M} \textbf{ch 8, pg 340,} equation 8.76 \textbf{with $j_{2} = p$}).
+
+\textbf{In mean-motion resonance, the orbital elements of a perturbed body, along with the critical angle described by equation \ref{eq:phi_crit}, will exhibit oscillations. In the circular, restricted three-body case, these small amplitude oscillations exhibit a characteristic frequency, given by (see \citet{1999ssd..book.....M} ch 8, pg 332, eq 8.47, with $j_{2} =-p$ and $j_{4} = -q$)}
+
+\begin{equation}\label{eq:lib_time}
+	\omega_{0} = 3 p^{2} C_{r} n e^{\left| -q \right|}.
+\end{equation}
+
 \section{Nonaxisymmetric Structure in Boley 2017}\label{sec:boley_plot}
 
 \begin{figure*}
