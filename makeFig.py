@@ -977,7 +977,7 @@ def make_alma_profile():
 	spec = fig.add_gridspec(ncols=3, nrows=3)
 
 	spec_idx = [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]]
-	sim_title = ['e2m3', 'e1m2', 'e2m2', 'e2m3', 'e2m1']
+	sim_title = ['e2m3', 'e1m2', 'e2m2', 'e3m2', 'e2m1']
 	for idx in range(len(spec_idx)):
 	    i, j = spec_idx[idx][0], spec_idx[idx][1]
 	    ax = fig.add_subplot(spec[i, j])
