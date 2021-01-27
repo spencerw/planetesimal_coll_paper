@@ -14,7 +14,7 @@ We appreciate the referee's thorough and careful comments. We will address conce
 
 1.3) How do you deal with size frequency distribution (collisional cascade) resultant from collisions?
 
-	We assume that there is a direct correspondence between the local collision rate and the amount of dust present. As the referee points out below, the spatial evolution of bodies between dust and planetesimal sizes might have a significant influence of the final dust distribution. We have made sure to highlight this concern throughout the paper, and provide a somewhat crude calculation in section 5 which suggests that this assumption is not terribly unreasonable.
+	We assume that there is a direct correspondence between the local collision rate and the amount of dust present. As the referee points out below, the spatial evolution of bodies between dust and planetesimal sizes might have a significant influence on the final dust distribution. We have made sure to highlight this concern throughout the paper, and provide a somewhat crude calculation in section 5 which suggests that this assumption is not terribly unreasonable.
 
 1.4) What is the dust size considered in this work?
 
@@ -69,7 +69,7 @@ Not that I want to sound like a broken record, but in my opinion, without consid
 
 4) Wallace et al. performed each simulation for 5000 years. In the introduction, authors claim all works to date are severely limited in simulation time. Well, is 5000 years different than that? Deienno et al. (2020) performed N-body simulations of collisionaly evolving planetesimals (using statistical routines and tracer particles) with N of order O^10+ for 100,000 yr! I understand the codes used and the purpose of the two works were very different, so as the simulation setups. However, I don't understand why 5000 yr is not a severely limited time either. Protoplanetary disks can live much longer than that (Myr timescales). Why 400 orbits is enough? Wouldn't a longer simulation time change all results? I mean, the way it is, I understand that the disk signatures would be those reflecting a 5000 yr evolution, which is basically the observational instant considering how long a disk could live. However, if a 10,000 yr or 100,000 yr evolution would change the dust signatures (especially if considering aerodynamic drag), how applicable are the conclusions in this work? See that 10,000 yr or 100,000 yr are also short periods compared to the disk lifetime. Could you, please, add discussion regarding simulation time, as well as, clearly define what is a short and a long time (and why)? For me 5000 yr is, in principle, too short.
 
-	Other studies which directly resolve planetesimal collisions near MMR with N-body methods (Richarson et al 2000, Dobinson 2013) used an integration time that shorter than the libration timescale of the resonances. This is what we mean by 'severely limited'. The text in the introduction has been changed to clarify this.
+	Other studies which directly resolve planetesimal collisions near MMR with N-body methods (Richarson et al 2000, Dobinson 2013) used an integration time that is shorter than the libration timescale of the resonances. This is what we mean by 'severely limited'. The text in the introduction has been changed to clarify this.
 
 	Regarding other codes that make use of tracer particles (such as Deienno et al. 2020), one would worry that the phase space resolution may not be sufficient to fully resolve the dynamics that are happening, particularly near the edges of the resonances. It is doubtful that statistical routines would capture this either, unless it was explicitly built in to the code.
 
@@ -97,7 +97,7 @@ I will use the following nomenclature:
 
 1) pg.1 lcol P.1 l.47 - "or orbiting externally" - why not considering the planets orbiting internally too? External MMRs are important and can have a much larger effect in debris disk.
 
-    This is absolutely true. The initial conditions for this work are meant to be compared with simulation B of Richardson et al. 2000, which only focused on the internal MMRs. The phrase 'orbiting externally' was changed to 'orbiting adjacent to'. The reason we did not explore exterior MMRs in this work is because doing so is more computationally expensive. (Many more orbits required for collisions to occur)
+    This is absolutely true. The initial conditions for this work are meant to be compared with simulation B of Richardson et al. 2000, which only focused on the internal MMRs. The phrase 'orbiting externally' was changed to 'orbiting adjacent to'. The reason we did not explore exterior MMRs in this work is because doing so is more computationally expensive. (Many more orbits are required for collisions to occur)
 
 2) pg.1 lcol P.1 l.49-51 - "In gas-poor/debris systems, a giant planet perturber can also influence the structure of the dust continuum emission." - Why discussing debris disk if you will only account for the gaseous phase? This confuses the reader.
 
@@ -126,7 +126,7 @@ I will use the following nomenclature:
 
 8) pg.2 rcol P.1 l.8-9 - "... along with aerodynamic gas drag will..." - Even at this point is still not clear from the text if gas will be considered. Please, clarify the text.3
 
-    This is now clarified at the end of section 2.4 (gas drag on planetesimals) and in section 3.2 (initial conditions). The idea is that we consider the effects gas drag when building the initial conditions, but do not need directly model it during the course of the simulations because the gas drag and gravitational stirring timescales (which counteract each other) are quite long. We assume that these two effects are in equilibrium, build them into the initial conditions (through the eccentricity and inclination dispersions) and then can safely forget about them.
+    This is now clarified at the end of section 2.4 (gas drag on planetesimals) and in section 3.2 (initial conditions). The idea is that we consider the effects gas drag when building the initial conditions, but do not need to directly model it during the course of the simulations because the gas drag and gravitational stirring timescales (which counteract each other) are quite long. We assume that these two effects are in equilibrium, build them into the initial conditions (through the eccentricity and inclination dispersions) and then can safely forget about them.
 
 9) A general comment with respect to section 2.2 - It looks like there are typos in some of the equations. I would also suggest that, every time that equations from other works are quoted, please, say chapter, page, and eq #. This helps the reader to look after, if a bit more of background is needed. Finally, I don't understand the importance of this section. It ends as: "Due to the complicated dynamics that are at play in this region, we turn to a direct N-body treatment to better understand how the collision rate varies in the vicinity of a MMR.". When I reached this point I asked myself: Will this section be used for something or is it here simply to say that the dynamics are complicated enough to be treated analytically, thus needing numerical analysis? I would suggest to shorten this section. Another suggestion, consider moving it to an appendix (once equations are revised).
 
@@ -182,7 +182,7 @@ The authors should explicitly say, and explain why these choices were made.
 
 21) pg.3 rcol P.2 l.41 - This is a minor comment. I am just curious. Why not using alpha = -1 or -0.9 as it seems more common for protoplanetary disks? -1.5 is an approximation for the Minimum Mass Solar Nebula based on the current solar system planets. Observations of proptoplanetary disks sugggest alpha = -1 or -0.9.
 
-    See 19) and 20). alpha = -1,5 has been a standard benchmark in the field for quite a while and is we do not think it's unreasonable to use. Furthermore, there is evidence to suggest that the solid surface density profile close to the star is steeper than alpha = -1 (see Chiang + Laughlin 2013, and Dai, F 2020). The region of the protoplanetary disk that we are modeling is not well-constrained by either exoplanet studies or mm and sub-mm observations.
+    See 19) and 20). alpha = -1.5 has been a standard benchmark in the field for quite a while and we do not think it's unreasonable to use. Furthermore, there is evidence to suggest that the solid surface density profile close to the star is steeper than alpha = -1 (see Chiang + Laughlin 2013, and Dai, F 2020). The region of the protoplanetary disk that we are modeling is not well-constrained by either exoplanet studies or mm and sub-mm observations.
 
 22) pg.3 rcol P.2 l.44 - "Each simulation is evolved for 5,000 years" - Could you, please, add discussion regarding simulation time, as well as, define what is a short and long time. For me 5000 yr is, in principle, too short (see my concern #4).
 

@@ -31,7 +31,8 @@ $^{2}$Department of Physics and Astronomy, University of British Columbia, Vanco
 \maketitle
 
 \begin{abstract}
-\textbf{In circumstellar discs, collisional grinding of planetesimals produces second-generation dust. While it remains unclear this becomes a major component of the total dust content, 
+\textbf{In circumstellar discs, collisional grinding of planetesimals
+  produces second-generation dust. While it remains unclear whether this becomes a major component of the total dust content, 
 the presence of such dust and potentially the substructure within it can be used to explore a disc's physical conditions. A perturbing planet produces nonaxisymmetric structures, as
 well as gaps in discs, regardless of the origin of the dust. The dynamics of planetesimals, however, will be very different than that of small dust grains due to gas interactions. The
 collisional evolution of planetesimals could therefore create dusty disc structures that would not exist otherwise. Previous studies have shown that morphological differences in the
@@ -80,7 +81,7 @@ should look like in these regions. For a collection of bodies massive enough to 
 dispersion tends to reduce the probability of collision, while enhancements in surface density tends to increase it. Due to conservation of the Jacobi 
 energy, MMRs simultaneously enhance the local eccentricity dispersion and also enhance the surface density adjacent to the resonance 
 \citep{2000Icar..143...45R, 2017ApJ...850..103B}. Unfortunately, collision detection in an N-body simulation is extremely computationally expensive. 
-So far, studies of planetesimal dynamics near MMRs \textbf{in which the planetesimals are directly resovled} have involved either collisionless test particles 
+So far, studies of planetesimal dynamics near MMRs \textbf{in which the planetesimals are directly resolved} have involved either collisionless test particles 
 \citep{2017ApJ...850..103B, 2016ApJ...818..159T, 2018ApJ...857....3T} or \textbf{integration times that do not fully capture the dynamics of the resonances} 
 \citep{2000Icar..143...45R, 2013ApJ...777L..31D}.
 
@@ -254,10 +255,13 @@ characteristic softening length. We provide a brief summary of the collision mod
 on the solid-body collision implementation in {\sc PKDGRAV}, which is detailed in \citet{1994MNRAS.269..493R} and \citet{2000Icar..143...45R}. Imminent collisions are found during the 
 drift phase of each time step by extrapolating the positions of bodies forward using the velocity calculated during the first kick. For each body, the nearest 64 neighbors are tested for an 
 imminent collision. If an imminent collision is detected, the two particles of mass $m_{1}$ and $m_{2}$ are merged together together to form one single larger body with the same density 
-and a mass of $m_{1} + m_{2}$. The resulting body is then imparted with the center of mass position and velocity of its two children. Because the resolution of a collision can result in 
+and a mass of $m_{1} + m_{2}$. The resulting body is then imparted
+with the center of mass position and velocity of the two
+colliders. Because the resolution of a collision can result in 
 another imminent collision, these events must be handled one at a time, with the soonest collision being resolved first. For this reason, another collision search is run each time a collision 
 is resolved, which continues until there are no more imminent collisions during the current time step. During the course of the simulation, no debris is created by collisions. To model the 
-collisionally generated dust distribution, we use the statistics of the resolved planetesimal collisions to build dust profile. This process is discussed in detail in section \ref{sec:dust}.}
+collisionally generated dust distribution, we use the statistics of
+the resolved planetesimal collisions to build a dust profile. This process is discussed in detail in section \ref{sec:dust}.}
 
 \begin{table}
 \begin{center}
@@ -424,7 +428,7 @@ to bodies in resonance do not have a significant effect on the final shape of th
     \includegraphics[width=\textwidth]{figures/gf_plot.png}
     \caption{\textbf{The collision rate (given by equation \ref{eq:saf}) of bodies in the vicinity of the 3:1 (left) and 2:1 (right) MMRs, relative to the minimum value, as a function of the local 
     eccentricity dispersion. The pairs of points connected by lines show the values of the perturbed (left-hand points in each subplot) and unperturbed (right-hand points) collision rates in 
-    the e1m2, e2m2 and e3m2 simulations. The unpertburbed collision rate, along with the amount of dynamical heating that the planetesimal population experiences determines whether 
+    the e1m2, e2m2 and e3m2 simulations. The unperturbed collision rate, along with the amount of dynamical heating that the planetesimal population experiences determines whether 
     the MMR acts to suppress or enhance the collision rate.}\label{fig:gf}}
 \end{center}
 \end{figure*}
@@ -454,15 +458,17 @@ of pure hydrogen with a local volume density of $\rho_{g} = 4 \times 10^{-10}$ g
 
 \noindent where $\rho$ is the bulk density of the dust grain, $s$ is its size, and $v_{th}$ is the local thermal velocity of the gas. At 3 au in the protosolar nebula, $v_{th} \sim 10^{5}$ cm 
 s$^{-1}$. Assuming a 1 mm dust grain with a $\rho$ = 2 g cm$^{-3}$, the stopping time is $\sim 10^{-4}$ yr.  This is orders of magnitude smaller than the 
-orbital timescale, therefore we conclude that collisionally generated dust grains will immediately couple to the gas.
+orbital timescale; therefore, we conclude that collisionally generated dust grains will immediately couple to the gas.
 
 \textbf{Assumption (2) is less straightforward to justify and may not be reasonable in all cases. Although the spatial redistribution of the full-sized planetesimals and mm-sized dust grains 
 is insignificant, the radial drift forces experienced by intermediate-sized bodies is much greater. Collisions between planetesimals do not immediately convert the mass to dust grains. 
-Rather, the debris will undergo a collisional cascade process, which gradually grinds the resulting bodies down to smaller sizes. A proper treatment of the collisional cascade process, is 
+Rather, the debris will undergo a collisional cascade process, which
+gradually grinds the resulting bodies down to smaller sizes. A proper
+treatment of the collisional cascade process is 
 quite complicated and is well beyond the scope of this work. However, one can safely ignore this process if the peak radial drift timescale is longer than the timescale for collisions 
 between these bodies.}
 
-\textbf{Radial drift is maximized for bodies of the size at which St = $t_{s} \Omega$ = 1. In the Stokes drag regime at 3 au, this occurs for bodies of 1 meter in size. Following a similar 
+%TRQ: do you need "St" here?  I don't think it's used elsewhere in the paper.St $\equiv t_{s} \Omega$ = 1. In the Stokes drag regime at 3 au, this occurs for bodies of 1 meter in size. Following a similar 
 calculation in \ref{sec:pl_drag} with a 1 m body, we find that an object of this size will drift across the 2:1 MMR on a timescale of $\sim$ 300 years. Although we do not model collisions 
 between bodies of this size, a lower limit on the collision timescale for these objects can be obtained by extrapolating the planetesimal collision rate measured in our simulations down. For 
 the e2m2 simulation, we find that 125 collisions occur within the libration width of the 2:1 MMR from T=2,000 yr to  T=5,000 yr. There are a total of 15,000 planetesimals within this region, 
@@ -663,7 +669,7 @@ features seen are indeed resonances. Although the 3:1 MMR does not appear to fol
 presence should be marginally detectable in all of the cases shown above.
 
 \textbf{We would again like to emphasize that the dust emission profiles in figure \ref{fig:alma_profiles} are constructed upon the assumption that the radial dust structure closely traces the 
-collision profile of the planetesimals. For this assumption to be valid, the resulting dust must remain locally confined, which is can be achieved achieved if the grains are reaccreted onto 
+collision profile of the planetesimals. For this assumption to be valid, the resulting dust must remain locally confined, which can be achieved if the grains are reaccreted onto 
 planetesimals \citep{2015SciA....1E0109J}. It is also necessary that the collisional cascade from which the dust grains form plays before radial drift has a chance to move debris away 
 from the resonances. Although we showed with a back-of-the-envelope calculation (see section \ref{sec:dust}) that this is plausible for a typical protoplanetary disk with properties similar 
 to the protosolar nebula, a more thorough treatment of collisional grinding and the subsequent evolution of the debris is necessary to be able to interpret the dust emission profiles 
