@@ -210,8 +210,8 @@ in the Stokes regime and the timescale for aerodynamic forces to significantly a
 
 \noindent where $m$ and $s$ are the mass and radius of the planetesimal. $C_{D}$ is a drag coefficient which is of order unity, $
 \rho_{g}$ is the local density of the gas and $v_{g}$ is the headwind velocity of the gas experienced by the planetesimal. At 3 au, the gaseous component of the solar nebula has a
-density of $4 \times 10^{-10}$ g cm$^{-3}$ and the typical headwind experienced by a body on a Keplerian orbit is $\sim 5,000$ cm s$^{-1}$ \citep{1981PThPS..70...35H}. For a 100 km 
-body with a density of 2 g cm$^{-3}$ (assuming a mixture of ice and rock) the stopping timescale is on the order of 1 Myr. This is much longer than the timescales associated with 
+density of $3 \times 10^{-11}$ g cm$^{-3}$ and the typical headwind experienced by a body on a Keplerian orbit is $\sim 5,000$ cm s$^{-1}$ \citep{1981PThPS..70...35H}. For a 100 km 
+body with a density of 2 g cm$^{-3}$ (assuming a mixture of ice and rock) the stopping timescale is about 1 Myr. This is much longer than the timescales associated with 
 secular forcing and libration due to mean-motion resonances, as discussed above, but shorter than the typical protoplanetary disk lifetime and potentially shorter the planetesimal 
 formation timescale. For this reason, we do not model the effects of gas drag in the simulations, although we consider its effects when constructing initial conditions, which is discussed in 
 the next section.
@@ -272,7 +272,7 @@ e2m3 & 2.0 $M_{jup}$                     & 1.0 $e_{jup}$                        
 In total, five simulations are run, which are listed in table \ref{tab:sims}. The second is a ``nominal'' case, in which the perturbing planet's mass and eccentricity are set to that of Jupiter's. 
 In the other four cases, the mass or eccentricity is altered by a factor of two from the nominal value. In all cases, the perturbing giant is placed on a 5.2 au orbit around a 1 
 $M_{\odot}$ star. The planetesimal disc extends from 2.2 to 3.8 au, which covers the two most prominent mean-motion resonances with the giant planet, the 2:1 at 3.27 au and the 3:1 at 
-2.5 au. The planetesimal disc follows a minimum-mass solar nebula surface density profile \citep{1981PThPS..70...35H}
+2.5 au. The planetesimal disc loosely follows a minimum-mass solar nebula surface density profile \citep{1981PThPS..70...35H}
 
 \begin{equation}\label{eq:surf_den}
 	\Sigma = \Sigma_{0} r^{-\alpha},
@@ -352,8 +352,8 @@ We begin by examining simulations e1m2, e2m2 and e3m2. The positions of the plan
 shown in figure \ref{fig:xy}. In all cases, the coordinate system is rotated so that the giant planet lies at $\theta = 0$. The longitude of perihelion of 
 the planet is shown by the dashed line. Resonances with the perturbing planet are visible as nonaxisymmetric gaps in this figure. Upon close inspection of a 
 series of simulation snapshots, these gaps appear to follow the planet in its orbit, rather than aligning themselves with the longitude of perihelion. A 
-similar substructure, which is most noticeable near the 2:1 MMR, reveals itself in \citet{2000Icar..143...45R} (see figure 3c and 3f) and 
-\citet{2016ApJ...818..159T} (figure 3a). This structure is also present in the \citet{2017ApJ...850..103B} simulations, although it was not reported at the 
+similar substructure, which is most noticeable near the 2:1 MMR, reveals itself in \citet{2000Icar..143...45R} (see their figures 3c and 3f) and 
+\citet{2016ApJ...818..159T} (see their figure 3a). This structure is also present in the \citet{2017ApJ...850..103B} simulations, although it was not reported at the 
 time (see Appendix \ref{sec:boley_plot}). It is worth noting that both \citet{2000Icar..143...45R} and \citet{2017ApJ...850..103B} started with a completely cold planetesimal disc. 
 Thus, the presence of these features seems robust to the choice of initial conditions.
 
@@ -393,7 +393,7 @@ resonance can either increase or decrease the local average collision rate, depe
 In figure \ref{fig:gf}, we show the effect that the 2:1 MMR and 3:1 MMR have on the local average collision rate. Each pair of points connected by a line represents the average 
 collision rate before and after the effects of the mean-motion resonances develop. Here, the relative velocity between bodies is calculated by measuring the eccentricity and inclination 
 dispersion near each resonance and using equation \ref{eq:eccincvel}. We assume that the eccentricity and inclination dispersions are coupled \citep{1993MNRAS.263..875I} and use the 
-eccentricity dispersion as an independent variable. Because both the strength of secular forcing and the effects of the resonant perturbations are different near the 3:1 and 2:1 MMRs, the 
+eccentricity dispersion as a free parameter. Because both the strength of secular forcing and the effects of the resonant perturbations are different near the 3:1 and 2:1 MMRs, the 
 planetesimal population at each of these locations in the disk experiences a qualitatively different change in the collision rate. Near the 3:1 MMR, the unperturbed collision rate is well 
 above the minimum value $\left< \sigma v \right>_{0}$ and the dynamical heating introduced by the resonance acts to suppress it further. Near the 2:1 MMR, the collision rate starts out 
 much closer to the minimum value and the additional perturbations instead act to drive it higher.
@@ -416,7 +416,7 @@ to bodies in resonance do not have a significant effect on the final shape of th
 \begin{center}
     \includegraphics[width=\textwidth]{figures/gf_plot.png}
     \caption{The collision rate (given by equation \ref{eq:saf}) of bodies in the vicinity of the 3:1 (left) and 2:1 (right) MMRs, relative to the minimum value, as a function of the local 
-    eccentricity dispersion. The pairs of points connected by lines show the values of the perturbed (left-hand points in each subplot) and unperturbed (right-hand points) collision rates in 
+    eccentricity dispersion. The pairs of points connected by lines show the values of the unperturbed (left-hand points in each subplot) and perturbed (right-hand points in each subplot) collision rates in 
     the e1m2, e2m2 and e3m2 simulations. The unperturbed collision rate, along with the amount of dynamical heating that the planetesimal population experiences determines whether 
     the MMR acts to suppress or enhance the collision rate.\label{fig:gf}}
 \end{center}
@@ -439,7 +439,7 @@ subsequent spatial evolution of the collisional debris is insignificant. So long
 plane of the disk to generate a dust profile for each simulation.
 
 We first provide a justification for assumption (1), which is as follows: At 3 au in the protosolar nebula, the mean free path of a gas particle is $\sim$ 50 cm (assuming a composition 
-of pure hydrogen with a local volume density of $\rho_{g} = 4 \times 10^{-10}$ g cm$^{-3}$). This places any dust grains in the Epstein drag regime, with a stopping timescale given by
+of pure hydrogen with a local volume density of $\rho_{g} = 3 \times 10^{-11}$ g cm$^{-3}$). This places any dust grains in the Epstein drag regime, with a stopping timescale given by
 
 \begin{equation}\label{eq:ts_epstein}
     t_{s} = \frac{\rho s}{\rho_{g} v_{th}},
@@ -454,7 +454,7 @@ is insignificant, the radial drift forces experienced by intermediate-sized bodi
 Rather, the debris will undergo a collisional cascade process, which
 gradually grinds the resulting bodies down to smaller sizes. A proper
 treatment of the collisional cascade process is 
-quite complicated and is well beyond the scope of this work. However, one can safely ignore this process if the peak radial drift timescale is longer than the timescale for collisions 
+quite complicated and is well beyond the scope of this work. However, one may be able to ignore this process if the peak radial drift timescale is longer than the timescale for collisions 
 between these bodies.
 
 This occurs for bodies of the size at which $t_{s} \Omega$ = 1. In the Stokes drag regime at 3 au, this occurs for bodies of 1 meter in size. Following a similar 

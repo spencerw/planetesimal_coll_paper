@@ -1,0 +1,27 @@
+1) In page 7 is said — "We assume that the eccentricity and inclination dispersions are coupled (Ida et al. 1993) and use the eccentricity dispersion as an independent variable.” — It is strange to think on the eccentricity as an independent parameter once it is coupled with the inclination. Maybe change it to “free parameter”?
+
+    "independent variable" has been changed to "free parameter" here.
+
+2) The explanation for the changes in <\sigma v> in the caption of Figure 5 seems incorrect. Actually, their are correct, but what the authors call lef-hand points should be right-hand points and vice-versa. The correct explanation (relation left- right-points) is given in the main text (page 7 - lines 20—25; “… Near the 3:1… drive it higher). Please, review it.
+
+    Fixed
+
+3) Page 7 — “However, one can safely ignore this process if the peak radial drift timescale is longer than the timescale for collisions between these bodies.” — I think safely is too strong! Please, consider changing to “can safely” or “may”.
+
+    "can safely" has been changed to "may be able to".
+
+4) Wallace et al. assume values for \Sigma_0 and \rho_0 in the minimum solar nebular that are not conventional. I understand they are comparing their model with Richardson et al. (2000), and thus, they are using the same values from that work. But, please, consider given the reader a more physical explanation. For example:
+
+4.1) In section 2.4 the authors use 4e-10 g/cm^3 for minimum solar nebula density at 3 au. It is rather confusing why this value was chosen. The density of the nebula in Hayashi (1981) is given by \rho_r = \rho_0*[r^(-2.75)] — eq 2.7 assuming z=0 (mid-plane) and \rho_0 = 1.4e-9 g/cm^3. At 3 au this will result \rho(r=3au) ~ 2.86e-11 g/cm^3 and not 4e-10 g/cm^3. Are the authors considering a different gas temperature profile (what is the flaring relation — did I miss that in the text)? Please, consider reviewing this value or explaining why not using the value from quoted reference. The same value is used in section 5 to explain the fate of the dust.
+
+   The referee is correct that we should have used \rho(r=3au) ~ 2.86e-11 g/cm^3. The value in the paper draft comes from
+   a mistake in our calculations, where we accidentally scaled \rho_0 as a surface density, rather than as a volume density.
+   It appears that this mistake was only made when calculating a value for \rho(r=3au) to display in the paper and does not appear in any of our analysis code. Therefore, the gas drag timescale in section 2.4, the mean free path in section 5, and the radial drift timescales in section 5 remain the same.
+
+4.2) In section 3.2 it is once again not clear how Wallace et al have chosen the minimum nebula value for \Simga_0. In Hayashi (1981) the surface density is defined as \Sigma_0 = 7.1 g/cm^2 for rock bodies only, 30 g/cm^2 for rock+ice bodies, and 1700 g/cm^2 for gas. Where does \Sigma_0 = 10  g/cm^2 comes from? Please, consider explaining this.
+
+  Following other papers (which cite Hayashi 1981 and then use \Sigma_0 = 10 g/cm^2), we have now changed the sentence before equation 9 to read "The planetesimal disk loosely follows a minimum-mass solar nebula profile"
+
+5) I would once again call the attention for quoting figures from other works. Instead of “(see figure 3c and 3f)” use (see figure 3c and 3f from their work), or (see their figures 3c and 3f). It sounds like a useless change, but I caught myself once again like, wait, what, are there panels 3(a, b, c, d, e, and f) in this work? Same for (figure 3 a). All this is in section 4.1.
+
+  "see figure" has been changed to "see their figure(s)"
