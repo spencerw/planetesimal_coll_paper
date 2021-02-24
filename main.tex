@@ -7,6 +7,9 @@
 \let\VANthebibliography\thebibliography
 \def\thebibliography{\DeclareRobustCommand{\VAN}[3]{##3}\VANthebibliography}
 
+% Prevent footnotes from breaking across multiple pages
+\interfootnotelinepenalty=10000
+
 \usepackage{graphicx}
 
 \title[Collision rates of planetesimals]{Collision rates of planetesimals near mean-motion resonances}
@@ -74,7 +77,7 @@ So far, studies of planetesimal dynamics near MMRs in which the planetesimals ar
 \citep{2017ApJ...850..103B, 2016ApJ...818..159T, 2018ApJ...857....3T} or integration times that do not fully capture the dynamics of the resonances 
 \citep{2000Icar..143...45R, 2013ApJ...777L..31D}.
 
-To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa}\citep{2008IEEEpds...ChaNGa, 2015AphCom..2..1}  to follow the 
+To further elucidate this subject, we use the tree based N-body code {\sc ChaNGa} \citep{2008IEEEpds...ChaNGa, 2015AphCom..2..1} to follow the 
 collisional evolution of a planetesimal disc under the gravitational influence of a Jupiter-sized body. Because particle positions are sorted into a tree 
 structure, neighbor finding and collision detection can be done quickly and efficiently. This considerably relaxes the constraints on resolution and 
 integration time. With this toolset, we explore the collision rate structure of a planetesimal disc in the vicinity of mean-motion resonances with a planet. In 
